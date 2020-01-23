@@ -1,0 +1,140 @@
+@media all and (min-width: 480px) {
+    .Login {
+        padding: 60px 0;
+    }
+
+    .Login form {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+}
+* {
+    box-sizing: border-box;
+}
+.Login {
+    display: block;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border-color: black;
+    box-shadow: #9d9d9d;
+    height: auto;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-width: thin;
+    margin-top: 150px;
+}
+.hideLogin {
+    display: none;
+}
+.email, .password, .admin-code {
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding-left: 10px;
+    border-width: thin;
+}
+.loginAsAdmin {
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: black;
+    background-color: whitesmoke;
+    font-weight: 500;
+    border-width: thin;
+    border-color: #9d9d9d;
+    font-family: Poppins;
+    font-size: 18px;
+}
+.admin-icon {
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+}
+.login {
+    width: 300px;
+    height: 45px;
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    background-color: #005404;
+    color: white;
+    font-weight: 500;
+    font-family: Poppins;
+    border-width: 0px;
+    font-size: 18px;
+}
+.login-label {
+    float: left;
+    margin-left: 50px;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+.AdminLogin {
+    background-color: #ffffff;
+    border-radius: 5px;
+    border-color: black;
+    height: auto;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-width: 10px;
+    margin-top: 150px;
+}
+.AdminLogin :hover {
+    box-shadow: #9d9d9d;
+    -webkit-box-shadow: #9d9d9d;
+}
+.hideAdminLogin {
+    display: none;
+}
+.admin-code-heading {
+    width: 100%;
+    text-align: left;
+    font-size: 24px;
+    font-family: Poppins;
+    display: block;
+    margin-left: 30px;
+    padding-top: 20px !important;
+}
+.admin-code-label {
+    width: 200px;
+    margin-left: 10px;
+    margin-right: 40px;
+}
+.admin-code-admin-icon {
+    height: 70px;
+    width: 70px;
+    margin-left: 20px;
+}
+.column {
+    float: left;
+    padding: 10px;
+}
+
+.img {
+    width: 30%;
+    display: inline;
+}
+
+.text {
+    width: 70%;
+    display: inline;
+    padding-right: 40px;
+    text-align: left;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.loginBody {
+    background-color: whitesmoke;
+    height: 100vh;
+}
