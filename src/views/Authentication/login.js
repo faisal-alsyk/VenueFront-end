@@ -11,11 +11,13 @@ let login = function Login(props) {
     let [showLoginForm , setshowLoginForm] = useState(true);
 
     return (
-        <div className={"loginBody"}>
+        <div className={"loginBody"} style= {{background: "#f8f8f8"}} >
             <Header/>
             <hr/>
-            <div className={ showLoginForm === true ? 'Login' : 'hideLogin'}>
+            <div className="login-div">
+            <div className={ showLoginForm === true ? 'Login div-login' : 'hideLogin'}>
                 <form>
+                    <label className="form-heading">Login</label>
                     <label className="login-label">EMAIL</label>
                     <input className="email"
                            onChange={event => {
@@ -44,6 +46,7 @@ let login = function Login(props) {
                         </span>
                     </button>
                 </form>
+            </div>
             </div>
             <div className={showLoginForm === false ? 'AdminLogin' : 'hideAdminLogin'}>
                 <h1 className="admin-code-heading">Admin Code</h1>
