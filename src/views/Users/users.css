@@ -8,9 +8,19 @@
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    background-color: whitesmoke;
-    border-radius: 50px;
+    background-color: white;
+    border-radius: 5px;
     padding-top: 20px;
+}
+.hide-user-list {
+    display: none;
+}
+.view-user {
+    width: 90%;
+    height: 80vh;
+    background-color: white;
+    border-radius: 5px;
+    padding-top: 30px;
 }
 label {
     width: 100%;
@@ -63,7 +73,7 @@ label {
 .button {
     background-color: #005404;
     border-color: #005404;
-    height: 40px auto;
+    height: 40px;
     width: 90%;
     border-radius: 5px;
     color: white;
@@ -73,8 +83,16 @@ label {
     margin-top: 20px;
 }
 .button-small {
-    width: 40%;
+    width: 60%;
     align-self: flex-start;
+    height: 40px;
+}
+.button-full {
+    width: 100%;
+}
+.button-delete {
+    background-color: red;
+    border-color: red;
 }
 .gen-pass {
     margin-top: 20px;
@@ -102,22 +120,79 @@ label {
 .user-label {
     padding-left: 0px;
 }
-.table-index {
-    height: 50px;
-    padding-left: 20px;
-}
 .table-index-1 {
-    width: 35%;
+    padding-left: 30px !important;
 }
 .table-index-2 {
-    width: 10%;
+    text-align: center;
 }
 .table-index-3 {
-    width: 25%;
+    padding-left: 10px !important;
 }
 .table-index-4 {
-    width: 10%;
+    text-align: center;
 }
 .table-index-5 {
-    width: 20%;
+    text-align: center;
+}
+.user-list {
+    height: 40vh;
+    overflow: auto;
+}
+.table-head {
+    background-color: white;
+}
+.row {
+    padding-top: 0px !important;
+}
+.input-medium-2 {
+    width: 40%;
+}
+.show-user-heading {
+    margin-top: 30px;
+    height: 50px;
+}
+.user-name-heading-4 {
+    padding-left: 20px;
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+}
+.user-detail {
+    line-height: 30px;
+    margin-top: 40px;
+}
+.change-password {
+    float: right;
+}
+.user-detail-label {
+    display: inline;
+}
+.user-detail-container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.label-1 {
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+}
+.span-ph-num {
+    margin-left: 30px;
+}
+.label-simple {
+    padding-left: 0px;
+}
+.icon {
+    font-size: 18px;
+    color: black;
+    float: right;
+}
+.button-med-2 {
+    width: 70%;
+    margin-top: 30px;
+}
+.edit-profile-heading {
+    margin-left: 30px;
 }
