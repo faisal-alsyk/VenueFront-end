@@ -1,10 +1,12 @@
 import React from "react";
-//import logo1 from "../../assets/img/LOGO"
+import logo from "../../assets/img/logo.svg"
 import "./loginHeader.css"
 function Header() {
     return (
         <nav className = "navbar navbar-expand-lg navbar-light bg-light nav-all">
-            <div className="navbar-brand nav-logo">logo 1</div>
+         <img className="navbar-brand nav-logo"
+                                src={ logo }
+                                alt="admin" />
             <h2 >One Stop Management System</h2>
         </nav>
     );
