@@ -1,12 +1,16 @@
 import React from "react";
 
-import "bootstrap/dist/css/bootstrap.min.css"
-import adminIcon from "../../assets/img/admin.png"
-import "./dashboard.css"
+import "bootstrap/dist/css/bootstrap.min.css";
+import adminIcon from "../../assets/img/admin.png";
+import "./dashboard.css";
 
-const dashboard = function dashboard(){
+
+
+export default function Dashboard(){
 
     return (
+        <>
+        
         <div className="dashboard-container">
             <div className="button-card">
                 <button className="button-content">
@@ -21,7 +25,8 @@ const dashboard = function dashboard(){
                 </button>
             </div>
         </div>
+        </>
+        
     );
 }
 
-export default dashboard

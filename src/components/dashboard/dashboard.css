@@ -30,4 +30,35 @@
     flex-direction: column;
     justify-items: center;
     align-items: center;
+    margin-bottom: 20px;
+    margin-top: 60px;
+}
+.div-row {
+    align-items: center;
+}
+.button-card h3 {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 33px;
+    color: #000000;
+}
+.head-div h3 {
+    width: 100%;
+    height: 35px;
+    font-family: Quicksand !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 35px;
+    margin-top: 42px;
+    margin-bottom: 20px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+.head-div{
+    margin-bottom: 33px;
 }

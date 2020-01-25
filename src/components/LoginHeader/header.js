@@ -1,7 +1,8 @@
 import React from "react";
 import logo from "../../assets/img/logo.svg"
 import "./loginHeader.css"
-function Header() {
+
+export default function Header() {
     return (
         <nav className = "navbar navbar-expand-lg navbar-light bg-light nav-all">
          <img className="navbar-brand nav-logo"
@@ -11,4 +12,4 @@ function Header() {
         </nav>
     );
 }
-export default Header;
+;

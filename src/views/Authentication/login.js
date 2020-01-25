@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/LoginHeader/header";
-
+//import Header from "../../components/LoginHeader/header";
 import "./Login.css";
 
 let login = function Login(props) {
@@ -29,7 +29,7 @@ let login = function Login(props) {
                                setPassword(event.target.value);
                            }}
                     />
-                    <button className="login">
+                    <button className="login" >
                         LOGIN
                     </button>
                     <button className="loginAsAdmin"
