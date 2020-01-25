@@ -9,7 +9,6 @@ import col from "./colums";
 import CreateUser from "./CreateUser";
 //import { deleteType } from "../../../actions/typeActions";
 export default function Users() {
- // const mainDispatch = useDispatch();
  const history = useHistory();
   const dummyUserData = [
     {
@@ -388,7 +387,7 @@ export default function Users() {
   };
    const columns = col(onEdit, onDelete);
   return (
-   
+
         <div id="form">
         <Switch>
         <Route  exact path="/dashboard1/admin/">
@@ -399,11 +398,11 @@ export default function Users() {
         />
         </Route>
         <Route  path="/dashboard1/admin/create" render={() => < CreateUser />}>
-            
+
         </Route>
         </Switch>
         </div>
-         
+
   );
 }
 

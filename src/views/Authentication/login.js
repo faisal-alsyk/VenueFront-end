@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Header from "../../components/LoginHeader/header";
-//import Header from "../../components/LoginHeader/header";
 import "./Login.css";
 
 let login = function Login(props) {
@@ -8,6 +7,12 @@ let login = function Login(props) {
     let [password, setPassword] = useState("");
     let [adminCode, setadminCode] = useState("");
     let [showLoginForm , setshowLoginForm] = useState(true);
+
+    function onAdminLogin(event) {
+        event.preventDefault();
+        setshowLoginForm(false);
+
+    }
 
     return (
         <div className={"loginBody"} style= {{background: "#f8f8f8"}} >
@@ -29,13 +34,15 @@ let login = function Login(props) {
                                setPassword(event.target.value);
                            }}
                     />
-                    <button className="login" >
+                    <button className="login" onClick={event=>{
+                        event.preventDefault();
+                        alert('Kindly Login As Admin.');
+                    }}>
                         LOGIN
                     </button>
                     <button className="loginAsAdmin"
                             onClick={ (event) => {
-                                event.preventDefault();
-                                setshowLoginForm(false);
+                                onAdminLogin(event);
                         }} >
                         <b>LOGIN AS ADMIN</b>
                         <span>
@@ -46,7 +53,7 @@ let login = function Login(props) {
                     </button>
                 </form>
             </div>
-            
+
             <div className={showLoginForm === false ? 'AdminLogin' : 'hideAdminLogin'}>
                 <h1 className="admin-code-heading">Admin Code</h1>
                 <div className="row">

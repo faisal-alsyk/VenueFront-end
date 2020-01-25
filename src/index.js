@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import './index.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import 'antd/dist/antd.css'; 
+import 'antd/dist/antd.css';
 import "./assets/css/material-dashboard-react.css?v=1.8.0";
 import "bootstrap";
 import "bootstrap/js/dist/util";
@@ -10,15 +10,16 @@ import "bootstrap/js/dist/dropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CreateUser from "./components/dashboard/administration/users/CreateUser";
 
-import  Store  from "./Redux/store";
-import { Provider } from "react-redux";
-import setAuthorizationToken from "./Redux/utils/setAuthToken";
+// import  Store  from "./Redux/store";
+// import { Provider } from "react-redux";
+// import setAuthorizationToken from "./Redux/utils/setAuthToken";
 import axios from "axios";
 import login from "./views/Authentication/login.js"
 import Dashboard from "./components/dashboard";
 import AdminDashboard from "./components/dashboard/administration";
 //import { ProtectedRoute } from "./routers/ProtectedRoute";
-axios.defaults.baseURL = "https://aasan-ticket-backend.herokuapp.com";
+axios.defaults.baseURL = "http://localhost:4200/api";
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 // import { createBrowserHistory } from "history";
 // import { Router, Route, Switch, Redirect } from "react-router-dom";
 // import setAuthToken from "./Redux/utils/setAuthToken";
@@ -62,7 +63,7 @@ ReactDOM.render(
     //     </Switch>
     // </Router>,
     <div className="App">
-      <Provider store={Store}>
+      {/*<Provider store={Store}>*/}
         <Router>
           <Switch>
             <Route
@@ -75,11 +76,11 @@ ReactDOM.render(
             <Route exact path="/dashboard1" component={Dashboard} />
             <Route path="/dashboard1/admin" component={AdminDashboard} />
             {/* <Route path="/dashboard1/admin/create" component={CreateUser}> */}
-             
+
         {/* </Route> */}
           </Switch>
         </Router>
-      </Provider>
+      {/*</Provider>*/}
     </div>,
     document.getElementById("root")
 );
