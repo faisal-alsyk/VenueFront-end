@@ -26,7 +26,7 @@ export default function AdminDashboard() {
                    
                     <DashBardContent>
                       <Switch>
-                        <Route exact path="/dashboard1/admin" render={() => <Users />} />
+                        <Route  path="/dashboard1/admin" render={() => <Users />} />
                       </Switch>
                     </DashBardContent>
               </div>

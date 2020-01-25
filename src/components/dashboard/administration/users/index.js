@@ -391,15 +391,15 @@ export default function Users() {
    
         <div id="form">
         <Switch>
-        <Route  path="/dashboard1/admin/">
+        <Route  exact path="/dashboard1/admin/">
         <ReactTable
                     data={dummyUserData}
                     columns={columns}
                     onCreate={onCreate}
         />
         </Route>
-        <Route path="/dashboard1/admin/create">
-            <CreateUser />
+        <Route  path="/dashboard1/admin/create" render={() => < CreateUser />}>
+            
         </Route>
         </Switch>
         </div>
