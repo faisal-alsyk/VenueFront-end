@@ -8,7 +8,6 @@ class MenuItems extends Component {
   };
 
   render() {
-    console.log("heloooooo", this.props.selected);
     return (
       <div>
         <Link to={this.props.link}>
@@ -18,7 +17,7 @@ class MenuItems extends Component {
                style={{
                 color: this.props.selected ? "#005404" : ""
               }}>{this.props.title}</span>
-              
+
           </div>
         </Link>
       </div>

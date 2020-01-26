@@ -7,7 +7,7 @@ const columns = (onView, onDelete) => [
     key: "_id"
   },
   {
-    title: "Staff ID",
+    title: "Venue ID",
     dataIndex: "staffId",
     key: "staffId"
   },

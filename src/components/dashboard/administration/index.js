@@ -8,12 +8,13 @@ import DashBardContent from "../DashboardContent";
 
 import "./adminDashboard.css"
 import Users from "./users";
+import Venues from "./venues";
 export default function AdminDashboard() {
-   
+
     return (
       <>
           <Header></Header>
-         
+
             <div className="col-sm-12">
               <div className="col-md-12 head-div">
               <h3>Administration</h3>
@@ -23,17 +24,17 @@ export default function AdminDashboard() {
                 <Sidebar></Sidebar>
                 </div>
               <div className="col-md-9 col-lg-10 col-sm-9 col-xs-8">
-                   
+
                     <DashBardContent>
                       <Switch>
-                        <Route  path="/dashboard1/admin" render={() => <Users />} />
+                        <Route path="/admin/users" render={() => <Users />} />
+                        <Route path="/admin/venues" render={() => <Venues/>} />
                       </Switch>
                     </DashBardContent>
               </div>
           </div>
-        
-  
+
+
       </>
     );
   }
-  

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import './index.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PrivateRoute from "./components/ProtectedRoutes/privateRoute";
 import 'antd/dist/antd.css';
 import "./assets/css/material-dashboard-react.css?v=1.8.0";
 import "bootstrap";
@@ -73,8 +74,8 @@ ReactDOM.render(
               accessor="public"
             />
             <Route path="/login" component={login} accessor="public" />
-            <Route exact path="/dashboard1" component={Dashboard} />
-            <Route path="/dashboard1/admin" component={AdminDashboard} />
+            <PrivateRoute exact path="/dashboard1" component={Dashboard} />
+            <PrivateRoute path="/admin" component={AdminDashboard} />
             {/* <Route path="/dashboard1/admin/create" component={CreateUser}> */}
 
         {/* </Route> */}

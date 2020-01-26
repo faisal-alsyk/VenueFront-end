@@ -34,11 +34,8 @@ let login = function Login(props) {
         };
         verifyAdminCode(payload)
             .then(response=>{
-                if(response.data.data.role === 'Admin'){
-                    localStorage.setItem('_id', response.data.data._id);
-                    history.push('/dashboard1');
-                }
-            })
+                    history.push('/admin/users');
+                })
             .catch(error=> {
                 alert(error);
                 setshowLoginForm(true);
@@ -53,7 +50,6 @@ let login = function Login(props) {
     return (
         <div className={"loginBody"} style= {{background: "#f8f8f8"}} >
             <Header/>
-            <hr/>
             <div className="login-div">
             <div className={ showLoginForm === true ? 'Login div-login' : 'hideLogin'}>
                 <form>
@@ -65,7 +61,7 @@ let login = function Login(props) {
                            }}
                     />
                     <label className="login-label">PASSWORD</label>
-                    <input className="password"
+                    <input className="password" type="password"
                            onChange={event => {
                                setPassword(event.target.value);
                            }}

@@ -9,16 +9,21 @@ export default function Sidebar() {
     useEffect(() => {
       setPath(window.location.pathname);
     }, [window.location.pathname]);
-  
+
   return (
     <div style={{ width: "100%" , marginBottom: "19px"}}>
-       
+
       <div className="nav-down-manu">
         <MenuItem
-          link="/dashboard1/admin"
-          selected={path === "/dashboard1/admin" ? true : false}
+          link="/admin/users"
+          selected={path === "/admin/users" ? true : false}
           title="Users"
         />
+        <MenuItem
+            link="/admin/venues"
+            selected={path === "/admin/venues"? true: false}
+            title="Venues"
+            />
         {/* <MenuItem
           link="/dashboard/users"
           selected={path == "/dashboard/users" ? true : false}
