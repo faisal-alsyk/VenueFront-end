@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Header from "../../components/LoginHeader/header";
 import "./Login.css";
+import {adminLogin, verifyAdminCode} from "../../server";
+import {useHistory} from "react-router-dom";
 
 let login = function Login(props) {
+    const history = useHistory();
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [adminCode, setadminCode] = useState("");
@@ -10,8 +13,41 @@ let login = function Login(props) {
 
     function onAdminLogin(event) {
         event.preventDefault();
-        setshowLoginForm(false);
-
+        let payload = {
+            email: email,
+            password: password
+        };
+        adminLogin(payload)
+            .then(response => {
+                console.log(response.data);
+                localStorage.setItem('token', response.data.data.token);
+                setshowLoginForm(false);
+            })
+            .catch(error=>{
+                alert(error);
+            })
+    }
+    function onVerifyAdminCode (event) {
+        event.preventDefault();
+        let payload = {
+            verificationCode: adminCode
+        };
+        verifyAdminCode(payload)
+            .then(response=>{
+                if(response.data.data.role === 'Admin'){
+                    localStorage.setItem('_id', response.data.data._id);
+                    history.push('/dashboard1');
+                }
+            })
+            .catch(error=> {
+                alert(error);
+                setshowLoginForm(true);
+                history.push('/login');
+            })
+    }
+    function onUserLogin (event) {
+        event.preventDefault();
+        alert('Please Login as Admin.');
     }
 
     return (
@@ -35,8 +71,7 @@ let login = function Login(props) {
                            }}
                     />
                     <button className="login" onClick={event=>{
-                        event.preventDefault();
-                        alert('Kindly Login As Admin.');
+                        onUserLogin(event);
                     }}>
                         LOGIN
                     </button>
@@ -75,7 +110,9 @@ let login = function Login(props) {
                                setadminCode(event.target.value);
                            }}
                     />
-                    <button className="login">LOGIN</button>
+                    <button className="login" onClick={event => {
+                        onVerifyAdminCode(event);
+                    }}>LOGIN</button>
                 </form>
             </div>
             </div>
