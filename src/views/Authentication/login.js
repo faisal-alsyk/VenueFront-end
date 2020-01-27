@@ -33,7 +33,7 @@ let login = function Login(props) {
                 localStorage.setItem('token', response.data.status);
                 setshowLoginForm(false);
                 popNotification({
-                    title: response.data.data.status,
+                    title: response.data.status,
                     description: "To Sign-In as Admin, Enter Verification Code to Confirm that you are Admin.",
                     type: "success"
                 })
@@ -54,8 +54,8 @@ let login = function Login(props) {
         verifyAdminCode(payload)
             .then(response=>{
                 popNotification({
-                    title: response.data.data.status,
-                    description: response.data.data.message,
+                    title: response.data.status,
+                    description: response.data.message,
                     type: "success"
                 })
                     history.push('/dashboard');
