@@ -41,15 +41,22 @@ export default function Users() {
     };
 
     const columns = col(onView, onDelete);
+    const venue = {
+        create: "Create Venue",
+        id: "venue ID",
+        name: "Name"
+    }
     return (
 
         <div id="form">
             <Switch>
                 <Route  exact path="/admin/venues">
+                    
                     <ReactTable
                         data={venueData}
                         columns={columns}
                         onCreate={onCreate}
+                        source ={venue}
                     />
                 </Route>
                 <Route  path="/admin/venues/create" render={() => < CreateVenues />}/>

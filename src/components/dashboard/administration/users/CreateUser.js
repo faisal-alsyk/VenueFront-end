@@ -27,7 +27,8 @@ export default  function CreateUser() {
                 password
             };
             createNewUser(payload).then(response =>{
-                alert(response.data.message);
+                //alert(response.data.message);
+                history.push("/admin/users");
             })
         }
         else{
@@ -74,7 +75,7 @@ export default  function CreateUser() {
                             <label className="_label">This ID is the existence ID and can be use for user searching</label>
                         </div>
                     </div>
-                    <label>Role</label>
+                    <label>Actual user role</label>
                     <select className="select select-short" onChange={event => {
                         setRole(event.target.value);
                     }}>
