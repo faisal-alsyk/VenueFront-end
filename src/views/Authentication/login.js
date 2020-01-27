@@ -22,7 +22,6 @@ let login = function Login(props) {
     let [showLoginForm , setshowLoginForm] = useState(true);
 
     function onAdminLogin(event) {
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
         event.preventDefault();
         let payload = {
             email: email,
@@ -30,7 +29,7 @@ let login = function Login(props) {
         };
         adminLogin(payload)
             .then(response => {
-                localStorage.setItem('token', response.data.status);
+                localStorage.setItem('token', response.data.data.token);
                 setshowLoginForm(false);
                 popNotification({
                     title: response.data.status,
