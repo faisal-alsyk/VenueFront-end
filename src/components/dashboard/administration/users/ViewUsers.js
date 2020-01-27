@@ -1,9 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from "react-router-dom";
 import {DeleteUser, getUser} from "../../../../server";
-
-
+import { notification } from "antd";
 import './users.css';
+
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+};
 
 const viewUser = function ViewUsers(props) {
     const history = useHistory();
@@ -29,12 +36,31 @@ const viewUser = function ViewUsers(props) {
     function onDelete(event) {
         event.preventDefault();
         DeleteUser(userData._id)
-            .then(response => {
-                alert('Deleted Successfully');
-                history.push('/admin/users');
+            .then(response =>{
+                if(response.data.status === "Deleted!"){
+                    popNotification({
+                        title: response.data.status,
+                        description: "User Deleted Successfully.",
+                        type: "success"
+                    })
+                    history.push('/admin/venues');
+                    window.location.reload();
+                }
+                else{
+                    popNotification({
+                        title: "Try Again",
+                        description: "Could not delete User. Please Try Again.",
+                        type: "warning"
+                    })
+                }
+
             })
             .catch(error=>{
-                alert(error);
+                popNotification({
+                    title: 'Error',
+                    description: error.message,
+                    type: "error"
+                })
             })
     }
 

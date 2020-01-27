@@ -11,6 +11,16 @@ import UpdateVenues from "./EditVenues";
 import ViewVenues from "./ViewVenues";
 import {VenueList, DeleteVenue} from "../../../../server";
 //import { deleteType } from "../../../actions/typeActions";
+import { notification } from "antd";
+
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+}
+
 export default function Users() {
     const history = useHistory();
     let [venueData, setVenueData] = useState( [] );
@@ -25,12 +35,31 @@ export default function Users() {
     },[]);
     const onDelete = id => {
         DeleteVenue(id)
-            .then(response => {
-                alert('Deleted Successfully');
-                history.push('/admin/venues');
+            .then(response =>{
+                if(response.data.status === "Deleted!"){
+                    popNotification({
+                        title: response.data.status,
+                        description: "Venue Deleted Successfully.",
+                        type: "success"
+                    })
+                    history.push('/admin/venues');
+                    window.location.reload();
+                }
+                else{
+                    popNotification({
+                        title: "Try Again",
+                        description: "Could not delete venue. Please Try Again.",
+                        type: "warning"
+                    })
+                }
+
             })
-            .catch(error =>{
-                alert(error.message);
+            .catch(error=>{
+                popNotification({
+                    title: 'Error',
+                    description: error.message,
+                    type: "error"
+                })
             })
     }
     const onCreate = () => {

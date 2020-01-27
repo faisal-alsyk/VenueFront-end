@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 //import { useDispatch, useSelector } from "react-redux";
-import { Button, Table } from "antd";
+import {Button, notification, Table} from "antd";
 import { Link, Route, Switch, useHistory} from "react-router-dom";
 import ReactTable from "../../reactTable";
 //import FieldList from "./FieldList";
@@ -11,6 +11,15 @@ import UpdateUser from "./EditUsers";
 import ViewUser from "./ViewUsers";
 import { UserList, DeleteUser } from "../../../../server.js";
 //import { deleteType } from "../../../actions/typeActions";
+
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+}
+
 export default function Users() {
  const history = useHistory();
     let [userData, setuserData] = useState( [] );
@@ -25,11 +34,31 @@ export default function Users() {
     },[]);
     const onDelete = id => {
         DeleteUser(id)
-            .then(response => {
-                alert('Successfully Deleted');
+            .then(response =>{
+                if(response.data.status === "Deleted!"){
+                    popNotification({
+                        title: response.data.status,
+                        description: "User Deleted Successfully.",
+                        type: "success"
+                    })
+                    history.push('/admin/venues');
+                    window.location.reload();
+                }
+                else{
+                    popNotification({
+                        title: "Try Again",
+                        description: "Could not delete User. Please Try Again.",
+                        type: "warning"
+                    })
+                }
+
             })
-            .catch(error =>{
-                alert(error.message);
+            .catch(error=>{
+                popNotification({
+                    title: 'Error',
+                    description: error.message,
+                    type: "error"
+                })
             })
     }
   const onCreate = () => {

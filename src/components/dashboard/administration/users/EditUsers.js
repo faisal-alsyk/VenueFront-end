@@ -3,6 +3,15 @@ import React, {useEffect, useState} from "react";
 import './users.css';
 import {useHistory} from "react-router-dom";
 import {getUser, UpdateUser} from "../../../../server";
+import { notification } from "antd";
+
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+};
 
 const editProfile = function EditUser(props) {
     const history = useHistory();
@@ -25,7 +34,7 @@ const editProfile = function EditUser(props) {
     let [department, setDepartment] = useState(userData.department);
     let [status, setStatus] = useState(userData.status);
 
-    function onUpdate(event){
+    function onUpdate(event) {
         event.preventDefault();
         let payload = {
             name,
@@ -36,11 +45,29 @@ const editProfile = function EditUser(props) {
         }
         UpdateUser(userData._id, payload)
             .then(response => {
-                alert(response.data.message);
-                history.push(`/admin/users/view/${id}`);
+                if (response.data.status === "Updated") {
+                    popNotification({
+                        title: response.data.status,
+                        description: "User Updated Successfully.",
+                        type: "success"
+                    })
+                    history.push(`/admin/users/view/${id}`);
+                    window.location.reload();
+                } else {
+                    popNotification({
+                        title: "Try Again",
+                        description: "Could not Update User. Please Try Again.",
+                        type: "warning"
+                    })
+                }
+
             })
             .catch(error => {
-                alert(error);
+                popNotification({
+                    title: 'Error',
+                    description: error.message,
+                    type: "error"
+                })
             })
     }
     const onCancel = () => {
@@ -61,29 +88,29 @@ const editProfile = function EditUser(props) {
                         </b> Cancel</button>
                     <hr/>
                     <label>Name</label>
-                    <input className="input" type="text" value={userData.name} onChange={event => {
+                    <input className="input" type="text" value={name} onChange={event => {
                         setName(event.target.value);
                     }}/>
                     <label>Email</label>
-                    <input className="input" type="text" value={userData.email} onChange={event => {
+                    <input className="input" type="text" value={email} onChange={event => {
                         setEmail(event.target.value);
                     }}/>
                     <label>Account Status</label>
-                    <select className="select select-short" value={userData.status} onChange={event => {
+                    <select className="select select-short" value={status} onChange={event => {
                         setStatus(event.target.value);
                     }}>
                         <option>Active</option>
                         <option>Pending</option>
                     </select>
                     <label>Role</label>
-                    <select className="select select-short" value={userData.role} onChange={event => {
+                    <select className="select select-short" value={role} onChange={event => {
                         setRole(event.target.value);
                     }}>
                         <option>Staff</option>
                         <option>Faculty</option>
                     </select>
                     <label>Department</label>
-                    <select className="select" value={userData.department} onChange={event => {
+                    <select className="select" value={department} onChange={event => {
                         setDepartment(event.target.value);
                     }}>
                         <option>HR- Human Resource</option>

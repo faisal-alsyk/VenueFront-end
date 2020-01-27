@@ -2,6 +2,15 @@ import React, {useState} from "react";
 import {useHistory} from "react-router-dom"
 
 import {CreateNewVenue} from "../../../../server";
+import { notification } from "antd";
+
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+};
 
 export default  function CreateVenue() {
     const history = useHistory();
@@ -19,10 +28,33 @@ export default  function CreateVenue() {
                 venueId,
                 status
             };
-            CreateNewVenue(payload).then(response =>{
-                alert(response.data.message);
-                history.push('/admin/venues');
-            })
+            CreateNewVenue(payload)
+                .then(response =>{
+                    if(response.data.status === "Success"){
+                        popNotification({
+                            title: response.data.status,
+                            description: "Venue Created Successfully.",
+                            type: "success"
+                        })
+                        history.push('/admin/venues');
+                        window.location.reload();
+                    }
+                    else{
+                        popNotification({
+                            title: "Try Again",
+                            description: "Could not create venue. Please Try Again.",
+                            type: "warning"
+                        })
+                    }
+
+                })
+                .catch(error=>{
+                    popNotification({
+                        title: 'Error',
+                        description: error.message,
+                        type: "error"
+                    })
+                })
     }
     const onCancel = () => {
         history.push('/admin/venues');

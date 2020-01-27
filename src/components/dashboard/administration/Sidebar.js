@@ -12,17 +12,16 @@ export default function Sidebar() {
 
   return (
     <div style={{ width: "100%" , marginBottom: "19px"}}>
-
       <div className="nav-down-manu">
         <MenuItem
           link="/admin/users"
-          selected={path === "/admin/users" ? true : false}
-          title="Users"
+          selected={(path === "/admin/users") || (path === "/admin/users/create") || (path.includes("/admin/users/view/")) || (path.includes("/admin/users/update"))  ? true : false}
+          title="USERS"
         />
         <MenuItem
             link="/admin/venues"
-            selected={path === "/admin/venues"? true: false}
-            title="Venues"
+            selected={path === "/admin/venues" || (path === "/admin/venues/create") || (path.includes("/admin/venues/view/")) || (path.includes("/admin/venues/update"))? true: false}
+            title="VENUES"
             />
         {/* <MenuItem
           link="/dashboard/users"

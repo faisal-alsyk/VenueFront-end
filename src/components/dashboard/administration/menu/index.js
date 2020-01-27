@@ -12,7 +12,6 @@ class MenuItems extends Component {
       <div>
         <Link to={this.props.link}>
           <div className="menu-item-container">
-
               <span className="menu-item-title"
                style={{
                 color: this.props.selected ? "#005404" : ""

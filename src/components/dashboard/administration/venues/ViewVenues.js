@@ -1,7 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from "react-router-dom";
 import {DeleteVenue, getVenue} from "../../../../server";
+import { notification } from "antd";
 
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+};
 
 const ViewVenue = function ViewVenue(props) {
     const history = useHistory();
@@ -29,12 +37,31 @@ const ViewVenue = function ViewVenue(props) {
     function onDelete(event) {
         event.preventDefault();
         DeleteVenue(venueData._id)
-            .then(response => {
-                alert(`Venue with Id: ${response.data.data.venueId}  is Deleted.`);
-                history.push('/admin/venues');
+            .then(response =>{
+                if(response.data.status === "Deleted!"){
+                    popNotification({
+                        title: response.data.status,
+                        description: "Venue Deleted Successfully.",
+                        type: "success"
+                    })
+                    history.push('/admin/venues');
+                    window.location.reload();
+                }
+                else{
+                    popNotification({
+                        title: "Try Again",
+                        description: "Could not delete venue. Please Try Again.",
+                        type: "warning"
+                    })
+                }
+
             })
-            .catch(error =>{
-                alert(error.message);
+            .catch(error=>{
+                popNotification({
+                    title: 'Error',
+                    description: error.message,
+                    type: "error"
+                })
             })
     }
 

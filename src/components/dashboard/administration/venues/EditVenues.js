@@ -2,6 +2,15 @@ import React, {useEffect, useState} from "react";
 
 import {useHistory} from "react-router-dom";
 import {getVenue, UpdateVenue} from "../../../../server";
+import { notification } from "antd";
+
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+};
 
 const updateVenue = function EditVenue(props) {
     const history = useHistory();
@@ -30,12 +39,31 @@ const updateVenue = function EditVenue(props) {
             status
         }
         UpdateVenue(venueData._id, payload)
-            .then(response => {
-                alert(response.data.message);
-                history.push(`/admin/venues/view/${id}`);
+            .then(response =>{
+                if(response.data.status === "Updated"){
+                    popNotification({
+                        title: response.data.status,
+                        description: "Venue Updated Successfully.",
+                        type: "success"
+                    })
+                    history.push(`/admin/venues/view/${id}`);
+                    window.location.reload();
+                }
+                else{
+                    popNotification({
+                        title: "Try Again",
+                        description: "Could not Update Venue. Please Try Again.",
+                        type: "warning"
+                    })
+                }
+
             })
-            .catch(error => {
-                alert(error);
+            .catch(error=>{
+                popNotification({
+                    title: 'Error',
+                    description: error.message,
+                    type: "error"
+                })
             })
     }
     const onCancel = () => {
@@ -46,7 +74,7 @@ const updateVenue = function EditVenue(props) {
         <div>
             <div className="row">
                 <div className="col-md-6 column-1">
-                    <h3 className="edit-profile-heading">Edit User Detail</h3>
+                    <h3 className="edit-profile-heading">Edit Venue Detail</h3>
                     <button className="cancel-button" onClick={onCancel}>
                     <b>
                         <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,15 +84,15 @@ const updateVenue = function EditVenue(props) {
                     </b> Cancel</button>
                     <hr/>
                     <label>Name</label>
-                    <input className="input" type="text" value={venueData.name} onChange={event => {
+                    <input className="input" type="text" value={name} onChange={event => {
                         setName(event.target.value);
                     }}/>
                     <label>Size</label>
-                    <input className="input" type="text" value={venueData.size} onChange={event => {
+                    <input className="input" type="text" value={size} onChange={event => {
                         setSize(event.target.value);
                     }}/>
                     <label>Status</label>
-                    <select className="select select-short" value={venueData.status} onChange={event => {
+                    <select className="select select-short" value={status} onChange={event => {
                         setStatus(event.target.value);
                     }}>
                         <option>Available</option>

@@ -2,6 +2,15 @@ import React, {useState} from "react";
 import {useHistory} from "react-router-dom"
 import './users.css';
 import { createNewUser } from "../../../../server";
+import { notification } from "antd";
+
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+};
 
 export default  function CreateUser() {
     const history = useHistory();
@@ -27,10 +36,33 @@ export default  function CreateUser() {
                 phoneNumber,
                 password
             };
-            createNewUser(payload).then(response =>{
-                alert(response.data.message);
-                history.push('admin/users');
-            })
+            createNewUser(payload)
+                .then(response =>{
+                    if(response.data.status === "Success"){
+                        popNotification({
+                            title: response.data.status,
+                            description: "User Created Successfully.",
+                            type: "success"
+                        })
+                        history.push('/admin/users');
+                        window.location.reload();
+                    }
+                    else{
+                        popNotification({
+                            title: "Try Again",
+                            description: "Could not create User. Please Try Again.",
+                            type: "warning"
+                        })
+                    }
+
+                })
+                .catch(error=>{
+                    popNotification({
+                        title: 'Error',
+                        description: error.message,
+                        type: "error"
+                    })
+                })
         }
         else{
             alert('Please Select to agree with the Terms & Condition');
@@ -80,8 +112,8 @@ export default  function CreateUser() {
                     <select className="select select-short" onChange={event => {
                         setRole(event.target.value);
                     }}>
+                        <option>User</option>
                         <option>Staff</option>
-                        <option>Faculty</option>
                     </select>
                     <label>Department</label>
                     <select className="select" onChange={event => {
@@ -124,10 +156,8 @@ export default  function CreateUser() {
                     </div>
                     <br/><br/>
                     <h3 className="tac-heading">Terms & Conditions</h3><br/>
-                    <div className="tac-check"><input type="checkbox" onChange={event => {
-                        event.preventDefault();
-                        settnc(true);
-                    }}/>
+                    <div className="tac-check"><input type="checkbox" onChange={event =>settnc(!tnc)
+                    }/>
                         <label className="tac-text">
                             I hereby have read all the terms and conditon while creating and allowing user to use and access data within this application
                         </label></div>
