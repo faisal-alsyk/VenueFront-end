@@ -26,7 +26,7 @@ export default function Users() {
     const onDelete = id => {
         DeleteVenue(id)
             .then(response => {
-                alert(`Venue with Id: ${response.data.data.venueId}  is Deleted.`);
+                alert('Deleted Successfully');
                 history.push('/admin/venues');
             })
             .catch(error =>{

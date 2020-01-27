@@ -28,6 +28,7 @@ export default  function CreateUser() {
             };
             createNewUser(payload).then(response =>{
                 alert(response.data.message);
+                history.push('admin/users');
             })
         }
         else{

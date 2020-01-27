@@ -5,7 +5,7 @@ export const adminLogin = (data) => {
 }
 
 export const verifyAdminCode = (data) => {
-    return axios.post('admin/verifycode', data)
+    return axios.post('admin/verifycode', data, {headers:{Authorization: localStorage.getItem('token')}})
 }
 
 export const userLogin = (data) => {

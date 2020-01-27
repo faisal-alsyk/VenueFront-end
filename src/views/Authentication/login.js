@@ -50,6 +50,7 @@ let login = function Login(props) {
         let payload = {
             verificationCode: adminCode
         };
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
         verifyAdminCode(payload)
             .then(response=>{
                 popNotification({

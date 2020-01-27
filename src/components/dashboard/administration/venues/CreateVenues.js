@@ -21,6 +21,7 @@ export default  function CreateVenue() {
             };
             CreateNewVenue(payload).then(response =>{
                 alert(response.data.message);
+                history.push('/admin/venues');
             })
     }
     const onCancel = () => {

@@ -26,7 +26,7 @@ export default function Users() {
     const onDelete = id => {
         DeleteUser(id)
             .then(response => {
-                alert(`User with Name: ${response.data.data.staffId}  is Deleted.`);
+                alert('Successfully Deleted');
             })
             .catch(error =>{
                 alert(error.message);
