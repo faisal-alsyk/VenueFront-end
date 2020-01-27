@@ -35,11 +35,9 @@ color: #000000;
     display: none;
 }
 .view-user {
-    width: 90%;
+    width: 100%;
     height: 80vh;
-    background-color: white;
     border-radius: 5px;
-    padding-top: 30px;
 }
 label {
     width: 100%;
@@ -220,8 +218,8 @@ label {
     width: 40%;
 }
 .show-user-heading {
-    margin-top: 30px;
     height: 50px;
+    margin-bottom: 20px;
 }
 .user-name-heading-4 {
     padding-left: 20px;
@@ -231,18 +229,30 @@ label {
 }
 .user-detail {
     line-height: 30px;
-    margin-top: 40px;
 }
 .change-password {
     float: right;
+    height: 20px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    line-height: 20px;
+    /* identical to box height */
+
+    letter-spacing: 0.05em;
+    color: #2BB9E6 !important;
+
 }
 .user-detail-label {
     display: inline;
 }
+.venue-content {
+    margin-bottom: 10px !important;
+    margin-left: unset !important;
+}
+
 .user-detail-container {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 99%;
 }
 .label-1 {
     color: black;
@@ -266,4 +276,8 @@ label {
 }
 .edit-profile-heading {
 
+}
+.user-detail-label.label-1 {
+    padding-left: 10px !important;
+    font-size: 16px !important;
 }
