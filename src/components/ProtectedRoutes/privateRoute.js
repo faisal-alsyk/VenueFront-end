@@ -18,7 +18,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         }
         />
 )
-PrivateRoute.propTypes = {
-            auth: propTypes.object.isRequired
-        };
 export default (PrivateRoute);

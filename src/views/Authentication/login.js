@@ -4,6 +4,15 @@ import "./Login.css";
 import {adminLogin, verifyAdminCode} from "../../server";
 import {useHistory} from "react-router-dom";
 import axios from "axios";
+import { notification } from "antd";
+
+const popNotification = (data) => {
+    notification[data.type]({
+        message: data.title,
+        description: data.description,
+        duration: 8
+    });
+};
 
 let login = function Login(props) {
     const history = useHistory();
@@ -21,12 +30,20 @@ let login = function Login(props) {
         };
         adminLogin(payload)
             .then(response => {
-                console.log(response.data);
-                localStorage.setItem('token', response.data.data.token);
+                localStorage.setItem('token', response.data.status);
                 setshowLoginForm(false);
+                popNotification({
+                    title: response.data.data.status,
+                    description: "To Sign-In as Admin, Enter Verification Code to Confirm that you are Admin.",
+                    type: "success"
+                })
             })
             .catch(error=>{
-                alert(error);
+                popNotification({
+                    title: 'Error',
+                    description: error.message,
+                    type: "error"
+                })
             })
     }
     function onVerifyAdminCode (event) {
@@ -36,17 +53,30 @@ let login = function Login(props) {
         };
         verifyAdminCode(payload)
             .then(response=>{
+                popNotification({
+                    title: response.data.data.status,
+                    description: response.data.data.message,
+                    type: "success"
+                })
                     history.push('/dashboard');
                 })
             .catch(error=> {
-                alert(error);
+                popNotification({
+                    title: 'Error',
+                    description: error.message,
+                    type: "error"
+                })
                 setshowLoginForm(true);
                 history.push('/login');
             })
     }
     function onUserLogin (event) {
         event.preventDefault();
-        alert('Please Login as Admin.');
+        popNotification({
+            title: 'Not Allowed',
+            description: "Please Sign is as Admin",
+            type: "info"
+        })
     }
 
     return (
