@@ -5,6 +5,7 @@ import { createNewUser } from "../../../../server";
 
 export default  function CreateUser() {
     const history = useHistory();
+
     let [name, setName] = useState('');
     let [email, setEmail] = useState('');
     let [staffId, setStaffId] = useState('');
