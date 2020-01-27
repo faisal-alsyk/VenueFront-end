@@ -3,6 +3,7 @@ import Header from "../../components/LoginHeader/header";
 import "./Login.css";
 import {adminLogin, verifyAdminCode} from "../../server";
 import {useHistory} from "react-router-dom";
+import axios from "axios";
 
 let login = function Login(props) {
     const history = useHistory();
@@ -12,6 +13,7 @@ let login = function Login(props) {
     let [showLoginForm , setshowLoginForm] = useState(true);
 
     function onAdminLogin(event) {
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
         event.preventDefault();
         let payload = {
             email: email,
@@ -34,7 +36,7 @@ let login = function Login(props) {
         };
         verifyAdminCode(payload)
             .then(response=>{
-                    history.push('/admin/users');
+                    history.push('/dashboard');
                 })
             .catch(error=> {
                 alert(error);

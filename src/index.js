@@ -19,7 +19,8 @@ import login from "./views/Authentication/login.js"
 import Dashboard from "./components/dashboard";
 import AdminDashboard from "./components/dashboard/administration";
 //import { ProtectedRoute } from "./routers/ProtectedRoute";
-axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
+axios.defaults.baseURL = "http://localhost:4200/api";
+// axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 // import { createBrowserHistory } from "history";
 // import { Router, Route, Switch, Redirect } from "react-router-dom";
@@ -74,7 +75,7 @@ ReactDOM.render(
               accessor="public"
             />
             <Route path="/login" component={login} accessor="public" />
-            <PrivateRoute exact path="/dashboard1" component={Dashboard} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/admin" component={AdminDashboard} />
             {/* <Route path="/dashboard1/admin/create" component={CreateUser}> */}
 
