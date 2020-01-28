@@ -14,7 +14,7 @@ const popNotification = (data) => {
     });
 };
 
-const ViewVenue = function ViewVenue(props) {
+const ViewVenue = function ViewVenue({refresh}) {
     const history = useHistory();
     let path = history.location.pathname;
     console.log(path);
@@ -32,7 +32,7 @@ const ViewVenue = function ViewVenue(props) {
             })
     },[]);
     function onEdit (){
-        history.push(`/admin/venues/update/${id}`);
+        history.push(`/admin/venues/update/${id}`, {venueData});
     }
     function onBack() {
         history.push('/admin/venues');
@@ -47,8 +47,8 @@ const ViewVenue = function ViewVenue(props) {
                         description: "Venue Deleted Successfully.",
                         type: "success"
                     })
+                    refresh();
                     history.push('/admin/venues');
-                    window.location.reload();
                 }
                 else{
                     popNotification({
@@ -69,50 +69,6 @@ const ViewVenue = function ViewVenue(props) {
     }
 
     return (
-        // <div className="view-user">
-        //     <div className="row show-user-heading">
-        //         <div className="col-md-2">
-        //             <button className="button button-full" onClick={event => {
-        //                 onBack();
-        //             }}>Back</button>
-        //         </div>
-        //         <div className="col-md-7">
-        //             <h4 className="user-name-heading-4">{venueData.name}</h4>
-        //         </div>
-        //         <div className="col-md-2">
-        //             <button className="button button-full button-delete" onClick={event => {
-        //                 onDelete(event);
-        //             }}>Delete</button>
-        //         </div>
-        //     </div>
-        //     <div className="user-detail">
-        //         <div className="user-detail-container">
-        //             <label className="user-detail-label">#ID: </label>
-        //             <label className="user-detail-label label-1">{venueData._id}</label>
-        //             <i className="glyphicon glyphicon-pencil icon" onClick={event => {
-        //                 onEdit();
-        //             }}/>
-        //         </div>
-        //         <div className="user-detail-container">
-        //             <label className="user-detail-label">Venue Created At: </label>
-        //             <label className="user-detail-label label-1">{venueData.createdAt}</label>
-        //         </div>
-        //         <hr/>
-        //         <div className="user-detail-container">
-        //             <label className="user-detail-label">Venue ID: </label>
-        //             <label className="user-detail-label label-1">{venueData.venueId}</label>
-        //         </div>
-        //         <div className="user-detail-container">
-        //             <label className="user-detail-label">Size: </label>
-        //             <label className="user-detail-label label-1">{venueData.size}</label>
-        //         </div>
-        //         <div className="user-detail-container">
-        //             <label className="user-detail-label">Availability Status: </label>
-        //             <label className="user-detail-label label-1">{venueData.status}</label>
-        //         </div>
-
-        //     </div>
-        // </div>
         <>
         <div className="view-user">
         <div className="row show-user-heading">

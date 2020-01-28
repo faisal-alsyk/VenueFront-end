@@ -24,7 +24,7 @@ const popNotification = (data) => {
 export default function Users() {
  const history = useHistory();
     let [userData, setuserData] = useState( [] );
-    let [refresh, setrefresh] = useState(true);
+    let [refresh, setrefresh] = useState(false);
     useEffect(()=>{
         UserList()
             .then(response => {
@@ -36,13 +36,14 @@ export default function Users() {
     },[]);
 
 useEffect(function() {
-    UserList()
-    .then(response => {
-        setuserData(response.data.data);
-    })
-    .catch(error => {
-        alert(error.message);
-    });
+        UserList()
+        .then(response => {
+            setuserData(response.data.data);
+        })
+        .catch(error => {
+            alert(error.message);
+        });
+   
   }, [refresh]);
     const onDelete = id => {
         DeleteUser(id)
@@ -53,8 +54,9 @@ useEffect(function() {
                         description: "User Deleted Successfully.",
                         type: "success"
                     })
-                    history.push('/admin/venues');
-                    window.location.reload();
+                    const reRender = !refresh;
+                    setrefresh(reRender);
+                    history.push('/admin/users');
                 }
                 else{
                     popNotification({
@@ -97,9 +99,15 @@ useEffect(function() {
                     source = {user}
         />
         </Route>
-        <Route  path="/admin/users/create" render={() => < CreateUser/>}/>
-        <Route  path="/admin/users/update" render={() => < UpdateUser />}/>
-        <Route  path="/admin/users/view" render={() => < ViewUser />}/>
+        <Route  path="/admin/users/create" render={() => < CreateUser refresh = { () => {
+            const changeRefresh = !refresh;
+            setrefresh(changeRefresh)}}/>}/>
+        <Route  path="/admin/users/update" render={() => < UpdateUser refresh = { () => {
+            const changeRefresh = !refresh;
+            setrefresh(changeRefresh)}}/>}/>
+        <Route  path="/admin/users/view" render={() => < ViewUser refresh = { () => {
+            const changeRefresh = !refresh;
+            setrefresh(changeRefresh)}}/>}/>
         </Switch>
         </div>
 

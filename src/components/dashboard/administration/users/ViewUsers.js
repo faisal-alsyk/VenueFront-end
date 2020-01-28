@@ -12,7 +12,7 @@ const popNotification = (data) => {
     });
 };
 
-const viewUser = function ViewUsers(props) {
+const viewUser = function ViewUsers({refresh}) {
     const history = useHistory();
     let path = history.location.pathname;
     let len = path.length;
@@ -28,7 +28,7 @@ const viewUser = function ViewUsers(props) {
             })
     },[]);
     function onEdit (){
-        history.push(`/admin/users/update/${id}`);
+        history.push(`/admin/users/update/${id}`, {userData});
     }
     function onBack() {
         history.push('/admin/users');
@@ -43,8 +43,9 @@ const viewUser = function ViewUsers(props) {
                         description: "User Deleted Successfully.",
                         type: "success"
                     })
-                    history.push('/admin/venues');
-                    window.location.reload();
+                    refresh();
+                    history.push('/admin/users');
+                    
                 }
                 else{
                     popNotification({

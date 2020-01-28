@@ -24,6 +24,8 @@ const popNotification = (data) => {
 export default function Users() {
     const history = useHistory();
     let [venueData, setVenueData] = useState( [] );
+    let [refresh, setrefresh] = useState(false);
+
     useEffect(()=>{
         VenueList()
             .then(response => {
@@ -33,6 +35,17 @@ export default function Users() {
                 alert(error.message);
             });
     },[]);
+
+    useEffect(()=>{
+        VenueList()
+            .then(response => {
+                setVenueData(response.data.data);
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+    },[refresh]);
+
     const onDelete = id => {
         DeleteVenue(id)
             .then(response =>{
@@ -42,8 +55,9 @@ export default function Users() {
                         description: "Venue Deleted Successfully.",
                         type: "success"
                     })
+                    const reRender = !refresh;
+                    setrefresh(reRender);
                     history.push('/admin/venues');
-                    window.location.reload();
                 }
                 else{
                     popNotification({
@@ -88,9 +102,15 @@ export default function Users() {
                         source ={venue}
                     />
                 </Route>
-                <Route  path="/admin/venues/create" render={() => < CreateVenues />}/>
-                <Route  path="/admin/venues/update" render={() => < UpdateVenues />}/>
-                <Route  path="/admin/venues/view" render={() => < ViewVenues />}/>
+                <Route  path="/admin/venues/create" render={() => < CreateVenues refresh = { () => {
+            const changeRefresh = !refresh;
+            setrefresh(changeRefresh)}}/>}/>
+                <Route  path="/admin/venues/update" render={() => < UpdateVenues refresh = { () => {
+            const changeRefresh = !refresh;
+            setrefresh(changeRefresh)}}/>}/>
+                <Route  path="/admin/venues/view" render={() => < ViewVenues refresh = { () => {
+            const changeRefresh = !refresh;
+            setrefresh(changeRefresh)}}/>}/>
             </Switch>
         </div>
 

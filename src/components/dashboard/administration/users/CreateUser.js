@@ -12,7 +12,7 @@ const popNotification = (data) => {
     });
 };
 
-export default  function CreateUser() {
+export default  function CreateUser( {refresh}) {
     const history = useHistory();
 
     let [name, setName] = useState('');
@@ -43,9 +43,10 @@ export default  function CreateUser() {
                             title: response.data.status,
                             description: "User Created Successfully.",
                             type: "success"
-                        })
+                        });
+                        refresh();
                         history.push('/admin/users');
-                        window.location.reload();
+                        //window.location.reload();
                     }
                     else{
                         popNotification({

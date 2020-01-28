@@ -12,7 +12,7 @@ const popNotification = (data) => {
     });
 };
 
-export default  function CreateVenue() {
+export default  function CreateVenue({refresh}) {
     const history = useHistory();
     let [name, setName] = useState('');
     let [size, setSize] = useState('');
@@ -36,8 +36,8 @@ export default  function CreateVenue() {
                             description: "Venue Created Successfully.",
                             type: "success"
                         })
+                        refresh();
                         history.push('/admin/venues');
-                        window.location.reload();
                     }
                     else{
                         popNotification({

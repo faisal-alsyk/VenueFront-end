@@ -12,21 +12,23 @@ const popNotification = (data) => {
     });
 };
 
-const updateVenue = function EditVenue(props) {
+const updateVenue = function EditVenue({refresh}) {
     const history = useHistory();
     let path = history.location.pathname;
     let len = path.length;
     let id = path.substring(21, len);
-    let [venueData, setVenueData] = useState({});
-    useEffect(()=>{
-        getVenue(id)
-            .then(response=>{
-                setVenueData(response.data.data);
-            })
-            .catch(error => {
-                alert(error);
-            })
-    },[]);
+    //let [venueData, setVenueData] = useState({});
+    // useEffect(()=>{
+    //     getVenue(id)
+    //         .then(response=>{
+    //             setVenueData(response.data.data);
+    //         })
+    //         .catch(error => {
+    //             alert(error);
+    //         })
+    // },[]);
+    const {venueData} = history.location.state;
+
     let [name, setName] = useState(venueData.name);
     let [size, setSize] = useState(venueData.size);
     let [status, setStatus] = useState(venueData.status);
@@ -46,8 +48,9 @@ const updateVenue = function EditVenue(props) {
                         description: "Venue Updated Successfully.",
                         type: "success"
                     })
-                    history.push(`/admin/venues/view/${id}`);
-                    window.location.reload();
+
+                    refresh();
+                    history.push("/admin/venues/view");
                 }
                 else{
                     popNotification({
