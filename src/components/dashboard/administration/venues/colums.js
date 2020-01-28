@@ -8,8 +8,8 @@ const columns = (onView, onDelete) => [
   },
   {
     title: "Venue ID",
-    dataIndex: "staffId",
-    key: "staffId"
+    dataIndex: "venueId",
+    key: "venueId"
   },
   {
     title: "Name",

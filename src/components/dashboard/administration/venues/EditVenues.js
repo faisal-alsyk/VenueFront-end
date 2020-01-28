@@ -50,7 +50,7 @@ const updateVenue = function EditVenue({refresh}) {
                     })
 
                     refresh();
-                    history.push("/admin/venues/view");
+                    history.push(`/admin/venues/view/${id}`);
                 }
                 else{
                     popNotification({
