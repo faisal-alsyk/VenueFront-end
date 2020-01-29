@@ -8,7 +8,8 @@ import DashBardContent from "../DashboardContent";
 
 import "../administration/adminDashboard.css"
 import AllBooking from "./viewAllBooking";
-import CreateBooking from "./fullClender/CreateBooking";
+import CreateBooking from "./CreateBooking";
+import AdminBooking from "./viewAdminBooking";
 // import Users from "./users";
 // import Venues from "./venues";
 export default function VenueDashboard() {
@@ -22,17 +23,17 @@ export default function VenueDashboard() {
               <h3>Venue Booking</h3>
               <hr></hr>
               </div>
-              <div className="col-md-3 col-lg-2 col-sm-3 col-xs-4">
+              <div className="col-md-4 col-lg-3 col-sm-4 col-xs-12">
                 <Sidebar></Sidebar>
                 </div>
-              <div className="col-md-9 col-lg-10 col-sm-9 col-xs-8">
+              <div className="col-md-8 col-lg-9 col-sm-8 col-xs-12">
 
                     <DashBardContent>
                       <Switch>
                         <Route exact path="/venuebooking" render={() => <AllBooking/>} />
                         <Route path="/venuebooking/create" render={() => <CreateBooking/>} />
+                        <Route path="/venuebooking/admin" render={() => <AdminBooking/>} />
                         <Route path="/venuebooking/priority" render={() => <div>testing3</div>} />
-                        <Route path="/venuebooking/add" render={() => <div>testing4</div>} />
                         <Route path="/venuebooking/bulk" render={() => <div>testing5</div>} />
                       </Switch>
                     </DashBardContent>

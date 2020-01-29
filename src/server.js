@@ -56,7 +56,7 @@ export const getVenue = (id) => {
 }
 
 export const createBooking = (payload) => {
-    return axios.post('bookings', payload)
+    return axios.post('bookings/', payload)
 }
 
 export const updateBoking = (id, payload) =>{
@@ -73,5 +73,9 @@ export const getbookingbyId = (id) => {
 }
 
 export const getbooking = (id) => {
-    return axios.get('bookings')
+    return axios.get('bookings/')
+}
+
+export const getbookingByAdmin = (role) => {
+    return axios.get(`bookings/${role}`)
 }

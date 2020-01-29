@@ -36,4 +36,7 @@ body {
     color: #8c9295 !important;
 
 }
+.ant-input-lg, .ant-time-picker-input {
+    height: 48px !important;
+}
 
