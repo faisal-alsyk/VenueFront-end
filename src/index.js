@@ -4,7 +4,7 @@ import './index.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/ProtectedRoutes/privateRoute";
 import 'antd/dist/antd.css';
-import "./assets/css/material-dashboard-react.css?v=1.8.0";
+//import "./assets/css/material-dashboard-react.css?v=1.8.0";
 import "bootstrap";
 import "bootstrap/js/dist/util";
 import "bootstrap/js/dist/dropdown";
@@ -13,14 +13,16 @@ import CreateUser from "./components/dashboard/administration/users/CreateUser";
 
 // import  Store  from "./Redux/store";
 // import { Provider } from "react-redux";
-// import setAuthorizationToken from "./Redux/utils/setAuthToken";
+//import setAuthorizationToken from "./Redux/utils/setAuthToken";
 import axios from "axios";
 import login from "./views/Authentication/login.js"
 import Dashboard from "./components/dashboard";
 import AdminDashboard from "./components/dashboard/administration";
+import VenueDashboard from "./components/dashboard/venueBooking";
 //import { ProtectedRoute } from "./routers/ProtectedRoute";
-// axios.defaults.baseURL = "http://localhost:4200/api";
-axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
+
+//axios.defaults.baseURL = "http://localhost:4200/api";
+ axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 // import { createBrowserHistory } from "history";
 // import { Router, Route, Switch, Redirect } from "react-router-dom";
@@ -77,9 +79,7 @@ ReactDOM.render(
             <Route path="/login" component={login} accessor="public" />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/admin" component={AdminDashboard} />
-            {/* <Route path="/dashboard1/admin/create" component={CreateUser}> */}
-
-        {/* </Route> */}
+            <PrivateRoute path="/venuebooking" component={VenueDashboard} />
           </Switch>
         </Router>
       {/*</Provider>*/}

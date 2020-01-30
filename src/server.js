@@ -58,3 +58,28 @@ export const getVenue = (id) => {
 export const resetUserPassword = (payload) => {
     return axios.patch('admin/changepassword');
 }
+
+export const createBooking = (payload) => {
+    return axios.post('bookings/', payload)
+}
+
+export const updateBoking = (id, payload) =>{
+    return axios.patch(`bookings/${id}`, payload)
+}
+
+export const deleteBooking = (id) =>{
+    return axios.delete(`bookings/${id}`)
+
+}
+
+export const getbookingbyId = (id) => {
+    return axios.get(`bookings/${id}`)
+}
+
+export const getbooking = (id) => {
+    return axios.get('bookings/')
+}
+
+export const getbookingByAdmin = (role) => {
+    return axios.get(`bookings/${role}`)
+}

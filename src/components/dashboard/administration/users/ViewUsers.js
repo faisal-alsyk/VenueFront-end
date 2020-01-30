@@ -12,7 +12,7 @@ const popNotification = (data) => {
     });
 };
 
-const viewUser = function ViewUsers(props) {
+const viewUser = function ViewUsers({refresh}) {
     const history = useHistory();
     let path = history.location.pathname;
     let len = path.length;
@@ -28,7 +28,7 @@ const viewUser = function ViewUsers(props) {
             })
     },[]);
     function onEdit (){
-        history.push(`/admin/users/update/${id}`);
+        history.push(`/admin/users/update/${id}`, {userData});
     }
     function onBack() {
         history.push('/admin/users');
@@ -42,9 +42,9 @@ const viewUser = function ViewUsers(props) {
                         title: response.data.status,
                         description: "User Deleted Successfully.",
                         type: "success"
-                    })
+                    });
+                    refresh();
                     history.push('/admin/users');
-                    window.location.reload();
                 }
                 else{
                     popNotification({
@@ -79,9 +79,6 @@ const viewUser = function ViewUsers(props) {
                     <h4 className="user-name-heading-4" style={{fontWeight: "bold", fontSize: "24px", lineHeight: "30px"}}>{userData.name}</h4>
                 </div>
                 <div className="col-md-2">
-                    {/* <button className="button button-full button-delete" onClick={event => {
-                        onDelete(event);
-                    }}>Delete</button> */}
                       <button className="btn-delete" style={{marginTop:"unset", marginRight:"unset"}}  onClick={event => {
                        onDelete(event);
                     }}>

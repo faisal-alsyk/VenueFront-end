@@ -25,7 +25,7 @@ const popNotification = (data) => {
 export default function Users() {
  const history = useHistory();
     let [userData, setuserData] = useState( [] );
-    let [refresh, setrefresh] = useState(true);
+    let [refresh, setrefresh] = useState(false);
     useEffect(()=>{
         UserList()
             .then(response => {
@@ -37,13 +37,14 @@ export default function Users() {
     },[]);
 
 useEffect(function() {
-    UserList()
-    .then(response => {
-        setuserData(response.data.data);
-    })
-    .catch(error => {
-        alert(error.message);
-    });
+        UserList()
+        .then(response => {
+            setuserData(response.data.data);
+        })
+        .catch(error => {
+            alert(error.message);
+        });
+
   }, [refresh]);
     const onDelete = id => {
         DeleteUser(id)
@@ -53,9 +54,10 @@ useEffect(function() {
                         title: response.data.status,
                         description: "User Deleted Successfully.",
                         type: "success"
-                    })
+                    });
+                    const reRender = !refresh;
+                    setrefresh(reRender);
                     history.push('/admin/users');
-                    window.location.reload();
                 }
                 else{
                     popNotification({
@@ -90,18 +92,25 @@ useEffect(function() {
 
         <div id="form">
         <Switch>
-        <Route  exact path="/admin/users">
-        <ReactTable
-                    data={userData}
-                    columns={columns}
-                    onCreate={onCreate}
-                    source = {user}
-        />
-        </Route>
-        <Route  path="/admin/users/create" render={() => < CreateUser/>}/>
-        <Route  path="/admin/users/update" render={() => < UpdateUser />}/>
-        <Route  path="/admin/users/view" render={() => < ViewUser />}/>
-        <Route  path="/admin/users/resetpassword" render={() => < ResetPassword />}/>
+            <Route  exact path="/admin/users">
+            <ReactTable
+                        data={userData}
+                        columns={columns}
+                        onCreate={onCreate}
+                        source = {user}
+            />
+            </Route>
+
+            <Route  path="/admin/users/create" render={() => < CreateUser refresh = { () => {
+                const changeRefresh = !refresh;
+                setrefresh(changeRefresh)}}/>}/>
+            <Route  path="/admin/users/update" render={() => < UpdateUser refresh = { () => {
+                const changeRefresh = !refresh;
+                setrefresh(changeRefresh)}}/>}/>
+            <Route  path="/admin/users/view" render={() => < ViewUser refresh = { () => {
+                const changeRefresh = !refresh;
+                setrefresh(changeRefresh)}}/>}/>
+            <Route  path="/admin/users/resetpassword" render={() => < ResetPassword />}/>
         </Switch>
         </div>
 

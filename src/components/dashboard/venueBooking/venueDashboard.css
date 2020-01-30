@@ -1,0 +1,33 @@
+
+.clendar-div {
+ font-size: 20px;
+}
+
+
+
+.input {
+  width:100% !important;
+  font-size: 20px;
+  color: black;
+}
+.group-input {
+    height: 48px;
+    background: #FFFFFF;
+    border: 1px solid #D8DDE2;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.input-label {
+    text-align: center;
+    font-size: 16px;
+    padding-top: 8px;
+    font-weight: bold;
+
+}
+.input.datepicker {
+    width:100% !important;
+    font-size: 20px;
+    color: black;
+    margin-bottom: unset; 
+    padding: 5px 10px;
+  }

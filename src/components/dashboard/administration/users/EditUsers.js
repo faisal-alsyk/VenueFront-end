@@ -13,26 +13,28 @@ const popNotification = (data) => {
     });
 };
 
-const editProfile = function EditUser(props) {
+const editProfile = function EditUser({refresh}) {
     const history = useHistory();
     let path = history.location.pathname;
     let len = path.length;
     let id = path.substring(20, len);
-    let [userData, setUserData] = useState({});
-    useEffect(()=>{
-        getUser(id)
-            .then(response=>{
-                setUserData(response.data.data);
-            })
-            .catch(error => {
-                alert(error);
-            })
-    },[]);
-    let [name, setName] = useState(userData.name);
-    let [email, setEmail] = useState(userData.email);
-    let [role, setRole] = useState(userData.role);
-    let [department, setDepartment] = useState(userData.department);
-    let [status, setStatus] = useState(userData.status);
+    // let [userData, setUserData] = useState({});
+    // useEffect(()=>{
+    //     getUser(id)
+    //         .then(response=>{
+    //             setUserData(response.data.data);
+    //         })
+    //         .catch(error => {
+    //             alert(error);
+    //         })
+    // },[]);
+    const {userData} = history.location.state;
+    console.log(userData);
+    const [name, setName] = useState(userData.name);
+    const [email, setEmail] = useState(userData.email);
+    const [role, setRole] = useState(userData.role);
+    const [department, setDepartment] = useState(userData.department);
+    const [status, setStatus] = useState(userData.status);
 
     function onUpdate(event) {
         event.preventDefault();
@@ -51,8 +53,8 @@ const editProfile = function EditUser(props) {
                         description: "User Updated Successfully.",
                         type: "success"
                     })
+                    refresh();
                     history.push(`/admin/users/view/${id}`);
-                    window.location.reload();
                 } else {
                     popNotification({
                         title: "Try Again",

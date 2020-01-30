@@ -13,7 +13,7 @@ const popNotification = (data) => {
     });
 };
 
-export default  function CreateUser() {
+export default  function CreateUser( {refresh}) {
     const history = useHistory();
 
     let [name, setName] = useState('');
@@ -44,11 +44,9 @@ export default  function CreateUser() {
                             title: response.data.status,
                             description: "User Created Successfully.",
                             type: "success"
-                        })
-                        return <Redirect to="/admin/users"/>
-                        // history.push('/admin/users');
-                        // window.location.reload();
-
+                        });
+                        refresh();
+                        history.push('/admin/users')
                     }
                     else{
                         popNotification({
