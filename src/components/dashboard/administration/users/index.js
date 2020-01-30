@@ -98,6 +98,7 @@ useEffect(function() {
                         columns={columns}
                         onCreate={onCreate}
                         source = {user}
+                        type = "user"
             />
             </Route>
 

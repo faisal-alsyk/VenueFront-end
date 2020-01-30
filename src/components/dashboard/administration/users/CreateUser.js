@@ -19,7 +19,7 @@ export default  function CreateUser( {refresh}) {
     let [name, setName] = useState('');
     let [email, setEmail] = useState('');
     let [staffId, setStaffId] = useState(0);
-    let [role, setRole] = useState('Staff');
+    let [role, setRole] = useState('User');
     let [department, setDepartment] = useState('HR- Human Resource');
     let [phoneNumber, setPhoneNumber] = useState('');
     let [password, setPassword] = useState('');

@@ -30,6 +30,9 @@ const viewUser = function ViewUsers({refresh}) {
     function onEdit (){
         history.push(`/admin/users/update/${id}`, {userData});
     }
+    function onResetPassword (){
+        history.push('/admin/users/resetpassword', {userData});
+    }
     function onBack() {
         history.push('/admin/users');
     }
@@ -99,7 +102,7 @@ const viewUser = function ViewUsers({refresh}) {
                 <div className="user-detail-container venue-content">
                     <label className="user-detail-label">Password: </label>
                     <label className="user-detail-label label-1">User Custom</label>
-                    <a className="change-password">Reset User Password</a>
+                    <a className="change-password" onClick={onResetPassword}>Reset User Password</a>
                 </div>
                 <hr/>
                 <div className="user-detail-container venue-content">

@@ -56,7 +56,7 @@ export const getVenue = (id) => {
 }
 
 export const resetUserPassword = (payload) => {
-    return axios.patch('admin/changepassword');
+    return axios.patch('users/changepassword',payload);
 }
 
 export const createBooking = (payload) => {

@@ -100,6 +100,7 @@ export default function Users() {
                         columns={columns}
                         onCreate={onCreate}
                         source ={venue}
+                        type = "venue"
                     />
                 </Route>
                 <Route  path="/admin/venues/create" render={() => < CreateVenues refresh = { () => {

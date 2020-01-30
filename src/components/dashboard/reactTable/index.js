@@ -1,9 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import { Row, Col } from 'antd';
 import { Link } from "@material-ui/core";
 import "./reactTable.css"
-const ReactTable = ({ data, columns, onCreate, source }) => {
+const ReactTable = ({ data, columns, onCreate, source, type }) => {
+    let [role, setRole] = useState("");
+    let [searchId, setSearchId] = useState("");
+    let users = [], venues = [];
+
+    function tableData () {
+        let searchID = parseInt(searchId);
+        if(type === "user"){
+            if( role === ""){
+                if(!searchID){
+                    return data;
+                }
+                else{
+                    users = [];
+                    data.map(user=>{
+                        if(user.staffId === searchID){
+                            users.push(user);
+                        }
+                    });
+                    return users;
+                }
+            }
+            else if( role === "All"){
+                if(!searchID){
+                    return data;
+                }
+                else{
+                    users = [];
+                    data.map(user=>{
+                        if(user.staffId === searchID){
+                            users.push(user);
+                        }
+                    });
+                    return users;
+                }
+            }
+            else{
+                users = [];
+                if(!searchID){
+                    data.map(user=>{
+                        if(user.role === role){
+                            users.push(user);
+                        }
+                    });
+                    return users;
+                }
+                else {
+                    data.map(user=>{
+                        if(user.role === role && user.staffId === searchID){
+                            users.push(user);
+                        }
+                    });
+                    return users;
+                }
+            }
+        }
+        else {
+            if (!searchID){
+                return data;
+            }
+            else{
+                venues= [];
+                data.map(venue=>{
+                    if(venue.venueId === searchID){
+                        venues.push(venue);
+                    }
+                });
+                return venues;
+            }
+        }
+
+    }
   return (
     <div className="admin-users">
       <div
@@ -27,24 +98,36 @@ const ReactTable = ({ data, columns, onCreate, source }) => {
           <span className="btn-text">{source.create}</span>
         </Link>
         <form className="form-inline my-2 my-lg-0 pull-right _user">
-        <div className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle user-dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span>{source.id}</span>
-        {/* <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.46719 0H13.5281C14.3625 0 14.7797 1.00781 14.1891 1.59844L8.16094 7.63125C7.79531 7.99687 7.2 7.99687 6.83437 7.63125L0.806249 1.59844C0.215624 1.00781 0.632811 0 1.46719 0Z" fill="white"/>
-        </svg> */}
+            <select className="select-filter" onChange={event => {
+                setRole(event.target.value);
+            }}>
+                <option>All</option>
+                <option>Admin</option>
+                <option>User</option>
+                <option>Public</option>
+            </select>
+        {/*<div className="nav-item dropdown">*/}
+        {/*<a className="nav-link dropdown-toggle user-dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">*/}
+        {/*<span>{source.id}</span>*/}
+        {/*/!* <svg width="15" height="8" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
+        {/*    <path d="M1.46719 0H13.5281C14.3625 0 14.7797 1.00781 14.1891 1.59844L8.16094 7.63125C7.79531 7.99687 7.2 7.99687 6.83437 7.63125L0.806249 1.59844C0.215624 1.00781 0.632811 0 1.46719 0Z" fill="white"/>*/}
+        {/*</svg> *!/*/}
 
-        </a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a className="dropdown-item" href="#">{source.id}</a>
-          <a className="dropdown-item" href="#">{source.name}</a>
-      
-        </div>
-        </div>
-            <input className="form-control mr-sm-2 user-search" type="search" placeholder="Search" aria-label="Search"/>
+        {/*</a>*/}
+        {/*<div className="dropdown-menu" aria-labelledby="navbarDropdown">*/}
+        {/*  <a className="dropdown-item" href="#">{source.id}</a>*/}
+        {/*  <a className="dropdown-item" href="#">{source.name}</a>*/}
+
+        {/*</div>*/}
+        {/*</div>*/}
+            <input className="form-control mr-sm-2 user-search" type="search" placeholder="Search" aria-label="Search"
+                   value={searchId}
+                   onChange={event => {
+                       setSearchId(event.target.value);
+                   }}/>
         </form>
       </div>
-      <Table className="table-user" dataSource={data} columns={columns} />
+      <Table className="table-user" dataSource={tableData()} columns={columns} />
     </div>
   );
 };

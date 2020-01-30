@@ -328,7 +328,7 @@ label {
     padding: 29px 62px 53px 62px;
 }
 .form-heading-rp{
-    width: 100%;
+    display: inline;
     height: 42px;
     font-family: Poppins;
     font-style: normal;
@@ -338,11 +338,9 @@ label {
     margin: unset;
     padding: unset;
 }
-/*.heading-reset-password {*/
-/*    margin-bottom: 44px !important;*/
-/*}*/
 .cancel-button-rp{
     margin-bottom: 44px;
     float: right;
-    margin-right: 1px;
+    margin-top: 0px;
+    margin-right: 0px;
 }
