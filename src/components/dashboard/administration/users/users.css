@@ -281,3 +281,69 @@ label {
     padding-left: 10px !important;
     font-size: 16px !important;
 }
+.btn-back {
+    width: 102px;
+    height: 38px;
+    background: #005404;
+    border-radius: 5px;
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+
+    color: #FFFFFF;
+}
+.btn-back-svg {
+    margin-left: 8.59%;
+    margin-right: 8.59%;
+}
+.btn-delete {
+    width: 149px;
+    height: 38px;
+    background: #E6582B;
+    border-radius: 5px;
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+.btn-delete-svg {
+    left: 0%;
+    right: -0.01%;
+    top: 0%;
+    bottom: 0%;
+}
+.div-reset-password {
+    width: 476px;
+    height: 460px;
+    background: #FFFFFF;
+    border: 1.43275px solid #D8DDE2;
+    box-shadow: 0px 8.59649px 22.924px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-top: 60px;
+    padding: 29px 62px 53px 62px;
+}
+.form-heading-rp{
+    width: 100%;
+    height: 42px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 42px;
+    margin: unset;
+    padding: unset;
+}
+/*.heading-reset-password {*/
+/*    margin-bottom: 44px !important;*/
+/*}*/
+.cancel-button-rp{
+    margin-bottom: 44px;
+    float: right;
+    margin-right: 1px;
+}

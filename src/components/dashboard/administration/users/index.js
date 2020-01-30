@@ -9,6 +9,7 @@ import col from "./colums";
 import CreateUser from "./CreateUser";
 import UpdateUser from "./EditUsers";
 import ViewUser from "./ViewUsers";
+import ResetPassword from "./resetPassword";
 import { UserList, DeleteUser } from "../../../../server.js";
 import { useContext } from "react";
 //import { deleteType } from "../../../actions/typeActions";
@@ -53,7 +54,7 @@ useEffect(function() {
                         description: "User Deleted Successfully.",
                         type: "success"
                     })
-                    history.push('/admin/venues');
+                    history.push('/admin/users');
                     window.location.reload();
                 }
                 else{
@@ -100,6 +101,7 @@ useEffect(function() {
         <Route  path="/admin/users/create" render={() => < CreateUser/>}/>
         <Route  path="/admin/users/update" render={() => < UpdateUser />}/>
         <Route  path="/admin/users/view" render={() => < ViewUser />}/>
+        <Route  path="/admin/users/resetpassword" render={() => < ResetPassword />}/>
         </Switch>
         </div>
 

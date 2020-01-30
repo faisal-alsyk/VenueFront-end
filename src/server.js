@@ -15,7 +15,7 @@ export const getUser = (id) => {
     return axios.get(`admin/${id}`)
 }
 export const UpdateUser = (id, payload) => {
-    return axios.patch(`users/${id}`, payload)
+    return axios.patch(`admin/${id}`, payload)
 }
 
 export const VenueList = () => {
@@ -53,4 +53,8 @@ export const DeleteVenue = (id) =>{
 
 export const getVenue = (id) => {
     return axios.get(`venues/${id}`)
+}
+
+export const resetUserPassword = (payload) => {
+    return axios.patch('admin/changepassword');
 }

@@ -24,6 +24,7 @@ const popNotification = (data) => {
 export default function Users() {
     const history = useHistory();
     let [venueData, setVenueData] = useState( [] );
+    let [refresh, setRefresh] = useState(false);
     useEffect(()=>{
         VenueList()
             .then(response => {
@@ -80,7 +81,7 @@ export default function Users() {
         <div id="form">
             <Switch>
                 <Route  exact path="/admin/venues">
-                    
+
                     <ReactTable
                         data={venueData}
                         columns={columns}
@@ -88,8 +89,12 @@ export default function Users() {
                         source ={venue}
                     />
                 </Route>
-                <Route  path="/admin/venues/create" render={() => < CreateVenues />}/>
-                <Route  path="/admin/venues/update" render={() => < UpdateVenues />}/>
+                <Route  path="/admin/venues/create" render={() => < CreateVenues refresh = { () => {
+                    const changedRefresh = !refresh;
+                    setRefresh(changedRefresh);
+                }}
+                    />}/>
+                    <Route path="/admin/venues/update" render={() => < UpdateVenues />}/>
                 <Route  path="/admin/venues/view" render={() => < ViewVenues />}/>
             </Switch>
         </div>

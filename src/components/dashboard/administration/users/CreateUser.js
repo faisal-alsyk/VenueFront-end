@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom"
 import './users.css';
 import { createNewUser } from "../../../../server";
 import { notification } from "antd";
+import { Redirect } from "react-router-dom";
 
 const popNotification = (data) => {
     notification[data.type]({
@@ -17,7 +18,7 @@ export default  function CreateUser() {
 
     let [name, setName] = useState('');
     let [email, setEmail] = useState('');
-    let [staffId, setStaffId] = useState('');
+    let [staffId, setStaffId] = useState(0);
     let [role, setRole] = useState('Staff');
     let [department, setDepartment] = useState('HR- Human Resource');
     let [phoneNumber, setPhoneNumber] = useState('');
@@ -44,8 +45,10 @@ export default  function CreateUser() {
                             description: "User Created Successfully.",
                             type: "success"
                         })
-                        history.push('/admin/users');
-                        window.location.reload();
+                        return <Redirect to="/admin/users"/>
+                        // history.push('/admin/users');
+                        // window.location.reload();
+
                     }
                     else{
                         popNotification({
@@ -100,7 +103,7 @@ export default  function CreateUser() {
                     <label>User ID</label>
                     <div className="row">
                         <div className="col-md-6">
-                            <input className="input input-short" type="text" onChange={event => {
+                            <input className="input input-short" type="number" onChange={event => {
                                 setStaffId(event.target.value);
                             }}/>
                         </div>
@@ -108,12 +111,13 @@ export default  function CreateUser() {
                             <label className="_label">This ID is the existence ID and can be use for user searching</label>
                         </div>
                     </div>
-                    <label>Actual user role</label>
+                    <label>Actual User Role</label>
                     <select className="select select-short" onChange={event => {
                         setRole(event.target.value);
                     }}>
                         <option>User</option>
-                        <option>Staff</option>
+                        <option>Admin</option>
+                        <option>Public</option>
                     </select>
                     <label>Department</label>
                     <select className="select" onChange={event => {

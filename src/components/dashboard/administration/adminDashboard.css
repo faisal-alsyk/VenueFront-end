@@ -55,13 +55,17 @@
     letter-spacing: 0.05em;
 
     color: #050505;
-    
+    margin-left: 2px;
+    padding-left: 0px;
 }
 .menu-item-icon {
   color: rgba(255, 255, 255, 0.6);
   width: 18px;
   margin-top: 3px;
   margin-right: 8px;
+}
+.menu-item-svg {
+    margin-right: 10px;
 }
 
 .arrow {

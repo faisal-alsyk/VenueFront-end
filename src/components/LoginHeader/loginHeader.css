@@ -30,13 +30,26 @@
 }
 
 .show-logout {
-    display: block;
-    displat:flex;
-    align-items: center;
-    font-size: 16px;
-    background-color: #d9e0e8;
-    border-radius: 5px;
-    float: right !important;
+    position: absolute;
+    width: 110px;
+    height: 28px;
+    left: 1275px;
+    top: 26px;
+
+    background: #9A9EA0;
+    box-shadow: 0px 4px 10px rgba(154, 158, 160, 0.27);
+    border-radius: 8px;
+
+    font-family: Quicksand;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+
+    letter-spacing: 0.05em;
+
+    color: #FFFFFF;
 }
 
 .hide-logout {
