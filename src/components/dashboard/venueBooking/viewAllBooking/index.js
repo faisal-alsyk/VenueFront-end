@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory} from 'react-router-dom'
+import { Link, Route, Switch, useHistory} from "react-router-dom";
 
 
 import "../../reactTable/reactTable.css"
 import "../venueDashboard.css"
+
+import CreateBooking from "../CreateBooking";
 import CalanderFull from '../fullClender'
 import { getbooking } from '../../../../server'
+import EditBooking from '../EditBooking';
 
 
 export default function AllBooking () {
@@ -43,12 +46,14 @@ export default function AllBooking () {
     }, [refresh])
 
     const onCreate = () => {
-        history.push("/venuebooking/create");
+        history.push("/venuebooking/booking/create");
       };
     
         return (
            <>
                 <div className="col-md-12">
+                <Switch>
+                <Route  exact path="/venuebooking/booking">
                     <div
                         style={{
                         width:'100%',
@@ -72,8 +77,23 @@ export default function AllBooking () {
                         </button>  
                     </div>
                     <div className = "clendar-div">
-                     <CalanderFull eventsdata= {eventsdata} resourcesData={resourcesData}></CalanderFull>
+                     <CalanderFull eventsdata= {eventsdata} resourcesData={resourcesData} refresh = { () => {
+                    const changeRefresh = !refresh;
+                    setRefresh(changeRefresh)}}></CalanderFull>
                     </div>
+
+                </Route>
+                <Route path="/venuebooking/booking/create" render={() => <CreateBooking  refresh = { () => {
+                    const changeRefresh = !refresh;
+                    setRefresh(changeRefresh)}}/>} 
+                />
+                 <Route path="/venuebooking/booking/update" render={() => <EditBooking  refresh = { () => {
+                    const changeRefresh = !refresh;
+                    setRefresh(changeRefresh)}}/>}
+                 />
+
+                </Switch>
+                    
 
                 </div>
 

@@ -18,10 +18,10 @@ export default function Header() {
                                 src={ logo }
                                 alt="admin" />
             <h2 >One Stop Management System</h2>
-            <button className={(path === "/login" || path === "/") ? 'hide-logout': 'show-logout'}
+            {/* <button className={(path === "/login" || path === "/") ? 'hide-logout': 'show-logout'}
             onClick={event => {
                 onLogout(event);
-            }}>Logout</button>
+            }}>Logout</button> */}
         </nav>
     );
 }

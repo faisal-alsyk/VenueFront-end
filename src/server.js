@@ -81,5 +81,5 @@ export const getbooking = (id) => {
 }
 
 export const getbookingByAdmin = (role) => {
-    return axios.get(`bookings/${role}`)
+    return axios.get(`bookings?role=Admin`)
 }
