@@ -21,8 +21,8 @@ import AdminDashboard from "./components/dashboard/administration";
 import VenueDashboard from "./components/dashboard/venueBooking";
 //import { ProtectedRoute } from "./routers/ProtectedRoute";
 
-axios.defaults.baseURL = "http://localhost:4200/api";
-//  axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
+// axios.defaults.baseURL = "http://localhost:4200/api";
+ axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 // import { createBrowserHistory } from "history";
 // import { Router, Route, Switch, Redirect } from "react-router-dom";
