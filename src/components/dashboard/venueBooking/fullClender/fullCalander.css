@@ -1,28 +1,31 @@
 
-
-.input {
-  width:100% !important;
-  font-size: 20px;
-  color: black;
+.modal-span {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 14px;
+    color: #777E82;
 }
-.group-input {
-    height: 48px;
-    background: #FFFFFF;
-    border: 1px solid #D8DDE2;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-.input-label {
-    text-align: center;
-    font-size: 16px;
-    padding-top: 8px;
-    font-weight: bold;
+.modal-p {
+  font-size: 14px;
 
 }
-.input.datepicker {
-    width:100% !important;
-    font-size: 20px;
-    color: black;
-    margin-bottom: unset; 
-    padding: 5px 10px;
-  }
+
+.btn-delete {
+  width: auto !important;
+  height: 30px !important;
+  background: #E6582B;
+  border-radius: 5px;
+  font-family: Quicksand;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px !important;
+  line-height: 22px !important;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+}
+.btn-delete-svg {
+  left: 0%;
+  right: -0.01%;
+  top: 0%;
+  bottom: 0%;
+}

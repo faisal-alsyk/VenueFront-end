@@ -7,7 +7,7 @@ import { DatePicker, TimePicker } from 'antd';
 import moment from 'moment';
 
 import "react-datepicker/dist/react-datepicker.css";
-import {VenueList, createBooking} from "../../../server";
+import {VenueList, getbookingbyId, updateBoking} from "../../../server";
 import "./venueDashboard.css";
 const popNotification = (data) => {
     notification[data.type]({
@@ -17,18 +17,18 @@ const popNotification = (data) => {
     });
 };
 
-export default  function CreateVenue({refresh}) {
+export default  function EditBooking({refresh}) {
 
     const history = useHistory();
     const [venueData, setVenueData] = useState([]);
 
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState("");
     const [venueId, setVenueId] = useState('0');
     const [start, setStart] = useState(new Date());
     const [end, setEnd] = useState();
-    const [purpose, setPurpose] = useState('');
+    const [purpose, setPurpose] = useState("");
 
-
+    const {bookingData} = history.location.state;
     useEffect(()=>{
 
         VenueList()
@@ -39,7 +39,22 @@ export default  function CreateVenue({refresh}) {
                 alert(error.message);
             });
 
+        getbookingbyId(bookingData.id)
+            .then(response => {
+
+                const editData = response.data.data;
+                setTitle(editData.title);
+                setVenueId(editData.venueId);
+                setStart(editData.start);
+                setEnd(editData.end);
+                setPurpose(editData.purpose);
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+
     },[]);
+    console.log(title);
 
     function range(start, end) {
         const result = [];
@@ -62,7 +77,7 @@ export default  function CreateVenue({refresh}) {
         };
       }
       
-    const onUpdateBooking = event => {
+    const  onupdateBoking = event => {
         event.preventDefault();
             let payload = {
                 title,
@@ -71,13 +86,12 @@ export default  function CreateVenue({refresh}) {
                 end,
                 purpose
             };
-            console.log("payload payload",payload)
-            createBooking(payload)
+            updateBoking(bookingData.id, payload)
                 .then(response =>{
-                    if(response.data.status === "Success"){
+                    if(response.data.status === "Updated"){
                         popNotification({
                             title: response.data.status,
-                            description: "Venue booking Created Successfully.",
+                            description: "Venue booking update Successfully.",
                             type: "success"
                         })
                         refresh();
@@ -86,7 +100,7 @@ export default  function CreateVenue({refresh}) {
                     else{
                         popNotification({
                             title: "Try Again",
-                            description: "Could not create venue booking. Please Try Again.",
+                            description: "Could not update venue booking. Please Try Again.",
                             type: "warning"
                         })
                     }
@@ -100,7 +114,7 @@ export default  function CreateVenue({refresh}) {
                     })
                 })
     }
-    console.log(venueData);
+
     const venueOption = venueData.map((data, index) => 
      <option key={index} value = { data._id }>{data.name}</option>
 
@@ -117,7 +131,8 @@ export default  function CreateVenue({refresh}) {
                     <input 
 
                         className="input"
-                        type="text" 
+                        type="text"
+                        value= {title} 
                         onChange={event => {
                             setTitle(event.target.value);
                          }}
@@ -150,15 +165,13 @@ export default  function CreateVenue({refresh}) {
                             className="input"
                             size="large"  
                             format="YYYY-MM-DD HH:mm:ss"
-                            defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
+                            value={moment(start)}
                             disabledDate={disabledDate}
                             // disabledTime={disabledDateTime}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                             onChange={date => {
-                                 const dateStart = moment(date._d);
-                                 const startUtc = dateStart.utc()
-                               
-
+                                const dateStart = moment(date._d);
+                                const startUtc = dateStart.utc()
                                 setStart(startUtc);
                             }}
                         />
@@ -174,15 +187,14 @@ export default  function CreateVenue({refresh}) {
                             className="input"
                             size="large"  
                             format="YYYY-MM-DD HH:mm:ss"
-                             //defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
+                             value = {moment(end)}
                             disabledDate={disabledDate}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                             onChange={date => {
                                 const datemovement = moment(date._d);
-                                var endtUtc = datemovement.utc();
-                                
+                                var endUtc = datemovement.utc()
 
-                                setEnd(endtUtc);
+                                setEnd(endUtc);
                             }}
                         />
                        
@@ -192,15 +204,15 @@ export default  function CreateVenue({refresh}) {
                     <label className="input-label">Booking Purpose</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
-                    <textarea className="input" type="textarea" style={{padding:"10px", fontSize:"20px",height:"unset"}} row="3" onChange={event => {
+                    <textarea className="input" value ={purpose} type="textarea" style={{padding:"10px", fontSize:"20px",height:"unset"}} row="3" onChange={event => {
                         setPurpose(event.target.value);
                     }}/>
                     </div>
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
-                    <button className="button button-large" style={{paddingBottom:"20px"}} onClick={event => {
-                        onUpdateBooking(event);
-                    }}>Create</button>
+                    <button className="button button-large" style={{paddingBottom:"20px", paddingTop:"5px"}} onClick={event => {
+                        onupdateBoking(event);
+                    }}>Update</button>
 
                     </div>
 

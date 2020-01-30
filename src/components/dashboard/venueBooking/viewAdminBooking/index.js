@@ -12,6 +12,10 @@ export default function AdminBooking () {
 
     const history = useHistory();
     const [data, setData] = useState([]);
+
+    const [eventsdata, setEventsData] = useState([]);
+    const [resourcesData, setResourcesData] = useState([]);
+
     const [refresh, setRefresh] = useState([]);
     const role = "admin";
 
@@ -19,7 +23,8 @@ export default function AdminBooking () {
 
         getbookingByAdmin(role)
         .then(response => {
-            setData(response.data);
+            setResourcesData(response.data.resources);
+            setEventsData(response.data.events);
         })
         .catch(error => {
             alert(error.message);
@@ -31,7 +36,8 @@ export default function AdminBooking () {
 
         getbookingByAdmin(role)
         .then(response => {
-            setData(response.data);
+            setResourcesData(response.data.resources);
+            setEventsData(response.data.events);
         })
         .catch(error => {
             alert(error.message);
@@ -42,7 +48,9 @@ export default function AdminBooking () {
     return (
         <>
             <div className = "clendar-div">
-                <CalanderFull events= {data.events} res= {data.resources} ></CalanderFull>
+                <CalanderFull eventsdata= {eventsdata} resourcesData={resourcesData} refresh = { () => {
+                    const changeRefresh = !refresh;
+                    setRefresh(changeRefresh)}}></CalanderFull>
             </div>
         </>
     )

@@ -14,8 +14,8 @@ export default function Sidebar() {
     <div style={{ width: "100%" , marginBottom: "19px"}}>
       <div className="nav-down-manu">
         <MenuItem
-          link="/venuebooking"
-          selected={path === "/venuebooking"  ? true : false}
+          link="/venuebooking/booking"
+          selected={path === "/venuebooking/booking"  ? true : false}
           title="View All booking"
         />
         <MenuItem
@@ -29,9 +29,9 @@ export default function Sidebar() {
             title="Priority Booking"
             />
             <MenuItem
-            link="/venuebooking/add"
-            selected={path === "/venuebooking/add" ? true: false}
-            title="Add/update/delete"
+            link="/venuebooking/bulk"
+            selected={path === "/venuebooking/bulk" ? true: false}
+            title="Bulk Booking"
             />
       </div>
     </div>

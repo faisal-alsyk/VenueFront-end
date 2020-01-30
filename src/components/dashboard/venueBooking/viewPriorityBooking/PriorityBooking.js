@@ -7,8 +7,8 @@ import { DatePicker, TimePicker } from 'antd';
 import moment from 'moment';
 
 import "react-datepicker/dist/react-datepicker.css";
-import {VenueList, createBooking} from "../../../server";
-import "./venueDashboard.css";
+import {VenueList, createBooking} from "../../../../server";
+import "../venueDashboard.css";
 const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
@@ -17,7 +17,7 @@ const popNotification = (data) => {
     });
 };
 
-export default  function CreateVenue({refresh}) {
+export default  function PriorityBooking({refresh}) {
 
     const history = useHistory();
     const [venueData, setVenueData] = useState([]);
@@ -81,7 +81,7 @@ export default  function CreateVenue({refresh}) {
                             type: "success"
                         })
                         refresh();
-                        history.goBack();
+                        history.push('/venuebooking');
                     }
                     else{
                         popNotification({
