@@ -36,7 +36,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
     }
 
     useEffect( function () {
-          calendarComponentRef.current.getApi().setOption('height', 634); 
+          calendarComponentRef.current.getApi().setOption('height', 600); 
          }, [])
 
     const eventDetail = data => {

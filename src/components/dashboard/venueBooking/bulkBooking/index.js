@@ -28,9 +28,11 @@ export default function  BulkBooking () {
     
     const keys = [
     "title",
-    "venueId",
-    "start",
-    "end",
+    "venueName",
+    "startDate",
+    "startTime",
+    "endDate",
+    "endTime",
     "purpose",
     ]
 
@@ -53,6 +55,7 @@ export default function  BulkBooking () {
                         type: "warning"
                     })
                 }
+                setActive(false);
 
             })
             .catch(error=>{
@@ -61,6 +64,8 @@ export default function  BulkBooking () {
                     description: error.message,
                     type: "error"
                 })
+                setActive(false);
+
             })
 
         

@@ -46,12 +46,14 @@ export default function AdminBooking () {
     }, [refresh])
     
     return (
-        <>
+        <>  
+        <div className="col-md-12">
             <div className = "clendar-div">
                 <CalanderFull eventsdata= {eventsdata} resourcesData={resourcesData} refresh = { () => {
                     const changeRefresh = !refresh;
                     setRefresh(changeRefresh)}}></CalanderFull>
             </div>
+        </div>
         </>
     )
     
