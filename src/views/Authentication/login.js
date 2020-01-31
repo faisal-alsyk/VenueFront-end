@@ -15,14 +15,6 @@ const popNotification = (data) => {
         duration: 8
     });
 };
-const activeSession = () => {
-    if (localStorage.getItem('token')){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
 
 let login = function Login(props) {
     const history = useHistory();
@@ -101,9 +93,6 @@ let login = function Login(props) {
     if(loading && showLoginForm) {
         viewContent = <Spinner/>
     } else {
-        if(activeSession()){
-            history.push('/dashboard');
-        }
         viewContent = (
         <div className={ showLoginForm === true ? 'Login div-login' : 'hideLogin'}>
         <form>
