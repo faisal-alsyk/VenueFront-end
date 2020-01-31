@@ -16,7 +16,7 @@ export default function Sidebar() {
         <MenuItem
           link="/venuebooking/booking"
           selected={path === "/venuebooking/booking"  ? true : false}
-          title="View All booking"
+          title="View All Booking"
         />
         <MenuItem
             link="/venuebooking/admin"

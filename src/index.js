@@ -66,7 +66,7 @@ ReactDOM.render(
     //         <Redirect from="/" to="/login" /> */}
     //     </Switch>
     // </Router>,
-    <div className="App">
+    <div className="app">
       {/*<Provider store={Store}>*/}
         <Router>
           <Switch>

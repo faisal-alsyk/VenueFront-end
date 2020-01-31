@@ -15,7 +15,7 @@ export default function Sidebar() {
       <div className="nav-down-manu">
         <MenuItem
           link="/admin/users"
-          selected={(path === "/admin/users") || (path === "/admin/users/create") || (path.includes("/admin/users/view/")) || (path.includes("/admin/users/update"))  ? true : false}
+          selected={(path === "/admin/users") || (path === "/admin/users/create") || (path.includes("/admin/users/view/")) || (path.includes("/admin/users/update") || (path.includes("/admin/users/resetpassword")))  ? true : false}
           title="USERS"
         />
         <MenuItem

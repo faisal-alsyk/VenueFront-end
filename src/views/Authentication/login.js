@@ -55,10 +55,10 @@ let login = function Login(props) {
     }
     function onVerifyAdminCode (event) {
         event.preventDefault();
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
         let payload = {
             verificationCode: adminCode
         };
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
         verifyAdminCode(payload)
             .then(response=>{
                 setloading(false)
@@ -66,10 +66,8 @@ let login = function Login(props) {
                     title: response.data.status,
                     description: response.data.message,
                     type: "success"
-                })
-                    setloading(false);
-                    history.push('/dashboard');
-
+                });
+                history.push('/dashboard');
                 })
             .catch(error=> {
                 setloading(false);
@@ -79,8 +77,6 @@ let login = function Login(props) {
                     type: "error"
                 })
                 setshowLoginForm(true);
-
-
                 history.push('/login');
             })
     }

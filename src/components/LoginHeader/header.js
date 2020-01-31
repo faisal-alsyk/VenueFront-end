@@ -14,15 +14,17 @@ export default function Header() {
     }
     return (
         <nav className = "navbar navbar-expand-lg navbar-light bg-light nav-all">
-         <img className="navbar-brand nav-logo"
-                                src={ logo }
-                                alt="admin" />
-            <h2 >One Stop Management System</h2>
-            {/* <button className={(path === "/login" || path === "/") ? 'hide-logout': 'show-logout'}
+            <div className="nav-bar">
+                <img className="navbar-brand nav-logo"
+                     src={ logo }
+                     alt="admin" />
+                <h2 className="nav-heading">One Stop Management System</h2>
+            </div>
+
+            <button className={(path === "/login" || path === "/") ? 'hide-logout': 'show-logout'}
             onClick={event => {
                 onLogout(event);
-            }}>Logout</button> */}
+            }}>Logout</button>
         </nav>
     );
-}
-;
+};
