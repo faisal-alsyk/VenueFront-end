@@ -17,7 +17,7 @@ const popNotification = (data) => {
     });
 };
 
-export default  function PriorityBooking({refresh}) {
+export default  function PriorityBooking() {
 
     const history = useHistory();
     const [venueData, setVenueData] = useState([]);
@@ -80,7 +80,6 @@ export default  function PriorityBooking({refresh}) {
                             description: "Venue booking Created Successfully.",
                             type: "success"
                         })
-                        refresh();
                         history.push('/venuebooking');
                     }
                     else{

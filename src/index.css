@@ -39,4 +39,9 @@ body {
 .ant-input-lg, .ant-time-picker-input {
     height: 48px !important;
 }
-
+.fc-toolbar {
+    flex-wrap: wrap;
+}
+.fc-button-group {
+    margin-bottom: 1rem;
+}
