@@ -76,3 +76,22 @@
 
     max-width: 20.666667%;
 }
+
+.head-h3 {
+  height: 35px;
+  font-family: Quicksand !important;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 35px;
+  margin-top: 42px;
+  margin-bottom: 20px;
+  /* identical to box height */
+
+
+  color: #000000;
+}
+.head-div{
+  margin-bottom: 33px;
+  display: flex;
+}

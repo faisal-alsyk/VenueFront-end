@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import { Row, Col } from 'antd';
-import { Link } from "@material-ui/core";
 import "./reactTable.css"
+import { Link } from "react-router-dom";
 const ReactTable = ({ data, columns, onCreate, source, type }) => {
     let [role, setRole] = useState("");
     let [searchId, setSearchId] = useState("");

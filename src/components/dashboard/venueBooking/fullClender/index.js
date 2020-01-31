@@ -24,6 +24,8 @@ const popNotification = (data) => {
 export default function CalanderFull({eventsdata, resourcesData, refresh}) {
 
     const history = useHistory();
+    const calendarComponentRef = React.createRef();
+
     const [ calendarWeekends, setCalenderWeekends ] =  useState(true);
     const [modalVisible, SetModalVisible] = useState(false);
     const [bookingData, setBookingData ] = useState({});
@@ -32,6 +34,10 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
       SetModalVisible({ modal });
 
     }
+
+    useEffect( function () {
+          calendarComponentRef.current.getApi().setOption('height', 634); 
+         }, [])
 
     const eventDetail = data => {
 
@@ -100,7 +106,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
           schedulerLicenseKey="0239611991-fcs-1580209060"
           plugins= {[ resourceTimeline, interaction ]}
           resourceLabelText= 'Rooms'
-          // timeZone= 'UTC'
+          ref = { calendarComponentRef }
           eventClick={eventDetail}
          resources = {resourcesData}
           events= {eventsdata}
