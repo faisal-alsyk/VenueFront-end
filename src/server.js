@@ -83,3 +83,7 @@ export const getbooking = (id) => {
 export const getbookingByAdmin = (role) => {
     return axios.get(`bookings?role=Admin`)
 }
+
+export const AddCsv = (payload) => {
+    return axios.post('bookings/bulkbooking', payload)
+}

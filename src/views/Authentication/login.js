@@ -61,7 +61,6 @@ let login = function Login(props) {
         };
         verifyAdminCode(payload)
             .then(response=>{
-                setloading(false)
                 popNotification({
                     title: response.data.status,
                     description: response.data.message,
