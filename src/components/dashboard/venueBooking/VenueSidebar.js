@@ -15,7 +15,7 @@ export default function Sidebar() {
       <div className="nav-down-manu">
         <MenuItem
           link="/venuebooking/booking"
-          selected={path === "/venuebooking/booking"  ? true : false}
+          selected={path === "/venuebooking/booking" || (path === "/venuebooking/booking/create")  ? true : false}
           title="View All Booking"
         />
         <MenuItem

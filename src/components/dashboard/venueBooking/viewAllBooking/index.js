@@ -16,7 +16,7 @@ export default function AllBooking () {
     const history = useHistory();
     const [eventsdata, setEventsData] = useState([]);
     const [resourcesData, setResourcesData] = useState([]);
-    const [refresh, setRefresh] = useState([]);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
 

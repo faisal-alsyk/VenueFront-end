@@ -144,7 +144,7 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
           justifyContent: "space-between"
         }}
       >
-        <Link
+        <a
           className ="btn-create"
           onClick={onCreate}
         >
@@ -153,7 +153,7 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
         </svg>
 
           <span className="btn-text">{source.create}</span>
-        </Link>
+        </a>
         <form className="form-inline my-2 my-lg-0 pull-right _user">
             {type === "user"? userFilter() : venueFilter()}
 
@@ -164,7 +164,9 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
                    }}/>
         </form>
       </div>
+      <div className="col-md-12 table-div">
       <Table className="table-user" dataSource={tableData()} columns={columns} />
+      </div>
     </div>
   );
 };

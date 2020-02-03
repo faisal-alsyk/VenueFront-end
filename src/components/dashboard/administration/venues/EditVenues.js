@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import {useHistory} from "react-router-dom";
 import {getVenue, UpdateVenue} from "../../../../server";
 import { notification } from "antd";
+import classname from "classname";
+
 
 const popNotification = (data) => {
     notification[data.type]({
@@ -31,7 +33,11 @@ const updateVenue = function EditVenue({refresh}) {
 
     let [name, setName] = useState(venueData.name);
     let [size, setSize] = useState(venueData.size);
+    
     let [status, setStatus] = useState(venueData.status);
+
+    const [err, setErr] = useState();
+    
 
     function onUpdate(event){
         event.preventDefault();
@@ -73,6 +79,14 @@ const updateVenue = function EditVenue({refresh}) {
         history.push(`/admin/venues/view/${id}`);
     }
 
+    let errName, errSize, errVenue, errRole  ;
+    if(err) {
+        errName = err.name;
+        errVenue = err.venueId;
+        errSize = err.size;
+        errRole = err.role
+    }
+    
     return (
         <div>
             <div className="row">
@@ -87,21 +101,40 @@ const updateVenue = function EditVenue({refresh}) {
                     </b> Cancel</button>
                     <hr/>
                     <label>Name</label>
-                    <input className="input" type="text" value={name} onChange={event => {
+                    <input 
+                     className={classname("input form-control", {
+                        "is-invalid": errName
+                        })} 
+                    type="text" 
+                    value={name} 
+                    onChange={event => {
                         setName(event.target.value);
-                    }}/>
+                    }} required/>
+                    {errName && <div className="invalid-feedback">{errName}</div>}
+
                     <label>Size</label>
-                    <input className="input" type="text" value={size} onChange={event => {
+                    <input 
+                     className={classname("input form-control", {
+                        "is-invalid": errSize
+                    })} 
+                    type="text" 
+                    value={size} 
+                    onChange={event => {
                         setSize(event.target.value);
-                    }}/>
+                    }} required/>
+                   {errSize && <div className="invalid-feedback">{errSize}</div>}
+
                     <label>Status</label>
-                    <select className="select select-short" value={status} onChange={event => {
+                    <select 
+                    className="select select-short custom-select" required  value={status} onChange={event => {
                         setStatus(event.target.value);
                     }}>
                         <option>Available</option>
                         <option>Busy</option>
                     </select>
-                    <button className="button button-med-2 button-full" onClick={event=>{
+                    {errRole && <div className="invalid-feedback">{errRole}</div>}
+
+                    <button className="button button-large" onClick={event=>{
                         onUpdate(event);
                     }}>Update</button>
                 </div>

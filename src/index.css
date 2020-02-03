@@ -39,4 +39,18 @@ body {
 .ant-input-lg, .ant-time-picker-input {
     height: 48px !important;
 }
-
+.fc-toolbar {
+    flex-wrap: wrap;
+}
+.fc-button-group {
+    margin-bottom: 1rem;
+}
+.navbar-light .navbar-nav .nav-link {
+    font-family: Quicksand !important;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    color: #050505;
+}

@@ -12,7 +12,7 @@ export default function Dashboard(){
         <div className="container">
             <div className="row div-row">
 
-                <div className="col-md-6dashboard-container">
+                <div className="dashboard-container">
                     <div className="button-card col-md-6 col-xs-12">
                         <Link to="/admin/users" className="button-content">
                         <svg width="63" height="50" viewBox="0 0 84 68" fill="none" xmlns="http://www.w3.org/2000/svg">

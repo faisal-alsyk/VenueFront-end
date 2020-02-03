@@ -88,29 +88,31 @@ export default  function CreateUser( {refresh}) {
                 </svg>
 
                     </b> Cancel</button>
+            <form onSubmit={event => {
+                onCreateNewUser(event);}}>
             <div className="row">
                 <div className="col-md-6 column-1">
                     <label>Name</label>
-                    <input className="input" type="text" onChange={event => {
+                    <input className="input form-control" type="text" onChange={event => {
                         setName(event.target.value);
-                    }}/>
+                    }} required/>
                     <label>Email</label>
-                    <input className="input" type="text" onChange={event => {
+                    <input className="input form-control" type="email" onChange={event => {
                         setEmail(event.target.value);
-                    }}/>
+                    }} required/>
                     <label>User ID</label>
                     <div className="row">
                         <div className="col-md-6">
-                            <input className="input input-short" type="number" onChange={event => {
+                            <input className="input form-control input-short" type="number" onChange={event => {
                                 setStaffId(event.target.value);
-                            }}/>
+                            }} required/>
                         </div>
                         <div className="col-md-6">
                             <label className="_label">This ID is the existence ID and can be use for user searching</label>
                         </div>
                     </div>
                     <label>Actual User Role</label>
-                    <select className="select select-short" onChange={event => {
+                    <select className="select custom-select select-short" required onChange={event => {
                         setRole(event.target.value);
                     }}>
                         <option>User</option>
@@ -118,7 +120,7 @@ export default  function CreateUser( {refresh}) {
                         <option>Public</option>
                     </select>
                     <label>Department</label>
-                    <select className="select" onChange={event => {
+                    <select className="select custom-select" required onChange={event => {
                         setDepartment(event.target.value);
                     }}>
                         <option>HR- Human Resource</option>
@@ -131,7 +133,7 @@ export default  function CreateUser( {refresh}) {
                     <h4 className="col-2-heading">Credential - MFA Setups</h4><br/>
                     <label className="_label">Setup user Firsst-time password which will send via their email address and verify mobile number for MFA setups</label><br/>
                     <br/><label>First-Time Password</label>
-                    <input className="input" id="Password" type="text" value={password} onChange={event => {
+                    <input className="input form-control" required id="Password" type="text" value={password} onChange={event => {
                         setPassword(event.target.value);
                     }}/>
                     <div className="row gen-pass">
@@ -151,24 +153,23 @@ export default  function CreateUser( {refresh}) {
                              (+65)
                         </div>
                         <div className="col-md-9 mobile-input">
-                            <input className="input" type="text" onChange={event => {
+                            <input className="input form-control" required type="text" onChange={event => {
                                 setPhoneNumber(event.target.value);
                             }}/>
                         </div>
                     </div>
                     <br/><br/>
                     <h3 className="tac-heading">Terms & Conditions</h3><br/>
-                    <div className="tac-check"><input type="checkbox" onChange={event =>settnc(!tnc)
+                    <div className="tac-check"><input type="checkbox" required onChange={event =>settnc(!tnc)
                     }/>
                         <label className="tac-text">
                             I hereby have read all the terms and conditon while creating and allowing user to use and access data within this application
                         </label></div>
-                    <button className="button button-large" onClick={event => {
-                        onCreateNewUser(event);
-                    }}>Create</button>
+                    <button type="submit" className="button button-large" >Create</button>
                 </div>
 
             </div>
+            </form>
         </div>
     );
 }

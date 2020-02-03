@@ -21,6 +21,7 @@ letter-spacing: 0.05em !important;
 color: #FFFFFF;
 }
 .table-user {
+    min-width: 800px;
     background: #FFFFFF;
     border: 1.43275px solid #D8DDE2;
     box-shadow: 0px 8.59649px 22.924px rgba(0, 0, 0, 0.1);
@@ -100,3 +101,13 @@ justify-content: space-between;
 
     color: #000000;
 }
+.table-div {
+    overflow-x: scroll;
+}
+
+@media only screen and (max-width: 991px) {
+    .table-div {
+        padding: unset;
+    }
+    
+  }
