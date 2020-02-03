@@ -87,3 +87,7 @@ export const getbookingByAdmin = (role) => {
 export const AddCsv = (payload) => {
     return axios.post('bookings/bulkbooking', payload)
 }
+
+export const priorityBooking = (payload) => {
+    return axios.post('bookings/prioritybooking', payload)
+}

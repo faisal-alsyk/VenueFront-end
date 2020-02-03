@@ -7,7 +7,7 @@ import { DatePicker, TimePicker } from 'antd';
 import moment from 'moment';
 
 import "react-datepicker/dist/react-datepicker.css";
-import {VenueList, createBooking} from "../../../../server";
+import {VenueList, priorityBooking} from "../../../../server";
 import "../venueDashboard.css";
 const popNotification = (data) => {
     notification[data.type]({
@@ -61,7 +61,7 @@ export default  function PriorityBooking({refresh}) {
           disabledSeconds: () => [55, 56],
         };
       }
-      
+
     const onUpdateBooking = event => {
         event.preventDefault();
             let payload = {
@@ -71,8 +71,7 @@ export default  function PriorityBooking({refresh}) {
                 end,
                 purpose
             };
-            console.log("payload payload",payload)
-            createBooking(payload)
+            priorityBooking(payload)
                 .then(response =>{
                     if(response.data.status === "Success"){
                         popNotification({
@@ -101,7 +100,7 @@ export default  function PriorityBooking({refresh}) {
                 })
     }
     console.log(venueData);
-    const venueOption = venueData.map((data, index) => 
+    const venueOption = venueData.map((data, index) =>
      <option key={index} value = { data._id }>{data.name}</option>
 
     )
@@ -114,10 +113,10 @@ export default  function PriorityBooking({refresh}) {
                     <label className="input-label">Booking Name</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
-                    <input 
+                    <input
 
                         className="input"
-                        type="text" 
+                        type="text"
                         onChange={event => {
                             setTitle(event.target.value);
                          }}
@@ -127,10 +126,10 @@ export default  function PriorityBooking({refresh}) {
                     <label className="input-label">Venue</label>
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
-                    <select 
-                        className="input" 
-                        value={venueId} 
-                        style={{width:"100%"}} 
+                    <select
+                        className="input"
+                        value={venueId}
+                        style={{width:"100%"}}
                         onChange={event => {
                             setVenueId(event.target.value);
                         }}
@@ -148,7 +147,7 @@ export default  function PriorityBooking({refresh}) {
 
                          <DatePicker
                             className="input"
-                            size="large"  
+                            size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                             defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
                             disabledDate={disabledDate}
@@ -157,22 +156,22 @@ export default  function PriorityBooking({refresh}) {
                             onChange={date => {
                                  const dateStart = moment(date._d);
                                  const startUtc = dateStart.utc()
-                               
+
 
                                 setStart(startUtc);
                             }}
                         />
-                       
+
                     </div>
 
                     <div className="col-md-4 col-xs-6">
                     <label className="input-label">Booking End Date</label>
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
-                        
+
                          <DatePicker
                             className="input"
-                            size="large"  
+                            size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                              //defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
                             disabledDate={disabledDate}
@@ -180,12 +179,12 @@ export default  function PriorityBooking({refresh}) {
                             onChange={date => {
                                 const datemovement = moment(date._d);
                                 var endtUtc = datemovement.utc();
-                                
+
 
                                 setEnd(endtUtc);
                             }}
                         />
-                       
+
                     </div>
 
                     <div className="col-md-4 col-xs-4">

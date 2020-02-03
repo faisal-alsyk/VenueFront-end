@@ -13,7 +13,7 @@ const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 8
+        duration: 4
     });
 };
 
@@ -61,7 +61,7 @@ export default  function CreateVenue({refresh}) {
           disabledSeconds: () => [55, 56],
         };
       }
-      
+
     const onUpdateBooking = event => {
         event.preventDefault();
             let payload = {
@@ -71,7 +71,6 @@ export default  function CreateVenue({refresh}) {
                 end,
                 purpose
             };
-            console.log("payload payload",payload)
             createBooking(payload)
                 .then(response =>{
                     if(response.data.status === "Success"){
@@ -83,16 +82,17 @@ export default  function CreateVenue({refresh}) {
                         refresh();
                         history.goBack();
                     }
-                    else{
+                    else if (response.data.status === "Error"){
                         popNotification({
                             title: "Try Again",
-                            description: "Could not create venue booking. Please Try Again.",
+                            description: response.data.message,
                             type: "warning"
                         })
                     }
 
                 })
                 .catch(error=>{
+                    console.log(error);
                     popNotification({
                         title: 'Error',
                         description: error.message,
@@ -100,8 +100,7 @@ export default  function CreateVenue({refresh}) {
                     })
                 })
     }
-    console.log(venueData);
-    const venueOption = venueData.map((data, index) => 
+    const venueOption = venueData.map((data, index) =>
      <option key={index} value = { data._id }>{data.name}</option>
 
     )
@@ -114,10 +113,10 @@ export default  function CreateVenue({refresh}) {
                     <label className="input-label">Booking Name</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
-                    <input 
+                    <input
 
                         className="input"
-                        type="text" 
+                        type="text"
                         onChange={event => {
                             setTitle(event.target.value);
                          }}
@@ -127,10 +126,10 @@ export default  function CreateVenue({refresh}) {
                     <label className="input-label">Venue</label>
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
-                    <select 
-                        className="input" 
-                        value={venueId} 
-                        style={{width:"100%"}} 
+                    <select
+                        className="input"
+                        value={venueId}
+                        style={{width:"100%"}}
                         onChange={event => {
                             setVenueId(event.target.value);
                         }}
@@ -148,7 +147,7 @@ export default  function CreateVenue({refresh}) {
 
                          <DatePicker
                             className="input"
-                            size="large"  
+                            size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                             defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
                             disabledDate={disabledDate}
@@ -157,22 +156,22 @@ export default  function CreateVenue({refresh}) {
                             onChange={date => {
                                  const dateStart = moment(date._d);
                                  const startUtc = dateStart.utc()
-                               
+
 
                                 setStart(startUtc);
                             }}
                         />
-                       
+
                     </div>
 
                     <div className="col-md-4 col-xs-6">
                     <label className="input-label">Booking End Date</label>
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
-                        
+
                          <DatePicker
                             className="input"
-                            size="large"  
+                            size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                              //defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
                             disabledDate={disabledDate}
@@ -180,12 +179,12 @@ export default  function CreateVenue({refresh}) {
                             onChange={date => {
                                 const datemovement = moment(date._d);
                                 var endtUtc = datemovement.utc();
-                                
+
 
                                 setEnd(endtUtc);
                             }}
                         />
-                       
+
                     </div>
 
                     <div className="col-md-4 col-xs-4">

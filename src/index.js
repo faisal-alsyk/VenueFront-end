@@ -11,13 +11,15 @@ import "bootstrap/js/dist/dropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import axios from "axios";
-import login from "./views/Authentication/login.js"
+import login from "./views/Authentication/loginpage.js";
+import Verification from "./views/Authentication/verifycode.js";
+import Authentication from "./views/Authentication/index.js"
 import Dashboard from "./components/dashboard";
 import AdminDashboard from "./components/dashboard/administration";
 import VenueDashboard from "./components/dashboard/venueBooking";
 
-// axios.defaults.baseURL = "http://localhost:4200/api";
- axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
+axios.defaults.baseURL = "http://localhost:4200/api";
+//  axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 
 ReactDOM.render(
@@ -31,6 +33,7 @@ ReactDOM.render(
               accessor="public"
             />
             <Route path="/login" component={login} accessor="public" />
+            <Route exact path="/verification" component={Verification} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/admin" component={AdminDashboard} />
             <PrivateRoute path="/venuebooking" component={VenueDashboard} />

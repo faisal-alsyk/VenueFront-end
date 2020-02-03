@@ -22,7 +22,7 @@ export default function Header() {
                 </Link>
                 <h2 >One Stop Management System</h2>
             </div>
-            <button className={(path === "/login" || path === "/") ? 'hide-logout': 'show-logout'}
+            <button className={(path === "/login" || path === "/" || path === "/verification") ? 'hide-logout': 'show-logout'}
             onClick={event => {
                 onLogout(event);
             }}>Logout</button>
