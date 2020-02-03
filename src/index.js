@@ -10,7 +10,7 @@ import 'antd/dist/antd.css';
 
 
 import axios from "axios";
-import login from "./views/Authentication/login.js";
+import login from "./views/Authentication/loginpage.js";
 import Verification from "./views/Authentication/verifycode.js";
 import Authentication from "./views/Authentication/index.js"
 import Dashboard from "./components/dashboard";
