@@ -83,7 +83,7 @@ export default function  BulkBooking () {
                         keys={keys}
                         onDataUploaded={handleData}
                         onError={handleError}
-                        render={onChange => <input type="file" onChange={onChange} />}
+                        render={onChange => <input type="file" onChange={onChange} accept=".csv" />}
                     />
                 </Col>
                 <Col md={8} sm={8} xs ={24}>

@@ -5,6 +5,7 @@ import { notification } from "antd";
 
 import { DatePicker, TimePicker } from 'antd';
 import moment from 'moment';
+import classname from "classname";
 
 import "react-datepicker/dist/react-datepicker.css";
 import {VenueList, createBooking} from "../../../server";
@@ -23,10 +24,12 @@ export default  function CreateVenue({refresh}) {
     const [venueData, setVenueData] = useState([]);
 
     const [title, setTitle] = useState('');
-    const [venueId, setVenueId] = useState('0');
+    const [venueId, setVenueId] = useState("");
     const [start, setStart] = useState(new Date());
     const [end, setEnd] = useState();
     const [purpose, setPurpose] = useState('');
+
+    const [err, setErr] = useState();
 
 
     useEffect(()=>{
@@ -62,7 +65,7 @@ export default  function CreateVenue({refresh}) {
         };
       }
       
-    const onUpdateBooking = event => {
+    const onCreateBooking = event => {
         event.preventDefault();
             let payload = {
                 title,
@@ -90,6 +93,7 @@ export default  function CreateVenue({refresh}) {
                             type: "warning"
                         })
                     }
+                    setErr(response.data);
 
                 })
                 .catch(error=>{
@@ -106,10 +110,20 @@ export default  function CreateVenue({refresh}) {
 
     )
 
+    let errName, errStart, errVenue, errEnd  ;
+    if(err) {
+        errName = err.title;
+        errVenue = err.venue;
+        errStart = err.start;
+        errEnd = err.end
+    }
+
     return (
         <div>
             <div className="row">
                 <div className="col-md-8 col-xs-12" style={{border:"unset"}}>
+                <form onSubmit={event => {
+                        onCreateBooking(event);}}>
                     <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Name</label>
@@ -117,12 +131,17 @@ export default  function CreateVenue({refresh}) {
                     <div className="col-md-8 col-xs-8">
                     <input 
 
-                        className="input"
                         type="text" 
+                        className={classname("input form-control", {
+                            "is-invalid": errName
+                            })}
                         onChange={event => {
                             setTitle(event.target.value);
                          }}
+                         required
                     />
+                    {errName && <div className="invalid-feedback">{errName}</div>}
+
                     </div>
                     </div>
                     <div className="form-group row">
@@ -131,17 +150,20 @@ export default  function CreateVenue({refresh}) {
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
                     <select 
-                        className="input" 
+                        className="input custom-select" 
                         value={venueId} 
                         style={{width:"100%"}} 
                         onChange={event => {
                             setVenueId(event.target.value);
                         }}
+                        required
                     >
-                       <option value="0" disabled ={true}> Select Venue</option>
+                       <option value="" disabled ={true}> Select Venue</option>
                        {venueOption}
 
                     </select>
+                    {errVenue && <div className="invalid-feedback">{errVenue}</div>}
+
                     </div>
                     </div>
                     <div className="form-group row">
@@ -190,6 +212,7 @@ export default  function CreateVenue({refresh}) {
                                 setEnd(endtUtc);
                             }}
                         />
+                    {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
                        
                     </div>
                     </div>
@@ -198,7 +221,7 @@ export default  function CreateVenue({refresh}) {
                     <label className="input-label">Booking Purpose</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
-                    <textarea className="input" type="textarea" style={{padding:"10px", fontSize:"20px",height:"unset"}} row="3" onChange={event => {
+                    <textarea className="input form-control" type="textarea" style={{padding:"10px", fontSize:"20px",height:"unset"}} row="3" onChange={event => {
                         setPurpose(event.target.value);
                     }}/>
                     </div>
@@ -206,13 +229,13 @@ export default  function CreateVenue({refresh}) {
                     <div className="form-group row">
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
-                    <button className="button button-large" style={{paddingBottom:"20px"}} onClick={event => {
-                        onUpdateBooking(event);
-                    }}>Create</button>
+                    <button  type="submit" className="button button-large" style={{paddingBottom:"20px"}}>Create</button>
 
                     </div>
                     </div>
+                    </form>
                 </div>
+                
             </div>
         </div>
     );

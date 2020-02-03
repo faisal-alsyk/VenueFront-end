@@ -89,39 +89,41 @@ const editProfile = function EditUser({refresh}) {
 
                         </b> Cancel</button>
                     <hr/>
+                    <form onSubmit={event => {
+                onUpdate(event);}}>
                     <label>Name</label>
-                    <input className="input" type="text" value={name} onChange={event => {
+                    <input className="input form-control" type="text" required value={name} onChange={event => {
                         setName(event.target.value);
                     }}/>
                     <label>Email</label>
-                    <input className="input" type="text" value={email} onChange={event => {
+                    <input className="input form-control" type="text" required value={email} onChange={event => {
                         setEmail(event.target.value);
                     }}/>
                     <label>Account Status</label>
-                    <select className="select select-short" value={status} onChange={event => {
+                    <select className="select select-short custom-select" required value={status} onChange={event => {
                         setStatus(event.target.value);
                     }}>
                         <option>Active</option>
                         <option>Pending</option>
                     </select>
                     <label>Role</label>
-                    <select className="select select-short" value={role} onChange={event => {
+                    <select className="select select-short custom-select" required value={role} onChange={event => {
                         setRole(event.target.value);
                     }}>
                         <option>Staff</option>
                         <option>Faculty</option>
                     </select>
                     <label>Department</label>
-                    <select className="select" value={department} onChange={event => {
+                    <select className="select custom-select" required value={department} onChange={event => {
                         setDepartment(event.target.value);
                     }}>
                         <option>HR- Human Resource</option>
                         <option>Security</option>
                         <option>Sales and Marketing</option>
                     </select>
-                    <button className="button button-med-2 button-full" onClick={event=>{
-                        onUpdate(event);
-                    }}>Update</button>
+                    <button type="submit" className="button button-med-2 button-full" 
+                    >Update</button>
+                    </form>
                 </div>
             </div>
         </div>

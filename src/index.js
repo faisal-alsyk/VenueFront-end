@@ -15,7 +15,7 @@ import Dashboard from "./components/dashboard";
 import AdminDashboard from "./components/dashboard/administration";
 import VenueDashboard from "./components/dashboard/venueBooking";
 
-// axios.defaults.baseURL = "http://localhost:4200/api";
+ //axios.defaults.baseURL = "http://localhost:4200/api";
  axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 

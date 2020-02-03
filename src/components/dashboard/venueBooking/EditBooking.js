@@ -5,7 +5,7 @@ import { notification } from "antd";
 
 import { DatePicker, TimePicker } from 'antd';
 import moment from 'moment';
-
+import classname from "classname";
 import "react-datepicker/dist/react-datepicker.css";
 import {VenueList, getbookingbyId, updateBoking} from "../../../server";
 import "./venueDashboard.css";
@@ -29,6 +29,8 @@ export default  function EditBooking({refresh}) {
     const [purpose, setPurpose] = useState("");
 
     const {bookingData} = history.location.state;
+
+    const [err, setErr] = useState();
     useEffect(()=>{
 
         VenueList()
@@ -103,6 +105,7 @@ export default  function EditBooking({refresh}) {
                             description: "Could not update venue booking. Please Try Again.",
                             type: "warning"
                         })
+                        setErr(response.data)
                     }
 
                 })
@@ -120,22 +123,33 @@ export default  function EditBooking({refresh}) {
 
     )
 
+    let errName, errStart, errVenue, errEnd  ;
+    if(err) {
+        errName = err.title;
+        errVenue = err.venue;
+        errStart = err.start;
+        errEnd = err.end
+    }
+
     return (
         <div>
             <div className="row">
                 <div className="col-md-8 col-xs-12" style={{border:"unset"}}>
+                <form onSubmit={event => {
+                        onupdateBoking(event);}}>
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Name</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
                     <input 
 
-                        className="input"
+                        className="input form-control"
                         type="text"
                         value= {title} 
                         onChange={event => {
                             setTitle(event.target.value);
                          }}
+                         required
                     />
                     </div>
                     <div className="col-md-4 col-xs-4">
@@ -143,12 +157,13 @@ export default  function EditBooking({refresh}) {
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
                     <select 
-                        className="input" 
+                        className="input custom-select" 
                         value={venueId} 
                         style={{width:"100%"}} 
                         onChange={event => {
                             setVenueId(event.target.value);
                         }}
+                        required
                     >
                        <option value="0" disabled ={true}> Select Venue</option>
                        {venueOption}
@@ -197,6 +212,7 @@ export default  function EditBooking({refresh}) {
                                 setEnd(endUtc);
                             }}
                         />
+                    {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
                        
                     </div>
 
@@ -210,12 +226,10 @@ export default  function EditBooking({refresh}) {
                     </div>
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
-                    <button className="button button-large" style={{paddingBottom:"20px", paddingTop:"5px"}} onClick={event => {
-                        onupdateBoking(event);
-                    }}>Update</button>
+                    <button type="submit" className="button button-large" style={{paddingBottom:"20px", paddingTop:"5px"}}>Update</button>
 
                     </div>
-
+                    </form>
                 </div>
             </div>
         </div>

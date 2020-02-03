@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom"
 
 import {CreateNewVenue} from "../../../../server";
 import { notification } from "antd";
+import classname from "classname";
 
 const popNotification = (data) => {
     notification[data.type]({
@@ -14,10 +15,13 @@ const popNotification = (data) => {
 
 export default  function CreateVenue({refresh}) {
     const history = useHistory();
-    let [name, setName] = useState('');
+    let [name, setName] = useState();
     let [size, setSize] = useState(0);
     let [venueId, setVenueId] = useState(0);
     let [status, setStatus] = useState('Available');
+
+    const [err, setErr] = useState();
+
 
 
     function onCreateNewVenue(event) {
@@ -45,10 +49,12 @@ export default  function CreateVenue({refresh}) {
                             description: "Could not create venue. Please Try Again.",
                             type: "warning"
                         })
+                    setErr(response.data);
                     }
 
                 })
                 .catch(error=>{
+                    console.log("error message" + error.message+"SDSDDsdsds" + error);
                     popNotification({
                         title: 'Error',
                         description: error.message,
@@ -56,9 +62,20 @@ export default  function CreateVenue({refresh}) {
                     })
                 })
     }
+
+    console.log("error message",err);
     const onCancel = () => {
         history.push('/admin/venues');
     }
+
+    let errName, errSize, errVenue, errRole  ;
+    if(err) {
+        errName = err.name;
+        errVenue = err.venueId;
+        errSize = err.size;
+        errRole = err.role
+    }
+    
 
     return (
         <div>
@@ -74,29 +91,55 @@ export default  function CreateVenue({refresh}) {
 
                             </b> Cancel</button>
                         <label>Name</label>
-                        <input className="input" type="text" required onChange={event => {
+                        <input 
+                            type="text" 
+                            className={classname("input form-control", {
+                            "is-invalid": errName
+                            })}
+                            onChange={event => {
                             setName(event.target.value);
-                        }}/>
+                        }} required/>
+                        {errName && <div className="invalid-feedback">{errName}</div>}
+
                         <label>Size</label>
-                        <input className="input" type="number" required onChange={event => {
-                            setSize(event.target.value);
-                        }}/>
+                        <input
+                         type="number"
+                         className={classname("input form-control", {
+                            "is-invalid": errSize
+                        })}
+                         onChange={event => {
+                             setSize(event.target.value);
+                            }}
+                         required
+                         />
+                          {errSize && <div className="invalid-feedback">{errSize}</div>}
+                             
                         <label>Venue ID</label>
-                        <input className="input" type="number" required onChange={event => {
+                        <input 
+                         className={classname("input form-control", {
+                            "is-invalid": errVenue
+                        })}
+                        type="number" 
+                         
+                        onChange={event => {
                             setVenueId(event.target.value);
-                        }}/>
-                        <label>Role</label>
-                        <select className="select select-short" required onChange={event => {
+                        }}
+                        required
+                        />
+                          {errVenue && <div className="invalid-feedback">{errVenue}</div>}
+
+                        <label>Status</label>
+                        <select className="select select-short custom-select" required  onChange={event => {
                             setStatus(event.target.value);
                         }}>
                             <option>Available</option>
                             <option>Busy</option>
                         </select>
+                        {errRole && <div className="invalid-feedback">{errRole}</div>}
                         <input className="button button-large" type="submit" value="Create" onClick={event => {
                             onCreateNewVenue(event);
                         }}/>
                             {/*Create</input>*/}
-
                     </div>
                 </div>
             </form>
