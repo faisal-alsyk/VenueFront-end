@@ -29,7 +29,8 @@
     display: none;
 }
 .email, .password, .admin-code {
-    width: 352px;
+   max-width: 352px;
+   width:100%;
     height: 48px;
     background: #FFFFFF;
     border: 1px solid #D8DDE2;
@@ -39,7 +40,8 @@
     padding-left: 10px;
 }
 .loginAsAdmin {
-    width: 350px;
+    max-width: 350px;
+    width:100%;
 height: 48px;
 left: 544px;
 top: 572px;
@@ -70,7 +72,8 @@ color: #505051;
 }
 .login {
     margin-bottom: 24px;
-    width: 352px;
+    max-width: 352px;
+   width:100%;
     height: 48px;
     background: #005404;
     border-radius: 5px;

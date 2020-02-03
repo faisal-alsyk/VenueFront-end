@@ -18,10 +18,11 @@
     border-radius: 5px;
 }
 .input-label {
-    text-align: center;
     font-size: 16px;
     padding-top: 8px;
     font-weight: bold;
+    color: #000;
+    
 
 }
 .input.datepicker {
@@ -30,4 +31,19 @@
     color: black;
     margin-bottom: unset; 
     padding: 5px 10px;
+  }
+  .show-header {
+    display:block;
+  }
+  .show-v-header{
+    display:none;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .show-header {
+      display:none;
+    }
+    .show-v-header{
+      display:block;
+    }
   }

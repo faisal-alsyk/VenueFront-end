@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "bootstrap/dist/js/bootstrap.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.css";
 import './index.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/ProtectedRoutes/privateRoute";
 import 'antd/dist/antd.css';
 
-import "bootstrap";
-import "bootstrap/js/dist/util";
-import "bootstrap/js/dist/dropdown";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import axios from "axios";
 import login from "./views/Authentication/login.js"

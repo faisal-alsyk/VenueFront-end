@@ -4,7 +4,7 @@ import "./loginHeader.css"
 import {useHistory, Link} from "react-router-dom"
 // const token = localStorage.getItem('token');
 
-export default function Header() {
+export default function AdminHeader() {
     const history = useHistory();
     const path = history.location.pathname;
     function onLogout(event) {
@@ -14,7 +14,6 @@ export default function Header() {
     }
     return (
         <>
-
             <nav className="navbar navbar-expand-lg navbar-light bg-white">
                 <Link to ="/dashboard" className="navbar-brand"> <img className="navbar-brand "
                                     src={ logo }
@@ -25,7 +24,17 @@ export default function Header() {
                 <div className="collapse navbar-collapse" id="navbarText">
                     <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
-                        <a className="nav-link brand-name" onClick={ event => history.goBack()}>One Stop Management System  <span className="sr-only">(current)</span></a>
+                        <a className="nav-link brand-name active" onClick={ event => history.goBack()}>One Stop Management System  <span className="sr-only">(current)</span></a>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" 
+                        style= {{ color: (path === "/admin/users" ) || (path === "/admin/users/create") || (path.includes("/admin/users/view/")) || (path.includes("/admin/users/update") || (path.includes("/admin/users/resetpassword"))) ? "#005404" : ""}}
+                         to="/admin/users">Users</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/admin/venues"
+                          style= {{ color: (path === "/admin/venues" ) || (path === "/admin/venues/create") || (path.includes("/admin/venues/view/")) || (path.includes("/admin/venues/update")) ? "#005404" : ""}}
+                        >Venues</Link>
                     </li>
                     </ul>
                     <span className="navbar-text">
@@ -36,6 +45,7 @@ export default function Header() {
                     </span>
                 </div>
             </nav>
-        </>
+</>
+
     );
 };

@@ -91,7 +91,7 @@ export default function Users() {
     }
     return (
 
-        <div id="form">
+        <div id="form" className="col-md-12">
             <Switch>
                 <Route  exact path="/admin/venues">
 

@@ -106,9 +106,11 @@ export default  function PriorityBooking() {
     )
 
     return (
-        <div>
+        <div className="col-md-12">
             <div className="row">
                 <div className="col-md-8 col-xs-12" style={{border:"unset"}}>
+
+                <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Name</label>
                     </div>
@@ -122,6 +124,9 @@ export default  function PriorityBooking() {
                          }}
                     />
                     </div>
+                    </div>
+
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Venue</label>
                     </div>
@@ -139,8 +144,10 @@ export default  function PriorityBooking() {
 
                     </select>
                     </div>
+                    </div>
 
-                    <div className="col-md-4 col-xs-6">
+                    <div className="form-group row">
+                    <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Start Date</label>
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
@@ -161,9 +168,10 @@ export default  function PriorityBooking() {
                                 setStart(startUtc);
                             }}
                         />
-                       
+                       </div>
                     </div>
-
+                    
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-6">
                     <label className="input-label">Booking End Date</label>
                     </div>
@@ -186,7 +194,9 @@ export default  function PriorityBooking() {
                         />
                        
                     </div>
-
+                    </div>
+                    
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Purpose</label>
                     </div>
@@ -195,12 +205,15 @@ export default  function PriorityBooking() {
                         setPurpose(event.target.value);
                     }}/>
                     </div>
+                    </div>
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
                     <button className="button button-large" style={{paddingBottom:"20px"}} onClick={event => {
                         onUpdateBooking(event);
                     }}>Create</button>
 
+                    </div>
                     </div>
 
                 </div>

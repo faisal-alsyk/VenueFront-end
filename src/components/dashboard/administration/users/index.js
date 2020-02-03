@@ -90,7 +90,7 @@ useEffect(function() {
    }
   return (
 
-        <div id="form">
+        <div id="form" className="col-md-12">
         <Switch>
             <Route  exact path="/admin/users">
             <ReactTable

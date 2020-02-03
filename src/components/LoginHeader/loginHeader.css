@@ -18,18 +18,14 @@
 
     /* background-image: url(); */
 }
-.nav-all h2 {
-
-    height: 25px;
-    left: 112px;
-    top: 29px;
+.brand-name {
     font-family: Quicksand !important;
     font-style: normal;
     font-weight: 300 !important;
     font-size: 20px !important;
     line-height: 25px !important;
     /* identical to box height */
-    color: #000000;
+    color: #2b2526 !important;
 
 }
 
@@ -63,3 +59,7 @@
 .nav-heading {
     padding-top: 10px;
 }
+.brand-name:hover {
+color: #005404 !important;
+}
+
