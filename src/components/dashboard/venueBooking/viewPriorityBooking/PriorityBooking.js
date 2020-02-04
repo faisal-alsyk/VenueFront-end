@@ -51,7 +51,7 @@ export default  function PriorityBooking() {
 
     function disabledDate(current) {
         // Can not select days before today and today
-        return current && current < moment().endOf('day');
+        return current && current < moment().startOf('day');
       }
 
       function disabledDateTime() {
@@ -71,6 +71,12 @@ export default  function PriorityBooking() {
                 end,
                 purpose
             };
+            const error = {};
+            if(!payload.end) {
+                 error.end = "End date and time required";
+                 setErr(error);
+                 return
+            }
             priorityBooking(payload)
                 .then(response =>{
                     if(response.data.status === "Success"){

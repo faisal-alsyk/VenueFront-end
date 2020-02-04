@@ -74,6 +74,12 @@ export default  function CreateVenue({refresh}) {
                 end,
                 purpose
             };
+            const error = {};
+            if(!payload.end) {
+                 error.end = "End date and time required";
+                 setErr(error);
+                 return
+            }
             createBooking(payload)
                 .then(response =>{
                     if(response.data.status === "Success"){
