@@ -3,8 +3,6 @@ import {useHistory} from "react-router-dom";
 import axios from "axios";
 import { notification } from "antd";
 import "./Login.css";
-
-// import Header from "../../components/LoginHeader/header";
 import { verifyAdminCode } from "../../server";
 import Spinner from "../../components/common/Spinner";
 import Header from "../../components/LoginHeader/header";
@@ -20,8 +18,9 @@ const popNotification = (data) => {
 export default function Verification() {
     const history = useHistory();
     let data;
-    if(!history.location.state){
-        history.push('/login')
+    let token = localStorage.getItem('token');
+    if(token){
+        history.push('/dashboard')
     }
     else{
         const {userData} = history.location.state;
@@ -32,11 +31,10 @@ export default function Verification() {
 
     function onVerifyAdminCode (event) {
         event.preventDefault();
-        localStorage.setItem('token', data.token);
         let payload = {
             verificationCode: adminCode
         };
-        verifyAdminCode(payload)
+        verifyAdminCode(payload, data.token)
             .then(response=>{
                 if(response.data.status == "Success"){
                     popNotification({
@@ -65,7 +63,6 @@ export default function Verification() {
                     description: error.message,
                     type: "error"
                 })
-                // setshowLoginForm(true);
                 history.push('/login');
             })
     }

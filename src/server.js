@@ -4,8 +4,8 @@ export const adminLogin = (data) => {
     return axios.post('admin/login', data)
 }
 
-export const verifyAdminCode = (data) => {
-    return axios.post('admin/verifycode', data, {headers:{Authorization: localStorage.getItem('token')}})
+export const verifyAdminCode = (data, token) => {
+    return axios.post('admin/verifycode', data, {headers:{Authorization: token}})
 }
 
 export const userLogin = (data) => {

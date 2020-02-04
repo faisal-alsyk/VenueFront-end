@@ -15,7 +15,7 @@ export default function Header() {
     return (
         <>
 
-            <nav className="navbar navbar-expand-lg navbar-light bg-white">
+            <nav className="navbar navbar-expand-lg navbar-light bg-white nav-bar-shadow">
                 <Link to ="/dashboard" className="navbar-brand"> <img className="navbar-brand "
                                     src={ logo }
                                     alt="admin"  /></Link>
