@@ -54,7 +54,6 @@ export default  function CreateVenue({refresh}) {
 
                 })
                 .catch(error=>{
-                    console.log("error message" + error.message+"SDSDDsdsds" + error);
                     popNotification({
                         title: 'Error',
                         description: error.message,
@@ -63,7 +62,6 @@ export default  function CreateVenue({refresh}) {
                 })
     }
 
-    console.log("error message",err);
     const onCancel = () => {
         history.push('/admin/venues');
     }

@@ -29,7 +29,6 @@ const editProfile = function EditUser({refresh}) {
     //         })
     // },[]);
     const {userData} = history.location.state;
-    console.log(userData);
     const [name, setName] = useState(userData.name);
     const [email, setEmail] = useState(userData.email);
     const [role, setRole] = useState(userData.role);
@@ -75,6 +74,19 @@ const editProfile = function EditUser({refresh}) {
     const onCancel = () => {
         history.push(`/admin/users/view/${id}`);
     }
+<<<<<<< Updated upstream
+=======
+    let errName, errEmail, errRole, errStatus, errDept;
+    if(err) {
+        errName = err.error.name;
+        errEmail = err.error.email;
+        errRole = err.error.role;
+        errStatus = err.error.status;
+        errDept = err.error.department;
+
+    }
+
+>>>>>>> Stashed changes
 
     return (
         <div>

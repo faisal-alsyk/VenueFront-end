@@ -50,7 +50,6 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
       }
       
       setBookingData(booking);
-      console.log(data);
 
 
     }

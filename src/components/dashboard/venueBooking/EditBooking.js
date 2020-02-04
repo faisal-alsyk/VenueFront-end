@@ -56,7 +56,6 @@ export default  function EditBooking({refresh}) {
             });
 
     },[]);
-    console.log(title);
 
     function range(start, end) {
         const result = [];

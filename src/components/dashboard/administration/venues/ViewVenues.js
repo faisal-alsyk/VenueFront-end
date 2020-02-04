@@ -17,10 +17,8 @@ const popNotification = (data) => {
 const ViewVenue = function ViewVenue({refresh}) {
     const history = useHistory();
     let path = history.location.pathname;
-    console.log(path);
     let len = path.length;
     let id = path.substring(19, len);
-    console.log(id);
     let [venueData, setVenueData] = useState({});
     useEffect(()=>{
         getVenue(id)

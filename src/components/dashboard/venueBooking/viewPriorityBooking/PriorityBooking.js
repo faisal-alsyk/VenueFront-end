@@ -100,7 +100,6 @@ export default  function PriorityBooking() {
                     })
                 })
     }
-    console.log(venueData);
     const venueOption = venueData.map((data, index) =>
      <option key={index} value = { data._id }>{data.name}</option>
 

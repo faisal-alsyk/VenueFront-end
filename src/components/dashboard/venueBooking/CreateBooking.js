@@ -96,7 +96,6 @@ export default  function CreateVenue({refresh}) {
 
                 })
                 .catch(error=>{
-                    console.log(error);
                     popNotification({
                         title: 'Error',
                         description: error.message,
