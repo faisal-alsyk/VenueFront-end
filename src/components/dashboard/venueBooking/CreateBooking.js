@@ -54,7 +54,7 @@ export default  function CreateVenue({refresh}) {
 
     function disabledDate(current) {
         // Can not select days before today and today
-        return current && current < moment().endOf('day');
+        return current && current < moment().startOf('day');
       }
 
       function disabledDateTime() {
@@ -226,7 +226,7 @@ export default  function CreateVenue({refresh}) {
                     <div className="form-group row">
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
-                    <button  type="submit" className="button button-large" style={{paddingBottom:"20px"}}>Create</button>
+                    <button  type="submit" className="button button-large" >Create</button>
 
                     </div>
                     </div>

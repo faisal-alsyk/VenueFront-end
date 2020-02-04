@@ -220,7 +220,7 @@ export default  function PriorityBooking() {
                     <div className="form-group row">
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
-                    <button type="submit" className="button button-large" style={{paddingBottom:"20px"}}
+                    <button type="submit" className="button button-large"
                     >Create</button>
 
                     </div>

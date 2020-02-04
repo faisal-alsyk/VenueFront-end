@@ -111,7 +111,7 @@ const editProfile = function EditUser({refresh}) {
                     type="text"  
                     value={name} onChange={event => {
                         setName(event.target.value);
-                    }}/>
+                    }} required/>
                     {errName && <div className="invalid-feedback">{errName}</div>}
 
                     <label>Email</label>
@@ -122,7 +122,7 @@ const editProfile = function EditUser({refresh}) {
                      type="email"  
                      value={email} onChange={event => {
                         setEmail(event.target.value);
-                    }}/>
+                    }} required/>
                     {errEmail && <div className="invalid-feedback">{errEmail}</div>}
 
                     <label>Account Status</label>
@@ -133,7 +133,7 @@ const editProfile = function EditUser({refresh}) {
                     value={status} 
                     onChange={event => {
                         setStatus(event.target.value);
-                    }}>
+                    }} required>
                         <option>Select Status</option>
                         <option>Active</option>
                         <option>Pending</option>
@@ -148,7 +148,7 @@ const editProfile = function EditUser({refresh}) {
                      value={role} 
                      onChange={event => {
                         setRole(event.target.value);
-                    }}>
+                    }} required>
                         <option value ="">Select Role</option>
                         <option>User</option>
                         <option>Admin</option>
@@ -164,7 +164,7 @@ const editProfile = function EditUser({refresh}) {
                     value={department} 
                     onChange={event => {
                         setDepartment(event.target.value);
-                    }}>
+                    }} required>
                         <option value = ""> Select Department</option>
                         <option>HR- Human Resource</option>
                         <option>Security</option>
