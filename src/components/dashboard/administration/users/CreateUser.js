@@ -155,7 +155,7 @@ export default  function CreateUser( {refresh}) {
                     onChange={event => {
                         setRole(event.target.value);
                     }} required>
-                        <option> Select Role</option>
+                        <option value = ""> Select Role</option>
                         <option>User</option>
                         <option>Admin</option>
                         <option>Public</option>
@@ -170,7 +170,7 @@ export default  function CreateUser( {refresh}) {
                      onChange={event => {
                         setDepartment(event.target.value);
                     }} required>
-                        <option> Select Department</option>
+                        <option value = ""> Select Department</option>
                         <option>HR- Human Resource</option>
                         <option>Security</option>
                         <option>Sales and Marketing</option>
