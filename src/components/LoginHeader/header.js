@@ -29,7 +29,7 @@ export default function Header() {
                     </li>
                     </ul>
                     <span className="navbar-text">
-                    <button className={(path === "/login" || path === "/") ? 'hide-logout': 'show-logout'}
+                    <button className={(path === "/login" || path === "/" || path === "/verification") ? 'hide-logout': 'show-logout'}
                             onClick={event => {
                                 onLogout(event);
                             }}>Logout</button>
