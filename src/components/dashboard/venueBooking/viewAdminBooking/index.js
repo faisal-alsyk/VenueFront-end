@@ -19,7 +19,7 @@ export default function AdminBooking () {
     const [refresh, setRefresh] = useState([]);
     const role = "admin";
 
-    useEffect(() => {
+    useEffect( () => {
 
         getbookingByAdmin(role)
         .then(response => {

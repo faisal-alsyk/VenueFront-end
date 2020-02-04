@@ -182,7 +182,7 @@ export default  function PriorityBooking() {
                                  const startUtc = dateStart.utc()
 
 
-                                setStart(startUtc);
+                                setStart(date._d);
                             }}
                         />
                        </div>
@@ -206,7 +206,7 @@ export default  function PriorityBooking() {
                                 var endtUtc = datemovement.utc();
 
 
-                                setEnd(endtUtc);
+                                setEnd(date._d);
                             }}
                         />
                     {errEnd && <div style={{color:"red"}}>{errEnd}</div>}

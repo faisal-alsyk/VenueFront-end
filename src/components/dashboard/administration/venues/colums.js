@@ -17,11 +17,6 @@ const columns = (onView, onDelete) => [
     key: "name"
   },
   {
-    title: "Status",
-    dataIndex: "status",
-    key: "status"
-  },
-  {
     title: "Action",
     key: "action",
     render: (text, record) => (

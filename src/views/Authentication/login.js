@@ -32,6 +32,21 @@ let login = function Login(props) {
             email: email,
             password: password
         };
+        const error = {};
+
+            if(!payload.email) {
+                error.email ="Email field required";
+            }
+            if(!payload.password){
+                error.password = "Password field required";
+            }
+
+        if(error) {
+            console.log(error);
+            setErr(error);
+            return;
+        }
+
         adminLogin(payload)
             .then(response => {
                 if (response.data.status === "Success") {
@@ -120,12 +135,13 @@ let login = function Login(props) {
                 onChange={event => {
                        setEmail(event.target.value);
                    }}
+                   required
             />
             <label className="login-label">PASSWORD</label>
             <input className="password" type="password"
                    onChange={event => {
                        setPassword(event.target.value);
-                   }}
+                   }} required
             />
             <button className="login" onClick={event=>{
                 onUserLogin(event);

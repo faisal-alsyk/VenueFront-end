@@ -189,7 +189,7 @@ export default  function CreateVenue({refresh}) {
                                  const startUtc = dateStart.utc()
 
 
-                                setStart(startUtc);
+                                setStart(date._d);
                             }}
                         />
 
@@ -213,7 +213,7 @@ export default  function CreateVenue({refresh}) {
                                 var endtUtc = datemovement.utc();
 
 
-                                setEnd(endtUtc);
+                                setEnd(date._d);
                             }}
                         />
                     {errEnd && <div style={{color:"red"}}>{errEnd}</div>}

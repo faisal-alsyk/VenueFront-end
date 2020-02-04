@@ -29,6 +29,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
     const [ calendarWeekends, setCalenderWeekends ] =  useState(true);
     const [modalVisible, SetModalVisible] = useState(false);
     const [bookingData, setBookingData ] = useState({});
+    // const [eventData, setEventData] = useState(eventsdata);
 
     const  setModal = (modal) =>{
       SetModalVisible({ modal });
@@ -36,6 +37,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
     }
 
     useEffect( function () {
+      refresh();
           calendarComponentRef.current.getApi().setOption('height', 600); 
          }, [])
 

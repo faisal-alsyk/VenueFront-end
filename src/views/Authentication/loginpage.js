@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {useHistory, Switch, Route} from "react-router-dom";
-import axios from "axios";
 import { notification } from "antd";
 import "./Login.css";
 
@@ -17,7 +16,6 @@ const popNotification = (data) => {
     });
 };
 
-
 export default function LoginPage(props) {
     const history = useHistory();
     let token = localStorage.getItem('token');
@@ -27,6 +25,7 @@ export default function LoginPage(props) {
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [loading , setloading] = useState(false);
+    const [err, setErr] = useState();
 
     function onAdminLogin(event) {
         event.preventDefault();
@@ -34,6 +33,22 @@ export default function LoginPage(props) {
             email: email,
             password: password
         };
+
+        const error = {};
+        
+            if(!payload.email) {
+                error.email ="Email field required";
+            }
+            if(!payload.password){
+                error.password = "Password field required";
+            }
+
+        if(error.email || error.password) {
+            console.log(error);
+            setErr(error);
+            setloading(false);
+            return;
+        }
         adminLogin(payload)
             .then(response => {
                 setloading(false);
@@ -63,6 +78,13 @@ export default function LoginPage(props) {
                 })
 
             })
+    }
+
+    let errEmail, errPaswd  ;
+    if(err) {
+        errEmail = err.email;
+        errPaswd = err.password;
+        
     }
     // function onVerifyAdminCode (event) {
     //     event.preventDefault();
@@ -110,18 +132,23 @@ export default function LoginPage(props) {
                 <form>
                     <label className="form-heading">Login</label>
                     <label className="login-label">EMAIL</label>
-                    <input className="email"
+                    <input className="email form-control"
                            onChange={event => {
                                setEmail(event.target.value);
-                           }}
+                           }} required
                     />
-                    <label className="login-label">PASSWORD</label>
-                    <input className="password" type="password"
+                    {errEmail && <div style={{color:"red"}}>{errEmail}</div>}
+
+                    <label className="login-label" style={{paddingTop:"24px"}}>PASSWORD</label>
+                    <input className="password form-control" type="password"
                            onChange={event => {
                                setPassword(event.target.value);
-                           }}
+                           }} required
                     />
-                    <button className="login" onClick={event=>{
+                    {errPaswd && <div style={{color:"red"}}>{errPaswd}</div>}
+                    <button className="login"
+                    style={{marginTop:"24px"}}
+                    onClick={event=>{
                         onUserLogin(event);
                     }}>
                         LOGIN

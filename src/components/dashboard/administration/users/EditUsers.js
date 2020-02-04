@@ -134,7 +134,7 @@ const editProfile = function EditUser({refresh}) {
                     onChange={event => {
                         setStatus(event.target.value);
                     }} required>
-                        <option>Select Status</option>
+                        <option value ="">Select Status</option>
                         <option>Active</option>
                         <option>Pending</option>
                     </select>

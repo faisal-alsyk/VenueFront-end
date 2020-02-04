@@ -186,7 +186,7 @@ export default  function EditBooking({refresh}) {
                             onChange={date => {
                                 const dateStart = moment(date._d);
                                 const startUtc = dateStart.utc()
-                                setStart(startUtc);
+                                setStart(date._d);
                             }}
                         />
                        
@@ -208,7 +208,7 @@ export default  function EditBooking({refresh}) {
                                 const datemovement = moment(date._d);
                                 var endUtc = datemovement.utc()
 
-                                setEnd(endUtc);
+                                setEnd(date._d);
                             }}
                         />
                     {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
