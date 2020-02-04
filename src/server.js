@@ -15,7 +15,7 @@ export const getUser = (id) => {
     return axios.get(`admin/${id}`)
 }
 export const UpdateUser = (id, payload) => {
-    return axios.patch(`admin/${id}`, payload)
+    return axios.patch(`users/${id}`, payload)
 }
 
 export const VenueList = () => {

@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom";
 import axios from "axios";
 import { notification } from "antd";
 import "./Login.css";
+import classname from "classname";
 
 import Header from "../../components/LoginHeader/header";
 import {adminLogin, verifyAdminCode} from "../../server";
@@ -23,6 +24,7 @@ let login = function Login(props) {
     let [adminCode, setadminCode] = useState("");
     let [showLoginForm , setshowLoginForm] = useState(true);
     let [loading , setloading] = useState(false);
+    const [err, setErr] = useState();
 
     function onAdminLogin(event) {
         event.preventDefault();
@@ -32,14 +34,24 @@ let login = function Login(props) {
         };
         adminLogin(payload)
             .then(response => {
-                localStorage.setItem('token', response.data.data.token);
-                setshowLoginForm(false);
-                setloading(false);
-                popNotification({
-                    title: response.data.status,
-                    description: "To Sign-In as Admin, Enter Verification Code to Confirm that you are Admin.",
-                    type: "success"
-                })
+                if (response.data.status === "Success") {
+                    localStorage.setItem('token', response.data.data.token);
+                    setshowLoginForm(false);
+                    setloading(false);
+                    popNotification({
+                        title: response.data.status,
+                        description: "To Sign-In as Admin, Enter Verification Code to Confirm that you are Admin.",
+                        type: "success"
+                    })   
+                } else {
+                    // popNotification({
+                    //     title: "Try Again",
+                    //     description: "Could not create User. Please Try Again.",
+                    //     type: "warning"
+                    // })
+
+                    setErr(response.data);
+                }
 
             })
             .catch(error=>{
@@ -87,7 +99,11 @@ let login = function Login(props) {
         })
     }
 
-
+    // let errPswd, errEmail;
+    // if(err) {
+    //     errPswd = err.password;
+    //     errEmail = err.email;
+    // }
 
     let viewContent;
 
@@ -99,8 +115,9 @@ let login = function Login(props) {
         <form>
             <label className="form-heading">Login</label>
             <label className="login-label">EMAIL</label>
-            <input className="email"
-                   onChange={event => {
+            <input 
+                className="email"
+                onChange={event => {
                        setEmail(event.target.value);
                    }}
             />

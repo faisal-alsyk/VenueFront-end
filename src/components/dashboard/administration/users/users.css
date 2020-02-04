@@ -43,6 +43,7 @@ label {
     text-align: left;
     font-weight: 500;
     font-size: 16px;
+    margin-top: 23px;
     line-height: 20px;
     color: #777E82;
 }
@@ -68,10 +69,7 @@ label {
     border-radius: 5px;
 
 }
-.select-short, .input{
-    margin-bottom: 23px;
 
-}
 .input-short {
     width: 100%;
     display: inline;
