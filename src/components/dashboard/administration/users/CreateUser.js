@@ -3,7 +3,7 @@ import {useHistory} from "react-router-dom"
 import './users.css';
 import { createNewUser } from "../../../../server";
 import { notification } from "antd";
-import { Redirect } from "react-router-dom";
+import classname from "classname";
 
 const popNotification = (data) => {
     notification[data.type]({
@@ -19,11 +19,12 @@ export default  function CreateUser( {refresh}) {
     let [name, setName] = useState('');
     let [email, setEmail] = useState('');
     let [staffId, setStaffId] = useState(0);
-    let [role, setRole] = useState('User');
-    let [department, setDepartment] = useState('HR- Human Resource');
+    let [role, setRole] = useState('');
+    let [department, setDepartment] = useState('');
     let [phoneNumber, setPhoneNumber] = useState('');
     let [password, setPassword] = useState('');
     let [tnc, settnc] = useState(false);
+    const [err, setErr] = useState();
 
     function onCreateNewUser(event) {
         event.preventDefault();
@@ -54,6 +55,8 @@ export default  function CreateUser( {refresh}) {
                             description: "Could not create User. Please Try Again.",
                             type: "warning"
                         })
+
+                        setErr(response.data);
                     }
 
                 })
@@ -78,6 +81,18 @@ export default  function CreateUser( {refresh}) {
         history.push('/admin/users');
     }
 
+    let errName, errEmail, errStaffId, errRole, errNumber, errPaswd, errDept;
+    if(err) {
+        errName = err.name;
+        errStaffId = err.staffId;
+        errEmail = err.email;
+        errRole = err.role;
+        errNumber = err.phoneNumber;
+        errPaswd = err.password;
+        errDept = err.department;
+
+    }
+
     return (
         <div>
             <h3>CREATE USER</h3>
@@ -93,52 +108,95 @@ export default  function CreateUser( {refresh}) {
             <div className="row">
                 <div className="col-md-6 column-1">
                     <label>Name</label>
-                    <input className="input form-control" type="text" onChange={event => {
+                    <input 
+                     className={classname("input form-control", {
+                        "is-invalid": errName
+                        })} 
+                    type="text" 
+                    onChange={event => {
                         setName(event.target.value);
-                    }} required/>
+                    }} />
+                    {errName && <div className="invalid-feedback">{errName}</div>}
+
                     <label>Email</label>
-                    <input className="input form-control" type="email" onChange={event => {
+                    <input 
+                     className={classname("input form-control", {
+                        "is-invalid": errEmail
+                        })} 
+                    type="email" 
+                    onChange={event => {
                         setEmail(event.target.value);
-                    }} required/>
+                    }} />
+                    {errEmail && <div className="invalid-feedback">{errEmail}</div>}
+
                     <label>User ID</label>
                     <div className="row">
                         <div className="col-md-6">
-                            <input className="input form-control input-short" type="number" onChange={event => {
+                            <input 
+                            className={classname("input form-control", {
+                                "is-invalid": errStaffId
+                                })} 
+                            type="number" 
+                            onChange={event => {
                                 setStaffId(event.target.value);
-                            }} required/>
+                            }} />
+                    {errStaffId && <div className="invalid-feedback">{errStaffId}</div>}
+
                         </div>
                         <div className="col-md-6">
                             <label className="_label">This ID is the existence ID and can be use for user searching</label>
                         </div>
                     </div>
-                    <label>Actual User Role</label>
-                    <select className="select custom-select select-short" required onChange={event => {
+                    <label>Role</label>
+                    <select
+                    className={classname("select custom-select select-short", {
+                        "is-invalid": errRole
+                        })}  
+                    onChange={event => {
                         setRole(event.target.value);
                     }}>
+                        <option> Select Role</option>
                         <option>User</option>
                         <option>Admin</option>
                         <option>Public</option>
                     </select>
+                    {errRole && <div className="invalid-feedback">{errRole}</div>}
+
                     <label>Department</label>
-                    <select className="select custom-select" required onChange={event => {
+                    <select 
+                    className={classname("select custom-select select-short", {
+                        "is-invalid": errDept
+                        })}  
+                     onChange={event => {
                         setDepartment(event.target.value);
                     }}>
+                        <option> Select Department</option>
                         <option>HR- Human Resource</option>
                         <option>Security</option>
                         <option>Sales and Marketing</option>
                     </select>
+                    {errDept && <div className="invalid-feedback">{errDept}</div>}
                 </div>
                 <div className="col-md-6 col-right">
                     <br/><br/>
                     <h4 className="col-2-heading">Credential - MFA Setups</h4><br/>
                     <label className="_label">Setup user Firsst-time password which will send via their email address and verify mobile number for MFA setups</label><br/>
                     <br/><label>First-Time Password</label>
-                    <input className="input form-control" required id="Password" type="text" value={password} onChange={event => {
+                    <input 
+                    className={
+                        classname("input form-control", {
+                        "is-invalid": errPaswd
+                        })}  
+                     id="Password" type="text" 
+                     value={password} 
+                     onChange={event => {
                         setPassword(event.target.value);
                     }}/>
+                    {errPaswd && <div className="invalid-feedback">{errPaswd}</div>}
+
                     <div className="row gen-pass">
                         <div className="col-md-6">
-                            <button className="button button-medium" onClick={event => {
+                            <button className="button button-medium" style={{marginTop:"23px"}} onClick={event => {
                                 onGeneratePassword(event);
                             }}>Auto-Generate Password</button>
                         </div>
@@ -153,14 +211,24 @@ export default  function CreateUser( {refresh}) {
                              (+65)
                         </div>
                         <div className="col-md-9 mobile-input">
-                            <input className="input form-control" required type="text" onChange={event => {
+                            <input 
+                           className={
+                            classname("input form-control", {
+                            "is-invalid": errNumber
+                            })} 
+                            type="text" 
+                            onChange={event => {
                                 setPhoneNumber(event.target.value);
                             }}/>
+                    {errNumber && <div className="invalid-feedback">{errNumber}</div>}
+
                         </div>
                     </div>
                     <br/><br/>
                     <h3 className="tac-heading">Terms & Conditions</h3><br/>
-                    <div className="tac-check"><input type="checkbox" required onChange={event =>settnc(!tnc)
+                    <div className="tac-check">
+                        <input type="checkbox" required
+                         onChange={event =>settnc(!tnc)
                     }/>
                         <label className="tac-text">
                             I hereby have read all the terms and conditon while creating and allowing user to use and access data within this application
