@@ -12,13 +12,12 @@ import 'antd/dist/antd.css';
 import axios from "axios";
 import login from "./views/Authentication/loginpage.js";
 import Verification from "./views/Authentication/verifycode.js";
-import Authentication from "./views/Authentication/index.js"
 import Dashboard from "./components/dashboard";
 import AdminDashboard from "./components/dashboard/administration";
 import VenueDashboard from "./components/dashboard/venueBooking";
 
 
- //axios.defaults.baseURL = "http://localhost:4200/api";
+ // axios.defaults.baseURL = "http://localhost:4200/api";
  axios.defaults.baseURL = "https://venue-booking-api.herokuapp.com/api";
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 
