@@ -79,7 +79,7 @@ export default  function PriorityBooking() {
                             description: "Venue booking Created Successfully.",
                             type: "success"
                         })
-                        history.push('/venuebooking');
+                        history.push('/venuebooking/booking');
                     }
                     else{
                         popNotification({

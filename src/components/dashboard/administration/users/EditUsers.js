@@ -4,6 +4,7 @@ import './users.css';
 import {useHistory} from "react-router-dom";
 import {getUser, UpdateUser} from "../../../../server";
 import { notification } from "antd";
+import classname from "classname";
 
 const popNotification = (data) => {
     notification[data.type]({
@@ -35,6 +36,7 @@ const editProfile = function EditUser({refresh}) {
     const [role, setRole] = useState(userData.role);
     const [department, setDepartment] = useState(userData.department);
     const [status, setStatus] = useState(userData.status);
+    const [err, setErr] = useState();
 
     function onUpdate(event) {
         event.preventDefault();
@@ -61,6 +63,8 @@ const editProfile = function EditUser({refresh}) {
                         description: "Could not Update User. Please Try Again.",
                         type: "warning"
                     })
+                    setErr(response.data);
+                    
                 }
 
             })
@@ -75,6 +79,17 @@ const editProfile = function EditUser({refresh}) {
     const onCancel = () => {
         history.push(`/admin/users/view/${id}`);
     }
+    console.log(err);
+    let errName, errEmail, errRole, errStatus, errDept;
+    if(err) {
+        errName = err.error.name;
+        errEmail = err.error.email;
+        errRole = err.error.role;
+        errStatus = err.error.status;
+        errDept = err.error.department;
+
+    }
+
 
     return (
         <div>
@@ -92,36 +107,75 @@ const editProfile = function EditUser({refresh}) {
                     <form onSubmit={event => {
                 onUpdate(event);}}>
                     <label>Name</label>
-                    <input className="input form-control" type="text" required value={name} onChange={event => {
+                    <input 
+                    className={classname("input form-control", {
+                        "is-invalid": errName
+                        })} 
+                    type="text"  
+                    value={name} onChange={event => {
                         setName(event.target.value);
                     }}/>
+                    {errName && <div className="invalid-feedback">{errName}</div>}
+
                     <label>Email</label>
-                    <input className="input form-control" type="text" required value={email} onChange={event => {
+                    <input 
+                    className={classname("input form-control", {
+                        "is-invalid": errEmail
+                        })} 
+                     type="email"  
+                     value={email} onChange={event => {
                         setEmail(event.target.value);
                     }}/>
+                    {errEmail && <div className="invalid-feedback">{errEmail}</div>}
+
                     <label>Account Status</label>
-                    <select className="select select-short custom-select" required value={status} onChange={event => {
+                    <select 
+                    className={classname("select select-short custom-select", {
+                        "is-invalid": errStatus
+                        })}  
+                    value={status} 
+                    onChange={event => {
                         setStatus(event.target.value);
                     }}>
+                        <option>Select Status</option>
                         <option>Active</option>
                         <option>Pending</option>
                     </select>
+                    {errStatus && <div className="invalid-feedback">{errStatus}</div>}
+
                     <label>Role</label>
-                    <select className="select select-short custom-select" required value={role} onChange={event => {
+                    <select 
+                     className={classname("select select-short custom-select", {
+                        "is-invalid": errRole
+                        })}   
+                     value={role} 
+                     onChange={event => {
                         setRole(event.target.value);
                     }}>
-                        <option>Staff</option>
-                        <option>Faculty</option>
+                        <option value ="">Select Role</option>
+                        <option>User</option>
+                        <option>Admin</option>
+                        <option>Public</option>
                     </select>
+                    {errRole && <div className="invalid-feedback">{errRole}</div>}
+
                     <label>Department</label>
-                    <select className="select custom-select" required value={department} onChange={event => {
+                    <select 
+                    className={classname("select custom-select", {
+                        "is-invalid": errDept
+                        })}  
+                    value={department} 
+                    onChange={event => {
                         setDepartment(event.target.value);
                     }}>
+                        <option value = ""> Select Department</option>
                         <option>HR- Human Resource</option>
                         <option>Security</option>
                         <option>Sales and Marketing</option>
                     </select>
-                    <button type="submit" className="button button-med-2 button-full" 
+                    {errDept && <div className="invalid-feedback">{errDept}</div>}
+
+                    <button type="submit" className="button button-med-2 button-full" style={{marginLeft:"unset", width:"100%"}}
                     >Update</button>
                     </form>
                 </div>
