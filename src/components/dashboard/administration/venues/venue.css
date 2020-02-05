@@ -5,3 +5,10 @@
     padding-left: 10px !important;
     font-size: 16px !important;
 }
+.show-venue-heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}

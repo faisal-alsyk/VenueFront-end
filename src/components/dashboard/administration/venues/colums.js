@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider } from "antd";
+import { Divider, Popconfirm } from "antd";
 const columns = (onView, onDelete) => [
   {
     title: "ID #",
@@ -26,10 +26,17 @@ const columns = (onView, onDelete) => [
 </svg>
 </a>
         <Divider type="vertical" />
-        <a onClick={() => onDelete(record._id)}><svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <Popconfirm
+    title="Are you sure delete this venue?"
+    onConfirm={()=>onDelete(record._id)}
+    okText="Yes"
+    cancelText="No"
+  >
+        <a><svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M24.7579 17.8945L14.1524 9.69922C16.0977 9.01172 17.5 7.17969 17.5 5C17.5 2.23828 15.2618 0 12.5 0C9.87895 0 7.75395 2.02344 7.54301 4.58594L1.77738 0.132812C1.50395 -0.078125 1.11332 -0.03125 0.898477 0.242188L0.132852 1.22656C-0.0780851 1.5 -0.0312102 1.89062 0.242227 2.10156L23.2266 19.8633C23.5 20.0742 23.8907 20.0273 24.1055 19.7539L24.8711 18.7656C25.0821 18.5 25.0313 18.1055 24.7579 17.8945ZM3.75004 16.5V18.125C3.75004 19.1602 4.58988 20 5.62504 20H19.3047L8.1016 11.3398C5.63285 11.7695 3.75004 13.9062 3.75004 16.5Z" fill="#E6582B"/>
 </svg>
 </a>
+</Popconfirm>
       </span>
     )
   }

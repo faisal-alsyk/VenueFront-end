@@ -158,7 +158,7 @@ export default  function CreateUser( {refresh}) {
                         <option value = ""> Select Role</option>
                         <option>User</option>
                         <option>Admin</option>
-                        <option>Public</option>
+                        {/* <option>Public</option> */}
                     </select>
                     {errRole && <div className="invalid-feedback">{errRole}</div>}
 
