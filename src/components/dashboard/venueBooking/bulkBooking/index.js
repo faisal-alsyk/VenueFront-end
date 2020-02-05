@@ -18,12 +18,10 @@ export default function  BulkBooking () {
    const  handleData = data => {
         setCsvData(data);
         setActive(true);
-        console.log(data);
       }
 
       const  handleError = data => {
           
-          console.log(data);
       }
     
     const keys = [

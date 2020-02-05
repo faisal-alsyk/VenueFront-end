@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-import { Modal, Row, Col, notification } from 'antd';
+import { Modal, Row, Col, notification, Popconfirm } from 'antd';
 
 import FullCalendar from '@fullcalendar/react'
 import resourceTimeline from "@fullcalendar/resource-timeline";
@@ -10,6 +10,7 @@ import "@fullcalendar/core/main.css";
 import "@fullcalendar/timeline/main.css";
 import "@fullcalendar/resource-timeline/main.css";
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 import "./fullCalander.css"
 import { useHistory } from 'react-router-dom';
 import { deleteBooking } from '../../../../server';
@@ -18,17 +19,18 @@ const popNotification = (data) => {
   notification[data.type]({
       message: data.title,
       description: data.description,
-      duration: 8
+      duration: 100
   });
 };
 export default function CalanderFull({eventsdata, resourcesData, refresh}) {
-
+  
     const history = useHistory();
     const calendarComponentRef = React.createRef();
 
     const [ calendarWeekends, setCalenderWeekends ] =  useState(true);
     const [modalVisible, SetModalVisible] = useState(false);
     const [bookingData, setBookingData ] = useState({});
+    // const [eventData, setEventData] = useState(eventsdata);
 
     const  setModal = (modal) =>{
       SetModalVisible({ modal });
@@ -36,21 +38,27 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
     }
 
     useEffect( function () {
+      refresh();
           calendarComponentRef.current.getApi().setOption('height', 600); 
          }, [])
 
     const eventDetail = data => {
+     const startMoment = moment(data.event.start);
+     const startDate =startMoment.format('YYYY-MM-DD HH:mm:ss')
+      const endMoment =moment(data.event.end);
+      const endDate =endMoment.format('YYYY-MM-DD HH:mm:ss')
 
       SetModalVisible(true);
       const booking = {
         title: data.event.title,
         id: data.event.id,
-        start: `${data.event.start}`,
-        end: `${data.event.end}`
+        start: `${startDate}`,
+        end:`${endDate}`
+        // start: `${data.event.start}`,
+        // end: `${data.event.end}`
       }
       
       setBookingData(booking);
-      console.log(data);
 
 
     }
@@ -113,24 +121,30 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
       />
 
       <Modal
-          title="Vertically centered modal dialog"
+          title=""
           centered
           visible={modalVisible}
           onOk={() => SetModalVisible(false)}
           onCancel={() => SetModalVisible(false)}
         >
           <Row>
-            <Col md={24}>
-
-            <button className="btn-delete pull-right" style={{marginTop:"unset", marginRight:"unset"}}  onClick={event => {
-                        onDelete();
-                    }}>
+            <Col md={24} style={{marginTop:"24px"}}>
+            <Popconfirm
+                    title="Are you sure delete this event?"
+                    onConfirm={event => {
+                      onDelete();
+                  }}
+                    okText="Yes"
+                    cancelText="No"
+                >
+            <button className="btn-delete pull-right" style={{marginTop:"unset",float:"right", marginRight:"unset"}}>
                 <b>
                 <svg className="btn-delete-svg" width="16" height="16" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M24.7579 17.8945L14.1524 9.69922C16.0977 9.01172 17.5001 7.17969 17.5001 5C17.5001 2.23828 15.2618 0 12.5001 0C9.87898 0 7.75398 2.02344 7.54304 4.58594L1.77741 0.132812C1.50398 -0.078125 1.11335 -0.03125 0.898508 0.242188L0.132883 1.22656C-0.0780546 1.5 -0.0311796 1.89062 0.242258 2.10156L23.2266 19.8633C23.5001 20.0742 23.8907 20.0273 24.1055 19.7539L24.8712 18.7656C25.0821 18.5 25.0313 18.1055 24.7579 17.8945ZM3.75007 16.5V18.125C3.75007 19.1602 4.58991 20 5.62507 20H19.3048L8.10163 11.3398C5.63288 11.7695 3.75007 13.9062 3.75007 16.5Z" fill="white"/>
                 </svg>
 
                     </b> Delete Event</button>
+                  </Popconfirm>
             </Col>
             <Col  md={4}>
               <span className="modal-span">ID : </span>

@@ -89,6 +89,9 @@ const updateVenue = function EditVenue({refresh}) {
     
     return (
         <div>
+            <form onSubmit={event => {
+                             onUpdate(event);
+                        }}>  
             <div className="row">
                 <div className="col-md-6 column-1">
                     <h3 className="edit-profile-heading">Edit Venue Detail</h3>
@@ -129,16 +132,16 @@ const updateVenue = function EditVenue({refresh}) {
                     className="select select-short custom-select" required  value={status} onChange={event => {
                         setStatus(event.target.value);
                     }}>
+                         <option value = "">Select Status</option>
                         <option>Available</option>
                         <option>Busy</option>
                     </select>
                     {errRole && <div className="invalid-feedback">{errRole}</div>}
 
-                    <button className="button button-large" onClick={event=>{
-                        onUpdate(event);
-                    }}>Update</button>
+                    <button className="button button-large" >Update</button>
                 </div>
             </div>
+            </form>
         </div>
     );
 }

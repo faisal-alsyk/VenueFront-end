@@ -27,7 +27,7 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
             }}>
                 <option>All</option>
                 <option>Available</option>
-                <option>Busy</option>
+                {/* <option>Busy</option> */}
             </select>
         );
     }
@@ -157,7 +157,7 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
         <form className="form-inline my-2 my-lg-0 pull-right _user">
             {type === "user"? userFilter() : venueFilter()}
 
-            <input className="form-control mr-sm-2 user-search" type="search" placeholder="Search" aria-label="Search"
+            <input className="form-control mr-sm-1 user-search" type="search" placeholder="Search" aria-label="Search"
                    value={searchId}
                    onChange={event => {
                        setSearchId(event.target.value);

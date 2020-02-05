@@ -215,7 +215,10 @@ label {
     width: 40%;
 }
 .show-user-heading {
-    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 }
 .user-name-heading-4 {

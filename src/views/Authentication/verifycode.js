@@ -43,6 +43,8 @@ export default function Verification() {
                         type: "success"
                     });
                     localStorage.setItem('token', response.data.data.token);
+                    axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+
                     history.push('/dashboard');
                     history.location.state = null;
                 }
@@ -88,12 +90,14 @@ export default function Verification() {
                 </div>
                 <form>
                     <label className="login-label">Admin Code</label>
-                    <input className="admin-code"
+                    <input className="admin-code form-control"
                            onChange={event => {
                                setadminCode(event.target.value);
                            }}
                     />
-                    <button className="login" onClick={event => {
+                    <button className="login"
+                    style={{marginTop:"24px"}}
+                    onClick={event => {
 
                         setloading(true);
                         onVerifyAdminCode(event);

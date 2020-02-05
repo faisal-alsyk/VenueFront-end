@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Header from "../../components/LoginHeader/header";
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./dashboard.css"
 
 export default function Dashboard(){
+
+    const history = useHistory();
 
     return (
         <>
@@ -22,13 +24,13 @@ export default function Dashboard(){
                         </Link>
                     </div>
                     <div className="button-card col-md-6 col-xs-12">
-                        <Link to="/venuebooking/booking" className="button-content">
+                        <a onClick ={()=> {history.push("/venuebooking/booking")}} className="button-content">
                         <svg width="38" height="50" viewBox="0 0 38 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16.823 48.9912C2.63379 28.421 0 26.3099 0 18.75C0 8.39463 8.39463 0 18.75 0C29.1054 0 37.5 8.39463 37.5 18.75C37.5 26.3099 34.8662 28.421 20.677 48.9912C19.7458 50.3363 17.7541 50.3362 16.823 48.9912ZM18.75 26.5625C23.0647 26.5625 26.5625 23.0647 26.5625 18.75C26.5625 14.4353 23.0647 10.9375 18.75 10.9375C14.4353 10.9375 10.9375 14.4353 10.9375 18.75C10.9375 23.0647 14.4353 26.5625 18.75 26.5625Z" fill="#005404"/>
                         </svg>
 
                             <h3>Venue Booking</h3>
-                        </Link>
+                        </a>
                     </div>
                 </div>
                 <div className="col-md-6"></div>

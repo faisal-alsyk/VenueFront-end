@@ -51,7 +51,7 @@ export default  function PriorityBooking() {
 
     function disabledDate(current) {
         // Can not select days before today and today
-        return current && current < moment().endOf('day');
+        return current && current < moment().startOf('day');
       }
 
       function disabledDateTime() {
@@ -71,6 +71,12 @@ export default  function PriorityBooking() {
                 end,
                 purpose
             };
+            const error = {};
+            if(!payload.end) {
+                 error.end = "End date and time required";
+                 setErr(error);
+                 return
+            }
             priorityBooking(payload)
                 .then(response =>{
                     if(response.data.status === "Success"){
@@ -100,7 +106,6 @@ export default  function PriorityBooking() {
                     })
                 })
     }
-    console.log(venueData);
     const venueOption = venueData.map((data, index) =>
      <option key={index} value = { data._id }>{data.name}</option>
 
@@ -177,7 +182,7 @@ export default  function PriorityBooking() {
                                  const startUtc = dateStart.utc()
 
 
-                                setStart(startUtc);
+                                setStart(date._d);
                             }}
                         />
                        </div>
@@ -201,7 +206,7 @@ export default  function PriorityBooking() {
                                 var endtUtc = datemovement.utc();
 
 
-                                setEnd(endtUtc);
+                                setEnd(date._d);
                             }}
                         />
                     {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
@@ -221,7 +226,7 @@ export default  function PriorityBooking() {
                     <div className="form-group row">
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
-                    <button type="submit" className="button button-large" style={{paddingBottom:"20px"}}
+                    <button type="submit" className="button button-large"
                     >Create</button>
 
                     </div>

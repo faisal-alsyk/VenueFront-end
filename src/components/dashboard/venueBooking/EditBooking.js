@@ -56,7 +56,6 @@ export default  function EditBooking({refresh}) {
             });
 
     },[]);
-    console.log(title);
 
     function range(start, end) {
         const result = [];
@@ -68,7 +67,7 @@ export default  function EditBooking({refresh}) {
 
     function disabledDate(current) {
         // Can not select days before today and today
-        return current && current < moment().endOf('day');
+        return current && current < moment().startOf('day');
       }
 
       function disabledDateTime() {
@@ -187,7 +186,7 @@ export default  function EditBooking({refresh}) {
                             onChange={date => {
                                 const dateStart = moment(date._d);
                                 const startUtc = dateStart.utc()
-                                setStart(startUtc);
+                                setStart(date._d);
                             }}
                         />
 
@@ -209,7 +208,7 @@ export default  function EditBooking({refresh}) {
                                 const datemovement = moment(date._d);
                                 var endUtc = datemovement.utc()
 
-                                setEnd(endUtc);
+                                setEnd(date._d);
                             }}
                         />
                     {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
@@ -220,13 +219,13 @@ export default  function EditBooking({refresh}) {
                     <label className="input-label">Booking Purpose</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
-                    <textarea className="input" value ={purpose} type="textarea" style={{padding:"10px", fontSize:"20px",height:"unset"}} row="3" onChange={event => {
+                    <textarea className="input form-control" value ={purpose} type="textarea" style={{padding:"10px", fontSize:"20px",height:"unset"}} row="3" onChange={event => {
                         setPurpose(event.target.value);
                     }}/>
                     </div>
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
-                    <button type="submit" className="button button-large" style={{paddingBottom:"20px", paddingTop:"5px"}}>Update</button>
+                    <button type="submit" className="button button-large" >Update</button>
 
                     </div>
                     </form>

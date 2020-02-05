@@ -115,7 +115,7 @@ export default  function CreateUser( {refresh}) {
                     type="text" 
                     onChange={event => {
                         setName(event.target.value);
-                    }} />
+                    }} required/>
                     {errName && <div className="invalid-feedback">{errName}</div>}
 
                     <label>Email</label>
@@ -126,7 +126,7 @@ export default  function CreateUser( {refresh}) {
                     type="email" 
                     onChange={event => {
                         setEmail(event.target.value);
-                    }} />
+                    }} required/>
                     {errEmail && <div className="invalid-feedback">{errEmail}</div>}
 
                     <label>User ID</label>
@@ -139,7 +139,7 @@ export default  function CreateUser( {refresh}) {
                             type="number" 
                             onChange={event => {
                                 setStaffId(event.target.value);
-                            }} />
+                            }} required/>
                     {errStaffId && <div className="invalid-feedback">{errStaffId}</div>}
 
                         </div>
@@ -154,11 +154,11 @@ export default  function CreateUser( {refresh}) {
                         })}  
                     onChange={event => {
                         setRole(event.target.value);
-                    }}>
-                        <option> Select Role</option>
+                    }} required>
+                        <option value = ""> Select Role</option>
                         <option>User</option>
                         <option>Admin</option>
-                        <option>Public</option>
+                        {/* <option>Public</option> */}
                     </select>
                     {errRole && <div className="invalid-feedback">{errRole}</div>}
 
@@ -169,8 +169,8 @@ export default  function CreateUser( {refresh}) {
                         })}  
                      onChange={event => {
                         setDepartment(event.target.value);
-                    }}>
-                        <option> Select Department</option>
+                    }} required>
+                        <option value = ""> Select Department</option>
                         <option>HR- Human Resource</option>
                         <option>Security</option>
                         <option>Sales and Marketing</option>
@@ -191,7 +191,7 @@ export default  function CreateUser( {refresh}) {
                      value={password} 
                      onChange={event => {
                         setPassword(event.target.value);
-                    }}/>
+                    }} required/>
                     {errPaswd && <div className="invalid-feedback">{errPaswd}</div>}
 
                     <div className="row gen-pass">
@@ -216,10 +216,10 @@ export default  function CreateUser( {refresh}) {
                             classname("input form-control", {
                             "is-invalid": errNumber
                             })} 
-                            type="text" 
+                            type="Number" 
                             onChange={event => {
                                 setPhoneNumber(event.target.value);
-                            }}/>
+                            }} required/>
                     {errNumber && <div className="invalid-feedback">{errNumber}</div>}
 
                         </div>

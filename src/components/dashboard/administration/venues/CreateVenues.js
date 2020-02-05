@@ -54,7 +54,6 @@ export default  function CreateVenue({refresh}) {
 
                 })
                 .catch(error=>{
-                    console.log("error message" + error.message+"SDSDDsdsds" + error);
                     popNotification({
                         title: 'Error',
                         description: error.message,
@@ -63,7 +62,6 @@ export default  function CreateVenue({refresh}) {
                 })
     }
 
-    console.log("error message",err);
     const onCancel = () => {
         history.push('/admin/venues');
     }
@@ -80,7 +78,9 @@ export default  function CreateVenue({refresh}) {
     return (
         <div>
             <h3>CREATE VENUE</h3>
-            <form>
+            <form onSubmit={event => {
+                            onCreateNewVenue(event);
+                        }}>  
                 <div className="row">
                     <div className="col-md-6 column-1">
                         <button className="cancel-button" onClick={onCancel}>
@@ -90,6 +90,7 @@ export default  function CreateVenue({refresh}) {
                                 </svg>
 
                             </b> Cancel</button>
+                         
                         <label>Name</label>
                         <input 
                             type="text" 
@@ -132,17 +133,17 @@ export default  function CreateVenue({refresh}) {
                         <select className="select select-short custom-select" required  onChange={event => {
                             setStatus(event.target.value);
                         }}>
+                            <option value = "">select status</option>
                             <option>Available</option>
                             <option>Busy</option>
                         </select>
                         {errRole && <div className="invalid-feedback">{errRole}</div>}
-                        <input className="button button-large" type="submit" value="Create" onClick={event => {
-                            onCreateNewVenue(event);
-                        }}/>
+                        <input type="submit" className="button button-large" type="submit" value="Create"/>
                             {/*Create</input>*/}
                     </div>
                 </div>
-            </form>
+                    </form> 
+           
         </div>
     );
 }
