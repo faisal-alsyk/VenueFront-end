@@ -78,7 +78,7 @@ export default  function EditBooking({refresh}) {
           disabledSeconds: () => [55, 56],
         };
       }
-      
+
     const  onupdateBoking = event => {
         event.preventDefault();
             let payload = {
@@ -102,7 +102,7 @@ export default  function EditBooking({refresh}) {
                     else{
                         popNotification({
                             title: "Try Again",
-                            description: "Could not update venue booking. Please Try Again.",
+                            description: response.data.message,
                             type: "warning"
                         })
                         setErr(response.data)
@@ -118,7 +118,7 @@ export default  function EditBooking({refresh}) {
                 })
     }
 
-    const venueOption = venueData.map((data, index) => 
+    const venueOption = venueData.map((data, index) =>
      <option key={index} value = { data._id }>{data.name}</option>
 
     )
@@ -141,11 +141,11 @@ export default  function EditBooking({refresh}) {
                     <label className="input-label">Booking Name</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
-                    <input 
+                    <input
 
                         className="input form-control"
                         type="text"
-                        value= {title} 
+                        value= {title}
                         onChange={event => {
                             setTitle(event.target.value);
                          }}
@@ -156,10 +156,10 @@ export default  function EditBooking({refresh}) {
                     <label className="input-label">Venue</label>
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
-                    <select 
-                        className="input custom-select" 
-                        value={venueId} 
-                        style={{width:"100%"}} 
+                    <select
+                        className="input custom-select"
+                        value={venueId}
+                        style={{width:"100%"}}
                         onChange={event => {
                             setVenueId(event.target.value);
                         }}
@@ -178,7 +178,7 @@ export default  function EditBooking({refresh}) {
 
                          <DatePicker
                             className="input"
-                            size="large"  
+                            size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                             value={moment(start)}
                             disabledDate={disabledDate}
@@ -190,17 +190,17 @@ export default  function EditBooking({refresh}) {
                                 setStart(startUtc);
                             }}
                         />
-                       
+
                     </div>
 
                     <div className="col-md-4 col-xs-6">
                     <label className="input-label">Booking End Date</label>
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
-                        
+
                          <DatePicker
                             className="input"
-                            size="large"  
+                            size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                              value = {moment(end)}
                             disabledDate={disabledDate}
@@ -213,7 +213,7 @@ export default  function EditBooking({refresh}) {
                             }}
                         />
                     {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
-                       
+
                     </div>
 
                     <div className="col-md-4 col-xs-4">
