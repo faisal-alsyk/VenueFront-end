@@ -45,7 +45,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
     const eventDetail = data => {
      const startMoment = moment(data.event.start);
      const startDate =startMoment.format('YYYY-MM-DD HH:mm:ss')
-      const endMoment =moment(data.event.end._d);
+      const endMoment =moment(data.event.end);
       const endDate =endMoment.format('YYYY-MM-DD HH:mm:ss')
 
       SetModalVisible(true);
