@@ -4,9 +4,10 @@ import { notification } from "antd";
 import "./Login.css";
 import classname from "classname"
 import Header from "../../components/LoginHeader/header";
-import {adminLogin, verifyAdminCode} from "../../server";
+import {adminLogin, userLogin   } from "../../server";
 import Spinner from "../../components/common/Spinner";
 import Verification from "./verifycode";
+import Axios from "axios";
 
 const popNotification = (data) => {
     notification[data.type]({
@@ -60,6 +61,7 @@ export default function LoginPage(props) {
                         description: "To Sign-In as Admin, Enter Verification Code to Confirm that you are Admin.",
                         type: "success"
                     });
+
                     let userData = response.data.data;
                     history.push('/verification', {userData});
                 }
@@ -69,7 +71,7 @@ export default function LoginPage(props) {
                     //     description: response.data.error.email,
                     //     type: "error"
                     // });
-                    setErr(response.data)
+                    setErr(response.data);
                 }
             })
             .catch(error=>{
@@ -82,6 +84,60 @@ export default function LoginPage(props) {
 
             })
     }
+    function onUserLogin (event) {
+        event.preventDefault();
+        let payload = {
+            email: email,
+            password: password
+        }
+
+        const errorData = {};
+        errorData.error ={}
+    
+        if(!payload.email) {
+            errorData.error.email  = "Email field required";
+            
+        }
+        if(!payload.password){
+            errorData.error.password = "Password field required";
+            
+        }
+
+    if(errorData.error.email || errorData.error.password) {
+        setErr(errorData);
+        setloading(false);
+        return;
+    }
+        userLogin(payload)
+
+            .then(response => {
+                setloading(false);
+                if(response.data.status === "Success"){
+                    popNotification({
+                        title: response.data.status,
+                        description: "Successfully Logged In.",
+                        type: "success"
+                    });
+
+                    localStorage.setItem('token', response.data.data.token);
+                    localStorage.setItem('role', response.data.data.role);
+                    localStorage.setItem('roleId', response.data.data._id);
+                    Axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+                    history.push("/venuebooking/booking");
+                } else {
+
+                    setErr(response.data)
+                }
+            })
+            .catch(error => {
+                setloading(false);
+                popNotification({
+                    title: 'Failed',
+                    description: "Something went wrong. Please try again",
+                    type: "error"
+                });
+            })
+    }
 
     let errEmail, errPaswd  ;
     if(err) {
@@ -91,14 +147,6 @@ export default function LoginPage(props) {
         
     }
     
-    function onUserLogin (event) {
-        event.preventDefault();
-        popNotification({
-            title: 'Not Allowed',
-            description: "Please Sign is as Admin",
-            type: "info"
-        })
-    }
 
 
     let viewContent;
@@ -137,6 +185,7 @@ export default function LoginPage(props) {
                     <button className="login"
                     style={{marginTop:"24px"}}
                     onClick={event=>{
+                        setloading(true);
                         onUserLogin(event);
                     }}>
                         LOGIN

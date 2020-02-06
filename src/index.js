@@ -15,6 +15,7 @@ import Verification from "./views/Authentication/verifycode.js";
 import Dashboard from "./components/dashboard";
 import AdminDashboard from "./components/dashboard/administration";
 import VenueDashboard from "./components/dashboard/venueBooking";
+// import PublicViewBooking from "./components/dashboard/venueBooking/public/AllBooking";
 
 
  axios.defaults.baseURL = "http://localhost:4200/api";
@@ -35,7 +36,8 @@ ReactDOM.render(
             <Route exact path="/verification" component={Verification} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/admin" component={AdminDashboard} />
-            <PrivateRoute path="/venuebooking" component={VenueDashboard} />
+            <Route path="/venuebooking" component={VenueDashboard} />
+            {/* <Route path="/public" component={PublicViewBooking} /> */}
           </Switch>
         </Router>
     </div>,

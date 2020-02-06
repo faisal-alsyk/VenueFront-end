@@ -44,7 +44,7 @@ export default  function EditBooking({refresh}) {
         getbookingbyId(bookingData.id)
             .then(response => {
 
-                const editData = response.data.data;
+                const editData = response.data.data.booking;
                 setTitle(editData.title);
                 setVenueId(editData.venueId);
                 setStart(editData.start);
@@ -56,6 +56,7 @@ export default  function EditBooking({refresh}) {
             });
 
     },[]);
+
 
     function range(start, end) {
         const result = [];
@@ -141,9 +142,8 @@ export default  function EditBooking({refresh}) {
                     </div>
                     <div className="col-md-8 col-xs-8">
                     <input 
-
-                        className="input form-control"
                         type="text"
+                        className="input form-control"
                         value= {title} 
                         onChange={event => {
                             setTitle(event.target.value);

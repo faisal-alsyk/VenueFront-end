@@ -22,6 +22,7 @@ const popNotification = (data) => {
 }
 
 export default function Users() {
+    const role = localStorage.getItem("role")
     const history = useHistory();
     let [venueData, setVenueData] = useState( [] );
     let [refresh, setrefresh] = useState(false);
@@ -89,9 +90,9 @@ export default function Users() {
         id: "venue ID",
         name: "Name"
     }
-    return (
-
-        <div id="form" className="col-md-12 col-xs-12">
+    let adminDashboard;
+    if (role === "Admin") {
+        adminDashboard =  <div id="form" className="col-md-12 col-xs-12">
             <Switch>
                 <Route  exact path="/admin/venues">
 
@@ -114,6 +115,16 @@ export default function Users() {
                     setrefresh(changeRefresh)}}/>}/>
             </Switch>
         </div>
+     } else if (role === "User") {
+
+        history.push("/venuebooking/booking")
+           
+       }
+    return (
+        <>
+        {adminDashboard}
+        </>
+
 
     );
 }

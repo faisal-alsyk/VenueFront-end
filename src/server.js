@@ -67,8 +67,8 @@ export const updateBoking = (id, payload) =>{
     return axios.patch(`bookings/${id}`, payload)
 }
 
-export const deleteBooking = (id) =>{
-    return axios.delete(`bookings/${id}`)
+export const deleteBooking = (id, payload) =>{
+    return axios.post(`bookings/${id}`, payload)
 
 }
 
@@ -90,4 +90,10 @@ export const AddCsv = (payload) => {
 
 export const priorityBooking = (payload) => {
     return axios.post('bookings/prioritybooking', payload)
+}
+export const deletePublicBooking = (id, payload) =>{
+    return axios.post(`bookings/${id}`, payload)
+}
+export const createPublicBooking = (payload) => {
+    return axios.post('bookings/public', payload)
 }

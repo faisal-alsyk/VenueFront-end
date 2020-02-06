@@ -43,6 +43,7 @@ export default function Verification() {
                         type: "success"
                     });
                     localStorage.setItem('token', response.data.data.token);
+                    localStorage.setItem('role', response.data.data.role);
                     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
 
                     history.push('/dashboard');

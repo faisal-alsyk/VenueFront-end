@@ -15,9 +15,10 @@ export default function  BulkBooking () {
 
     const [ csvData, setCsvData ] =useState([]);
     const [ active, setActive ] =useState(false);
+    const [err, setErr] = useState();
    const  handleData = data => {
+       setActive(true);
         setCsvData(data);
-        setActive(true);
       }
 
       const  handleError = data => {
@@ -47,11 +48,12 @@ export default function  BulkBooking () {
                    
                 }
                 else{
-                    popNotification({
-                        title: "Try Again",
-                        description: "Could not upload file. Please Try Again.",
-                        type: "warning"
-                    })
+                    // popNotification({
+                    //     title: "Try Again",
+                    //     description: "Could not upload file. Please Try Again.",
+                    //     type: "warning"
+                    // })
+                    setErr(response.data.message);
                 }
                 setActive(false);
 
@@ -83,6 +85,7 @@ export default function  BulkBooking () {
                         onError={handleError}
                         render={onChange => <input type="file" onChange={onChange} accept=".csv" />}
                     />
+                    {err && <div style={{color:"red"}}>{err}</div>}
                 </Col>
                 <Col md={8} sm={8} xs ={24}>
                 </Col>

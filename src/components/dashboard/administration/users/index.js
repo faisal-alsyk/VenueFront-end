@@ -23,8 +23,9 @@ const popNotification = (data) => {
 }
 
 export default function Users() {
- const history = useHistory();
-    let [userData, setuserData] = useState( [] );
+    const role = localStorage.getItem("role")
+     const history = useHistory();
+    let [userData, setuserData] = useState([]);
     let [refresh, setrefresh] = useState(false);
     useEffect(()=>{
         UserList()
@@ -32,7 +33,7 @@ export default function Users() {
                 setuserData(response.data.data);
             })
             .catch(error => {
-                alert(error.message);
+                // alert(error.message);
             });
     },[]);
 
@@ -88,9 +89,10 @@ useEffect(function() {
        id: "Staff ID",
        name: "Name"
    }
-  return (
+   let adminDashboard;
+   if (role === "Admin") {
 
-        <div id="form" className="col-md-12">
+       adminDashboard = <div id="form" className="col-md-12">
         <Switch>
             <Route  exact path="/admin/users">
             <ReactTable
@@ -114,7 +116,16 @@ useEffect(function() {
             <Route  path="/admin/users/resetpassword" render={() => < ResetPassword />}/>
         </Switch>
         </div>
+       
+   } else if (role === "User") {
 
+    history.push("/venuebooking/booking")
+       
+   }
+  return (
+<>
+        {adminDashboard}
+        </>
   );
 }
 
