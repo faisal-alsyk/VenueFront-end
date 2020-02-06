@@ -54,15 +54,16 @@ export default function Verification() {
                         description: response.data.message,
                         type: "error"
                     });
-                    history.push('/login');
+                 history.push('/login');
                 }
 
             })
             .catch(error=> {
                 setloading(false);
+                console.log(error)
                 popNotification({
                     title: 'Error',
-                    description: error.message,
+                    description: "The Verification Code Supplied does not match. Try Sign In with verified Credentials",
                     type: "error"
                 })
                 history.push('/login');
@@ -88,21 +89,20 @@ export default function Verification() {
                         </label>
                     </div>
                 </div>
-                <form>
+                <form onSubmit={event => {
+                        setloading(true);
+                        onVerifyAdminCode(event);
+                        }}>
                     <label className="login-label">Admin Code</label>
                     <input className="admin-code form-control"
                            onChange={event => {
                                setadminCode(event.target.value);
                            }}
+                           required
                     />
-                    <button className="login"
+                    <button className="login" type="submit"
                     style={{marginTop:"24px"}}
-                    onClick={event => {
-
-                        setloading(true);
-                        onVerifyAdminCode(event);
-
-                    }}>LOGIN</button>
+                   >LOGIN</button>
                 </form>
             </div>
         )

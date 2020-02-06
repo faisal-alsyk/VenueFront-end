@@ -99,7 +99,9 @@ export default  function CreateVenue({refresh}) {
                             })}
                             onChange={event => {
                             setName(event.target.value);
-                        }} required/>
+                        }} 
+                        required
+                        />
                         {errName && <div className="invalid-feedback">{errName}</div>}
 
                         <label>Size</label>
@@ -111,8 +113,8 @@ export default  function CreateVenue({refresh}) {
                          onChange={event => {
                              setSize(event.target.value);
                             }}
-                         required
-                         />
+                            required
+                            />
                           {errSize && <div className="invalid-feedback">{errSize}</div>}
                              
                         <label>Venue ID</label>
@@ -130,9 +132,15 @@ export default  function CreateVenue({refresh}) {
                           {errVenue && <div className="invalid-feedback">{errVenue}</div>}
 
                         <label>Status</label>
-                        <select className="select select-short custom-select" required  onChange={event => {
+                        <select 
+                        className={classname("select select-short custom-select", {
+                            "is-invalid": errRole
+                            })} 
+                        onChange={event => {
                             setStatus(event.target.value);
-                        }}>
+                        }}
+                        required
+                        >
                             <option value = "">select status</option>
                             <option>Available</option>
                             <option>Busy</option>

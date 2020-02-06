@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {useHistory, Switch, Route} from "react-router-dom";
 import { notification } from "antd";
 import "./Login.css";
-
+import classname from "classname"
 import Header from "../../components/LoginHeader/header";
 import {adminLogin, verifyAdminCode} from "../../server";
 import Spinner from "../../components/common/Spinner";
@@ -34,18 +34,20 @@ export default function LoginPage(props) {
             password: password
         };
 
-        const error = {};
+        const errorData = {};
+            errorData.error ={}
         
             if(!payload.email) {
-                error.email ="Email field required";
+                errorData.error.email  = "Email field required";
+                
             }
             if(!payload.password){
-                error.password = "Password field required";
+                errorData.error.password = "Password field required";
+                
             }
 
-        if(error.email || error.password) {
-            console.log(error);
-            setErr(error);
+        if(errorData.error.email || errorData.error.password) {
+            setErr(errorData);
             setloading(false);
             return;
         }
@@ -62,11 +64,12 @@ export default function LoginPage(props) {
                     history.push('/verification', {userData});
                 }
                 else {
-                    popNotification({
-                        title: response.data.status,
-                        description: response.data.message,
-                        type: "error"
-                    });
+                    // popNotification({
+                    //     title: response.data.status,
+                    //     description: response.data.error.email,
+                    //     type: "error"
+                    // });
+                    setErr(response.data)
                 }
             })
             .catch(error=>{
@@ -82,36 +85,12 @@ export default function LoginPage(props) {
 
     let errEmail, errPaswd  ;
     if(err) {
-        errEmail = err.email;
-        errPaswd = err.password;
+        errEmail = err.error.email;
+        errPaswd = err.error.password;
+        console.log("zahid login message",err.error);
         
     }
-    // function onVerifyAdminCode (event) {
-    //     event.preventDefault();
-    //     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-    //     let payload = {
-    //         verificationCode: adminCode
-    //     };
-    //     verifyAdminCode(payload)
-    //         .then(response=>{
-    //             popNotification({
-    //                 title: response.data.status,
-    //                 description: response.data.message,
-    //                 type: "success"
-    //             });
-    //             history.push('/dashboard');
-    //             })
-    //         .catch(error=> {
-    //             setloading(false);
-    //             popNotification({
-    //                 title: 'Error',
-    //                 description: error.message,
-    //                 type: "error"
-    //             })
-    //             setshowLoginForm(true);
-    //             history.push('/login');
-    //         })
-    // }
+    
     function onUserLogin (event) {
         event.preventDefault();
         popNotification({
@@ -132,15 +111,24 @@ export default function LoginPage(props) {
                 <form>
                     <label className="form-heading">Login</label>
                     <label className="login-label">EMAIL</label>
-                    <input className="email form-control"
+                    <input 
+                    type="email"
+                     className={classname("email form-control", {
+                        "is-invalid": errEmail
+                        })}  
                            onChange={event => {
                                setEmail(event.target.value);
                            }} required
                     />
+                    
                     {errEmail && <div style={{color:"red"}}>{errEmail}</div>}
 
                     <label className="login-label" style={{paddingTop:"24px"}}>PASSWORD</label>
-                    <input className="password form-control" type="password"
+                    <input 
+                    className={classname("password form-control", {
+                        "is-invalid": errPaswd
+                        })} 
+                    type="password"
                            onChange={event => {
                                setPassword(event.target.value);
                            }} required

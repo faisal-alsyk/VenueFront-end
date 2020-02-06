@@ -64,6 +64,8 @@ const updateVenue = function EditVenue({refresh}) {
                         description: "Could not Update Venue. Please Try Again.",
                         type: "warning"
                     })
+
+                    setErr(response.data);
                 }
 
             })
@@ -79,12 +81,12 @@ const updateVenue = function EditVenue({refresh}) {
         history.push(`/admin/venues/view/${id}`);
     }
 
-    let errName, errSize, errVenue, errRole  ;
+    let errName, errSize, errRole ;
     if(err) {
+        console.log(err.role)
         errName = err.name;
-        errVenue = err.venueId;
+        errRole = err.role;
         errSize = err.size;
-        errRole = err.role
     }
     
     return (
@@ -112,7 +114,9 @@ const updateVenue = function EditVenue({refresh}) {
                     value={name} 
                     onChange={event => {
                         setName(event.target.value);
-                    }} required/>
+                    }} 
+                    required
+                    />
                     {errName && <div className="invalid-feedback">{errName}</div>}
 
                     <label>Size</label>
@@ -120,18 +124,25 @@ const updateVenue = function EditVenue({refresh}) {
                      className={classname("input form-control", {
                         "is-invalid": errSize
                     })} 
-                    type="text" 
+                    type="Number" 
                     value={size} 
                     onChange={event => {
                         setSize(event.target.value);
-                    }} required/>
-                   {errSize && <div className="invalid-feedback">{errSize}</div>}
+                    }} 
+                    required
+                    />
+                   {errRole && <div className="invalid-feedback">{errRole}</div>}
 
                     <label>Status</label>
                     <select 
-                    className="select select-short custom-select" required  value={status} onChange={event => {
+                    className={classname("select select-short custom-select", {
+                        "is-invalid": errRole
+                        })} 
+                    value={status} onChange={event => {
                         setStatus(event.target.value);
-                    }}>
+                    }}
+                    required
+                    >
                          <option value = "">Select Status</option>
                         <option>Available</option>
                         <option>Busy</option>
