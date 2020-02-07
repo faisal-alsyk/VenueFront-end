@@ -31,7 +31,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
     const [ calendarWeekends, setCalenderWeekends ] =  useState(true);
     const [modalVisible, SetModalVisible] = useState(false);
     const [deleteModalVisible, SetDeleteModalVisible] = useState(false);
-    
+
     const [bookingData, setBookingData ] = useState({});
    const [venueUser, setVenueUser ] = useState({});
    const [email, setEmail ] = useState("");
@@ -43,13 +43,13 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
 
     useEffect( function () {
       refresh();
-          calendarComponentRef.current.getApi().setOption('height', 600); 
+          calendarComponentRef.current.getApi().setOption('height', 600);
          }, [])
 
     const eventDetail = data => {
       getbookingbyId(data.event.id)
       .then(response => {
-        
+
         const venueUser = response.data.data.user;
          console.log("user detail", venueUser)
          setVenueUser(venueUser)
@@ -58,9 +58,9 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
           const endMoment =moment(data.event.end);
           const endDate =endMoment.format('YYYY-MM-DD HH:mm:ss')
           console.log("user detail", venueUser)
-     
+
           SetModalVisible(true);
-          
+
           const booking = {
             title: data.event.title,
             id: data.event.id,
@@ -71,12 +71,12 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
             role: venueUser.role?venueUser.role:"",
             number:venueUser.phoneNumber?venueUser.phoneNumber:""
           }
-          
+
           setBookingData(booking);
       })
       .catch(error => {
     });
-      
+
 
 
     }
@@ -164,14 +164,16 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
               })
           })
   }
-   
+
     let deleteBtn ;
     let editBtn;
+    let userDetail ;
+
     if(role === "User") {
 
       if(venueUser._id === tokenId) {
 
-        deleteBtn = 
+        deleteBtn =
         <Popconfirm
         title="Are you sure delete this event?"
         onConfirm={event => {
@@ -188,7 +190,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
 
             </b> Delete Event</button>
             </Popconfirm>;
-      
+
       editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon" onClick={event => {
         onEdit();
    }}>
@@ -196,15 +198,69 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
 
 
    </svg></a>
-      
+          userDetail = <>
+              <Col  md={4}>
+                  <span className="modal-span">Name</span>
+              </Col>
+              <Col  md={20}>
+                  <p className="modal-p">{venueUser && venueUser.name ? venueUser.name : "Public User"}</p>
+              </Col>
+              <Col  md={4}>
+                  <span className="modal-span">Email </span>
+              </Col>
+              <Col  md={20}>
+                  <p className="modal-p">{venueUser ? venueUser.email : "Email is not found"}</p>
+              </Col>
+              <Col  md={4}>
+                  <span className="modal-span">Role </span>
+              </Col>
+              <Col  md={20}>
+                  <p className="modal-p">{venueUser?venueUser.role:"Role is not found"}</p>
+              </Col>
+              <Col  md={4}>
+                  <span className="modal-span">number </span>
+              </Col>
+              <Col  md={20}>
+                  <p className="modal-p">{venueUser?venueUser.phoneNumber:"Number is not found"}</p>
+              </Col>
+              <Col  md={24}> <hr></hr></Col>
+          </>
+
       } else {
         deleteBtn = ""
         editBtn = ""
+          userDetail = <>
+              <Col  md={4}>
+                  <span className="modal-span">Name</span>
+              </Col>
+              <Col  md={20}>
+                  <p className="modal-p">{venueUser && venueUser.name? venueUser.name : "Public User"}</p>
+              </Col>
+              <Col  md={4}>
+                  <span className="modal-span">Email </span>
+              </Col>
+              <Col  md={20}>
+                  <p className="modal-p">{venueUser ? venueUser.email : "Email is not found"}</p>
+              </Col>
+              <Col  md={4}>
+                  <span className="modal-span">Role </span>
+              </Col>
+              <Col  md={20}>
+                  <p className="modal-p">{venueUser?venueUser.role:"Role is not found"}</p>
+              </Col>
+              <Col  md={4}>
+                  <span className="modal-span">number </span>
+              </Col>
+              <Col  md={20}>
+                  <p className="modal-p">{venueUser?venueUser.phoneNumber:"Number is not found"}</p>
+              </Col>
+              <Col  md={24}> <hr></hr></Col>
+          </>
       }
     } else if(role === "Admin") {
 
-    
-      deleteBtn = 
+
+      deleteBtn =
       <Popconfirm
       title="Are you sure delete this event?"
       onConfirm={event => {
@@ -222,20 +278,47 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
           </b> Delete Event</button>
           </Popconfirm>;
 
-      
+
 editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon" onClick={event => {
   onEdit();
 }}>
  <path d="M12.4928 4.00608L17.9937 9.50694L6.04881 21.4518L1.14436 21.9932C0.487796 22.0659 -0.0669308 21.5107 0.00611607 20.8541L0.551819 15.9462L12.4928 4.00608ZM21.396 3.1871L18.8131 0.604248C18.0074 -0.201416 16.7008 -0.201416 15.8951 0.604248L13.4652 3.03413L18.9661 8.53499L21.396 6.10511C22.2016 5.29901 22.2016 3.99276 21.396 3.1871Z" fill="#005404"/>
 
 
-</svg></a>
-        
+</svg></a>;
+        userDetail = <>
+            <Col  md={4}>
+                <span className="modal-span">Name</span>
+            </Col>
+            <Col  md={20}>
+                <p className="modal-p">{venueUser && venueUser.name? venueUser.name : "Public User"}</p>
+            </Col>
+            <Col  md={4}>
+                <span className="modal-span">Email </span>
+            </Col>
+            <Col  md={20}>
+                <p className="modal-p">{venueUser ? venueUser.email : "Email is not found"}</p>
+            </Col>
+            <Col  md={4}>
+                <span className="modal-span">Role </span>
+            </Col>
+            <Col  md={20}>
+                <p className="modal-p">{venueUser?venueUser.role:"Role is not found"}</p>
+            </Col>
+            <Col  md={4}>
+                <span className="modal-span">number </span>
+            </Col>
+            <Col  md={20}>
+                <p className="modal-p">{venueUser?venueUser.phoneNumber:"Number is not found"}</p>
+            </Col>
+            <Col  md={24}> <hr></hr></Col>
+        </>
+
     } else {
 
 
       deleteBtn =
-      <button  className="btn-delete pull-right" 
+      <button  className="btn-delete pull-right"
       style={{marginTop:"unset",float:"right", marginRight:"unset"}}
       onClick = {(event) => deleteModal(event)}
       >
@@ -246,7 +329,15 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
 
           </b> Delete Event</button>
       editBtn = "";
-      
+        userDetail = "";
+
+
+
+    }
+    if (role !== "Admin" || role !=="User") {
+    }
+    else {
+
     }
 
     return (
@@ -318,37 +409,12 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
         >
           <Row>
             <Col md={24} style={{marginTop:"24px"}}>
-              
+
            {deleteBtn}
-            
+
             </Col>
 
-            
-            <Col  md={4}>
-              <span className="modal-span">Name</span>
-            </Col>
-            <Col  md={20}>
-            <p className="modal-p">{venueUser? venueUser.name : "name is not found"}</p>
-            </Col>
-            <Col  md={4}>
-              <span className="modal-span">Email </span>
-            </Col>
-            <Col  md={20}>
-            <p className="modal-p">{venueUser ? venueUser.email : "email is not found"}</p>
-            </Col>
-            <Col  md={4}>
-              <span className="modal-span">Role </span>
-            </Col>
-            <Col  md={20}>
-            <p className="modal-p">{venueUser?venueUser.role:"role is not found"}</p>
-            </Col>
-            <Col  md={4}>
-              <span className="modal-span">number </span>
-            </Col>
-            <Col  md={20}>
-            <p className="modal-p">{venueUser?venueUser.phoneNumber:"number is not found"}</p>
-            </Col>
-            <Col  md={24}> <hr></hr></Col>
+              {userDetail}
             <Col  md={4}>
               <span className="modal-span">Start Date: </span>
             </Col>
@@ -363,14 +429,14 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
             </Col>
             <Col md={24}>
             {editBtn}
-           
+
             </Col>
-           
+
           </Row>
 
       </Modal>
 
-     
+
       </>
     )
 

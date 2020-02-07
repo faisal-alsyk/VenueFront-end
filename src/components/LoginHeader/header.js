@@ -1,8 +1,7 @@
 import React from "react";
-import logo from "../../assets/img/logo.svg"
-import "./loginHeader.css"
-import {useHistory, Link} from "react-router-dom"
-// const token = localStorage.getItem('token');
+import logo from "../../assets/img/logo.svg";
+import "./loginHeader.css";
+import {useHistory, Link} from "react-router-dom";
 
 export default function Header() {
     const role = localStorage.getItem("role")
@@ -31,24 +30,23 @@ export default function Header() {
                     <li className="nav-item active">
                         <a className="nav-link brand-name"
                          onClick={ event => {
-                            // if (role == "User" && path == "") {
-                                
-                            // } else {
-                                
-                            // }
                              history.goBack()
-                            
                             }}
                          >One Stop Management System  <span className="sr-only">(current)</span></a>
                     </li>
                     </ul>
                     <span className="navbar-text">
 
+                        <button className={(path === "/login") || (path === "/") ? 'show-public-button' : 'hide-public-button'}
+                                onClick={ () => {history.push("/venuebooking/booking") }}>
+                            Proceed as Public User
+                        </button>
+
                 {role ? ( <button className={(path === "/login" || path === "/" || path === "/verification") ? 'hide-logout': 'show-logout'}
                             onClick={event => {
                                 onLogout(event);
                             }}>Logout</button>) : ""}
-                   
+
                     </span>
                 </div>
             </nav>
