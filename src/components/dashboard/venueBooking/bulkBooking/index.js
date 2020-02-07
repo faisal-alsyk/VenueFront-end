@@ -17,7 +17,7 @@ export default function  BulkBooking () {
     const [ active, setActive ] =useState(false);
     const [err, setErr] = useState();
    const  handleData = data => {
-       setActive(true);
+    //    setActive(true);
         setCsvData(data);
       }
 
@@ -53,9 +53,9 @@ export default function  BulkBooking () {
                     //     description: "Could not upload file. Please Try Again.",
                     //     type: "warning"
                     // })
-                    setErr(response.data.message);
+                    setErr(response.data.messagusere);
                 }
-                setActive(false);
+                // setActive(false);
 
             })
             .catch(error=>{
@@ -64,7 +64,7 @@ export default function  BulkBooking () {
                     description: error.message,
                     type: "error"
                 })
-                setActive(false);
+                // setActive(false);
 
             })
 

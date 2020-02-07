@@ -5,11 +5,10 @@ import { Modal, Row, Col, notification, Popconfirm } from 'antd';
 import FullCalendar from '@fullcalendar/react'
 import resourceTimeline from "@fullcalendar/resource-timeline";
 import interaction from "@fullcalendar/interaction";
-
+import classname from "classname"
 import "@fullcalendar/core/main.css";
 import "@fullcalendar/timeline/main.css";
 import "@fullcalendar/resource-timeline/main.css";
-import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import "./fullCalander.css"
 import { useHistory } from 'react-router-dom';
@@ -28,13 +27,13 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
 
     const history = useHistory();
     const calendarComponentRef = React.createRef();
-    const [ calendarWeekends, setCalenderWeekends ] =  useState(true);
     const [modalVisible, SetModalVisible] = useState(false);
     const [deleteModalVisible, SetDeleteModalVisible] = useState(false);
 
     const [bookingData, setBookingData ] = useState({});
    const [venueUser, setVenueUser ] = useState({});
    const [email, setEmail ] = useState("");
+   const [err, setErr] = useState();
 
     const  setModal = (modal) =>{
       SetModalVisible({ modal });
@@ -85,14 +84,12 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
       event.preventDefault();
 
       SetDeleteModalVisible(true);
-      // SetModalVisible(false);
 
 
     }
 
     const onPublicDelete = event => {
       event.preventDefault();
-      console.log("testerterrer")
 
       const payload = {
         email: email
@@ -111,11 +108,13 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
 
                 }
                 else{
-                    popNotification({
-                        title: "Try Again",
-                        description: response.data.message,
-                        type: "warning"
-                    })
+                    // popNotification({
+                    //     title: "Try Again",
+                    //     description: response.data.message,
+                    //     type: "warning"
+                    // })
+                    
+                    setErr(response.data.email);
                 }
 
             })
@@ -125,9 +124,9 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
                   description: error.message,
                   type: "error"
               })
+              SetModalVisible(false);
+              SetDeleteModalVisible(false);
           })
-      SetModalVisible(false);
-      SetDeleteModalVisible(false);
 
     }
 
@@ -150,7 +149,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
                 else{
                     popNotification({
                         title: "Try Again",
-                        description: "Could not delete Booking. Please Try Again.",
+                        description: response.data.message,
                         type: "warning"
                     })
                 }
@@ -364,8 +363,14 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
           title=""
           centered
           visible={deleteModalVisible}
-          onOk={() => SetDeleteModalVisible(false)}
-          onCancel={() => SetDeleteModalVisible(false)}
+          onOk={() => {
+            setEmail(" ");
+            setErr("");
+             SetDeleteModalVisible(false)}}
+          onCancel={() =>  {
+            setEmail(" ");
+            setErr("");  
+            SetDeleteModalVisible(false)}}
         >
          <Row>
          <form onSubmit = {(event) => {
@@ -379,12 +384,16 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
                     <div className="col-md-8 col-xs-8">
                     <input style = {{marginTop:"20px"}}
                         type="email"
-                        className=" form-control"
+                        className={classname("form-control", {
+                            "is-invalid": err
+                            })}
                         onChange={event => {
                             setEmail(event.target.value);
                          }}
                          required
                     />
+                    {err && <div className="invalid-feedback">{err}</div>}
+
 
                     </div>
                     </div>
@@ -405,7 +414,7 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
           centered
           visible={modalVisible}
           onOk={() => SetModalVisible(false)}
-          onCancel={() => SetModalVisible(false)}
+          onCancel={() =>SetModalVisible(false)}
         >
           <Row>
             <Col md={24} style={{marginTop:"24px"}}>

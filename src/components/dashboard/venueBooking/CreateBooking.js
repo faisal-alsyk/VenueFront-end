@@ -161,7 +161,7 @@ export default  function CreateVenue({refresh}) {
         errName = err.title;
         errVenue = err.venue;
         errStart = err.start;
-        errEnd = err.end
+        errEnd = err.end;
     }
 
 

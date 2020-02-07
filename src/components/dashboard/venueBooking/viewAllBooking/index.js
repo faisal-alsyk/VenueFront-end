@@ -4,7 +4,7 @@ import { Link, Route, Switch, useHistory} from "react-router-dom";
 
 import "../../reactTable/reactTable.css"
 import "../venueDashboard.css"
-
+import PrivateRoute from "../../../../components/ProtectedRoutes/privateRoute";
 import CreateBooking from "../CreateBooking";
 import CalanderFull from '../fullClender'
 import { getbooking } from '../../../../server'
@@ -12,7 +12,7 @@ import EditBooking from '../EditBooking';
 
 
 export default function AllBooking () {
-
+    const role = localStorage.getItem("role");
     const history = useHistory();
     const [eventsdata, setEventsData] = useState([]);
     const [resourcesData, setResourcesData] = useState([]);
@@ -51,6 +51,7 @@ export default function AllBooking () {
     
         return (
            <>
+
                 <div className="col-md-12">
                 <Switch>
                 <Route  exact path="/venuebooking/booking">
@@ -87,10 +88,12 @@ export default function AllBooking () {
                     const changeRefresh = !refresh;
                     setRefresh(changeRefresh)}}/>} 
                 />
-                 <Route path="/venuebooking/booking/update" render={() => <EditBooking  refresh = { () => {
+                <Route path="/venuebooking/booking/update" render={() => role === "User" || role === "Admin" ? <EditBooking  refresh = { () => {
                     const changeRefresh = !refresh;
-                    setRefresh(changeRefresh)}}/>}
+                    setRefresh(changeRefresh)}}/>: `${history.push("/venuebooking/booking/")}` }
                  />
+                
+                
 
                 </Switch>
                     

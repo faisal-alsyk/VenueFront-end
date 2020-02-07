@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {useHistory} from "react-router-dom"
 import { notification } from "antd";
-// import DatePicker from "react-datepicker";
 
-import { DatePicker, TimePicker } from 'antd';
+import { DatePicker } from 'antd';
 import moment from 'moment';
-import classname from "classname";
 import "react-datepicker/dist/react-datepicker.css";
 import {VenueList, getbookingbyId, updateBoking} from "../../../server";
 import "./venueDashboard.css";
@@ -102,7 +100,7 @@ export default  function EditBooking({refresh}) {
                     else{
                         popNotification({
                             title: "Try Again",
-                            description: "Could not update venue booking. Please Try Again.",
+                            description: response.data.message,
                             type: "warning"
                         })
                         setErr(response.data)
@@ -128,7 +126,7 @@ export default  function EditBooking({refresh}) {
         errName = err.title;
         errVenue = err.venue;
         errStart = err.start;
-        errEnd = err.end
+        errEnd = err.end;
     }
 
     return (

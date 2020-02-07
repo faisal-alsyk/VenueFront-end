@@ -90,7 +90,7 @@ export default  function PriorityBooking() {
                     else{
                         popNotification({
                             title: "Try Again",
-                            description: "Could not create venue booking. Please Try Again.",
+                            description: response.data.message,
                             type: "warning"
                         })
 
@@ -116,7 +116,7 @@ export default  function PriorityBooking() {
         errName = err.title;
         errVenue = err.venue;
         errStart = err.start;
-        errEnd = err.end
+        errEnd = err.end;
     }
 
     return (
