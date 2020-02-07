@@ -18,7 +18,7 @@ const popNotification = (data) => {
   notification[data.type]({
       message: data.title,
       description: data.description,
-      duration: 100
+      duration: 2
   });
 };
 export default function CalanderFull({eventsdata, resourcesData, refresh}) {

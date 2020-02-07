@@ -14,7 +14,7 @@ const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 4
+        duration: 2
     });
 };
 

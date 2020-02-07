@@ -13,7 +13,7 @@ const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 8
+        duration: 2
     });
 };
 
@@ -101,7 +101,7 @@ export default  function PriorityBooking() {
                 .catch(error=>{
                     popNotification({
                         title: 'Error',
-                        description: error.message,
+                        description: "Could not Created Venue booking. Please Try Again.",
                         type: "error"
                     })
                 })

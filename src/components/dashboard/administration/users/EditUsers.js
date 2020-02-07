@@ -10,7 +10,7 @@ const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 8
+        duration: 2
     });
 };
 
@@ -70,7 +70,7 @@ const editProfile = function EditUser({refresh}) {
             .catch(error => {
                 popNotification({
                     title: 'Error',
-                    description: error.message,
+                    description: "Could not Update User. Please Try Again.",
                     type: "error"
                 })
             })

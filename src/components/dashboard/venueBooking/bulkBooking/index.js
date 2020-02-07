@@ -8,7 +8,7 @@ const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 8
+        duration: 2
     });
 };
 
@@ -66,7 +66,7 @@ export default function  BulkBooking () {
             .catch(error=>{
                 popNotification({
                     title: 'Error',
-                    description: error.message,
+                    description: "Could not upload file. Please Try Again.",
                     type: "error"
                 })
                 // setActive(false);

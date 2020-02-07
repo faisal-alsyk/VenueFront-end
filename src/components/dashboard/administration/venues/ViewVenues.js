@@ -10,7 +10,7 @@ const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 8
+        duration: 2
     });
 };
 
@@ -60,7 +60,8 @@ const ViewVenue = function ViewVenue({refresh}) {
             .catch(error=>{
                 popNotification({
                     title: 'Error',
-                    description: error.message,
+                    description: "Could not delete venue. Please Try Again.",
+
                     type: "error"
                 })
             })
