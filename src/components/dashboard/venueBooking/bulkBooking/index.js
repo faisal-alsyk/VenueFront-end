@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Row, Col, notification} from "antd";
 import CsvParse from '@vtex/react-csv-parse';
 import { AddCsv } from "../../../../server"
+import { useHistory } from "react-router-dom";
 
 const popNotification = (data) => {
     notification[data.type]({
@@ -12,10 +13,11 @@ const popNotification = (data) => {
 };
 
 export default function  BulkBooking () {
-
+    const history = useHistory();
     const [ csvData, setCsvData ] =useState([]);
     const [ active, setActive ] =useState(true);
     const [err, setErr] = useState();
+    const [clashMsg, setClashMsg] = useState();
    const  handleData = data => {
     //    setActive(true);
         setCsvData(data);
@@ -45,6 +47,8 @@ export default function  BulkBooking () {
                         description: "File upload successfully.",
                         type: "success"
                     })
+
+                history.push("/venuebooking/booking");
                    
                 }
                 else{
@@ -54,6 +58,7 @@ export default function  BulkBooking () {
                     //     type: "warning"
                     // })
                     setErr(response.data.message);
+                    setClashMsg(response.data.clashMessages);
                 }
                 // setActive(false);
 
@@ -71,6 +76,15 @@ export default function  BulkBooking () {
         
 
     }
+
+let clashError = "";
+
+if(clashMsg) {
+    clashError = clashMsg.map((msg, index) => <li key= {index}>{msg}</li>
+    )
+
+}
+
     return (
         <>
             <Row style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
@@ -100,7 +114,7 @@ export default function  BulkBooking () {
                     onClick = { UploadData } style={{marginLeft:"1rem", marginTop:"1rem"}}>Upload</button>
                     }
                 </Col>
-
+                {clashMsg && <div style={{color:"red"}}><ul>{clashError}</ul></div>}
                 </Col>
 
             </Row>

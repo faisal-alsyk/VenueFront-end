@@ -158,7 +158,7 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
           .catch(error=>{
               popNotification({
                   title: 'Error',
-                  description: error.message,
+                  description: "something went wrong",
                   type: "error"
               })
           })

@@ -67,8 +67,8 @@ export const updateBoking = (id, payload) =>{
     return axios.patch(`bookings/${id}`, payload)
 }
 
-export const deleteBooking = (id, payload) =>{
-    return axios.post(`bookings/${id}`, payload)
+export const deleteBooking = (id) =>{
+    return axios.delete(`bookings/${id}`)
 
 }
 
