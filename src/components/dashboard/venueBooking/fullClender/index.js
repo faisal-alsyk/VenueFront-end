@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-import { Modal, Row, Col, notification, Popconfirm } from 'antd';
+import { Modal, Row, Col, notification, Popconfirm, Button } from 'antd';
 
 import FullCalendar from '@fullcalendar/react'
 import resourceTimeline from "@fullcalendar/resource-timeline";
@@ -198,28 +198,28 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
 
    </svg></a>
           userDetail = <>
-              <Col  md={4}>
+              <Col  md={5}>
                   <span className="modal-span">Name</span>
               </Col>
-              <Col  md={20}>
+              <Col  md={19}>
                   <p className="modal-p">{venueUser && venueUser.name ? venueUser.name : "Public User"}</p>
               </Col>
-              <Col  md={4}>
+              <Col  md={5}>
                   <span className="modal-span">Email </span>
               </Col>
-              <Col  md={20}>
+              <Col  md={19}>
                   <p className="modal-p">{venueUser ? venueUser.email : "Email is not found"}</p>
               </Col>
-              <Col  md={4}>
+              <Col  md={5}>
                   <span className="modal-span">Role </span>
               </Col>
-              <Col  md={20}>
+              <Col  md={19}>
                   <p className="modal-p">{venueUser?venueUser.role:"Role is not found"}</p>
               </Col>
-              <Col  md={4}>
+              <Col  md={5}>
                   <span className="modal-span">number </span>
               </Col>
-              <Col  md={20}>
+              <Col  md={19}>
                   <p className="modal-p">{venueUser?venueUser.phoneNumber:"Number is not found"}</p>
               </Col>
               <Col  md={24}> <hr></hr></Col>
@@ -229,28 +229,28 @@ export default function CalanderFull({eventsdata, resourcesData, refresh}) {
         deleteBtn = ""
         editBtn = ""
           userDetail = <>
-              <Col  md={4}>
+              <Col  md={5}>
                   <span className="modal-span">Name</span>
               </Col>
-              <Col  md={20}>
+              <Col  md={19}>
                   <p className="modal-p">{venueUser && venueUser.name? venueUser.name : "Public User"}</p>
               </Col>
-              <Col  md={4}>
+              <Col  md={5}>
                   <span className="modal-span">Email </span>
               </Col>
-              <Col  md={20}>
+              <Col  md={19}>
                   <p className="modal-p">{venueUser ? venueUser.email : "Email is not found"}</p>
               </Col>
-              <Col  md={4}>
+              <Col  md={5}>
                   <span className="modal-span">Role </span>
               </Col>
-              <Col  md={20}>
+              <Col  md={19}>
                   <p className="modal-p">{venueUser?venueUser.role:"Role is not found"}</p>
               </Col>
-              <Col  md={4}>
+              <Col  md={5}>
                   <span className="modal-span">number </span>
               </Col>
-              <Col  md={20}>
+              <Col  md={19}>
                   <p className="modal-p">{venueUser?venueUser.phoneNumber:"Number is not found"}</p>
               </Col>
               <Col  md={24}> <hr></hr></Col>
@@ -286,36 +286,37 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
 
 </svg></a>;
         userDetail = <>
-            <Col  md={4}>
+            <Col  md={5}>
                 <span className="modal-span">Name</span>
             </Col>
-            <Col  md={20}>
+            <Col  md={19}>
                 <p className="modal-p">{venueUser && venueUser.name? venueUser.name : "Public User"}</p>
             </Col>
-            <Col  md={4}>
+            <Col  md={5}>
                 <span className="modal-span">Email </span>
             </Col>
-            <Col  md={20}>
+            <Col  md={19}>
                 <p className="modal-p">{venueUser ? venueUser.email : "Email is not found"}</p>
             </Col>
-            <Col  md={4}>
-                <span className="modal-span">Role </span>
+            <Col  md={5}>
+                <span className="modal-span">Booking By </span>
             </Col>
-            <Col  md={20}>
+            <Col  md={19}>
                 <p className="modal-p">{venueUser?venueUser.role:"Role is not found"}</p>
             </Col>
-            <Col  md={4}>
+            <Col  md={5}>
                 <span className="modal-span">number </span>
             </Col>
-            <Col  md={20}>
+            <Col  md={19}>
                 <p className="modal-p">{venueUser?venueUser.phoneNumber:"Number is not found"}</p>
             </Col>
-            <Col  md={24}> <hr></hr></Col>
+            <Col  md={24}></Col>
         </>
 
     } else {
 
-
+        if (venueUser.role === "Public") {
+            
       deleteBtn =
       <button  className="btn-delete pull-right"
       style={{marginTop:"unset",float:"right", marginRight:"unset"}}
@@ -327,17 +328,26 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
       </svg>
 
           </b> Delete Event</button>
+        }
       editBtn = "";
-        userDetail = "";
+        userDetail = <>
+                <Col  md={5}>
+                    <span className="modal-span">Booking By </span>
+                 </Col>
+                <Col  md={19}>
+                    <p className="modal-p">{venueUser?venueUser.role:"Role is not found"}</p>
+                </Col>
+            
+        </>
 
 
 
     }
-    if (role !== "Admin" || role !=="User") {
-    }
-    else {
-
-    }
+   const handleCancel = () => {
+        setEmail(" ");
+            setErr("");  
+            SetDeleteModalVisible(false);
+   }
 
     return (
         <>
@@ -363,14 +373,16 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
           title=""
           centered
           visible={deleteModalVisible}
-          onOk={() => {
-            setEmail(" ");
-            setErr("");
-             SetDeleteModalVisible(false)}}
-          onCancel={() =>  {
-            setEmail(" ");
-            setErr("");  
-            SetDeleteModalVisible(false)}}
+          onCancel={()=>handleCancel()}
+            footer={[
+                <Button key="submit" style={{display:"none"}} type="primary">
+                  Submit
+                </Button>,
+                <Button key="back" onClick={()=>handleCancel()}>
+                  cancel
+                </Button>,
+              ]}
+     
         >
          <Row>
          <form onSubmit = {(event) => {
@@ -417,6 +429,7 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
           onCancel={() =>SetModalVisible(false)}
         >
           <Row>
+              <Col md ={24}>
             <Col md={24}>
 
            {deleteBtn}
@@ -424,23 +437,23 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
             </Col>
 
               {userDetail}
-            <Col  md={4}>
+            <Col  md={5}>
               <span className="modal-span">Start Date: </span>
             </Col>
-            <Col  md={20}>
+            <Col  md={19}>
             <p className="modal-p">{bookingData.start}</p>
             </Col>
-            <Col  md={4}>
+            <Col  md={5}>
               <span className="modal-span">End Date: </span>
             </Col>
-            <Col  md={20}>
+            <Col  md={19}>
             <p className="modal-p">{bookingData.end}</p>
             </Col>
             <Col md={24}>
             {editBtn}
 
             </Col>
-
+            </Col>
           </Row>
 
       </Modal>

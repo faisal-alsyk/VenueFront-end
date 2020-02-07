@@ -81,7 +81,7 @@ let resetPassword = function ResetPassword() {
                                setPassword(event.target.value);
                            }}
                     />
-                    <button className="login" onClick={event => {
+                    <button className="login" style = {{marginTop: "20px"}} onClick={event => {
                         onGeneratePassword(event);
                     }}>Generate Password
                     </button>

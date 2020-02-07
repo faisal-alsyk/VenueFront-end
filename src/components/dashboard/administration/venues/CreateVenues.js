@@ -123,7 +123,6 @@ export default  function CreateVenue({refresh}) {
                             "is-invalid": errVenue
                         })}
                         type="number" 
-                         
                         onChange={event => {
                             setVenueId(event.target.value);
                         }}
