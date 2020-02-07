@@ -2,22 +2,25 @@ import React, { useState } from "react";
 import {Row, Col, notification} from "antd";
 import CsvParse from '@vtex/react-csv-parse';
 import { AddCsv } from "../../../../server"
+import { useHistory } from "react-router-dom";
 
 const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 8
+        duration: 2
     });
 };
 
 export default function  BulkBooking () {
-
+    const history = useHistory();
     const [ csvData, setCsvData ] =useState([]);
-    const [ active, setActive ] =useState(false);
+    const [ active, setActive ] =useState(true);
+    const [err, setErr] = useState();
+    const [clashMsg, setClashMsg] = useState();
    const  handleData = data => {
+    //    setActive(true);
         setCsvData(data);
-        setActive(true);
       }
 
       const  handleError = data => {
@@ -44,31 +47,44 @@ export default function  BulkBooking () {
                         description: "File upload successfully.",
                         type: "success"
                     })
+
+                history.push("/venuebooking/booking");
                    
                 }
                 else{
-                    popNotification({
-                        title: "Try Again",
-                        description: "Could not upload file. Please Try Again.",
-                        type: "warning"
-                    })
+                    // popNotification({
+                    //     title: "Try Again",
+                    //     description: "Could not upload file. Please Try Again.",
+                    //     type: "warning"
+                    // })
+                    setErr(response.data.message);
+                    setClashMsg(response.data.clashMessages);
                 }
-                setActive(false);
+                // setActive(false);
 
             })
             .catch(error=>{
                 popNotification({
                     title: 'Error',
-                    description: error.message,
+                    description: "Could not upload file. Please Try Again.",
                     type: "error"
                 })
-                setActive(false);
+                // setActive(false);
 
             })
 
         
 
     }
+
+let clashError = "";
+
+if(clashMsg) {
+    clashError = clashMsg.map((msg, index) => <li key= {index}>{msg}</li>
+    )
+
+}
+
     return (
         <>
             <Row style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
@@ -83,6 +99,8 @@ export default function  BulkBooking () {
                         onError={handleError}
                         render={onChange => <input type="file" onChange={onChange} accept=".csv" />}
                     />
+                    {err && <div style={{color:"red"}}>{err}</div>}
+                    
                 </Col>
                 <Col md={8} sm={8} xs ={24}>
                 </Col>
@@ -96,7 +114,7 @@ export default function  BulkBooking () {
                     onClick = { UploadData } style={{marginLeft:"1rem", marginTop:"1rem"}}>Upload</button>
                     }
                 </Col>
-
+                {clashMsg && <div style={{color:"red"}}><ul>{clashError}</ul></div>}
                 </Col>
 
             </Row>

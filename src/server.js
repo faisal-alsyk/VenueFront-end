@@ -91,3 +91,9 @@ export const AddCsv = (payload) => {
 export const priorityBooking = (payload) => {
     return axios.post('bookings/prioritybooking', payload)
 }
+export const deletePublicBooking = (id, payload) =>{
+    return axios.post(`bookings/${id}`, payload)
+}
+export const createPublicBooking = (payload) => {
+    return axios.post('bookings/public', payload)
+}

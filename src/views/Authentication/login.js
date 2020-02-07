@@ -13,7 +13,7 @@ const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 8
+        duration: 2
     });
 };
 
@@ -73,7 +73,7 @@ let login = function Login(props) {
                 setloading(false);
                 popNotification({
                     title: 'Error',
-                    description: error.message,
+                    description: "Could not login admin. Please Try Again.",
                     type: "error"
                 })
 

@@ -18,7 +18,8 @@ export default function AdminBooking () {
 
     const [refresh, setRefresh] = useState([]);
     const role = "admin";
-
+    const tokenId = history.location.state;
+    console.log("fjfdhdfhdkfjdf",tokenId)
     useEffect( () => {
 
         getbookingByAdmin(role)

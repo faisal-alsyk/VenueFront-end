@@ -10,6 +10,8 @@ export default function AdminHeader() {
     function onLogout(event) {
         event.preventDefault();
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        localStorage.removeItem('id');
         history.push('/login');
     }
     return (

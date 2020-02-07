@@ -66,3 +66,24 @@ color: #005404 !important;
 .nav-bar-shadow {
     box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.08);
 }
+
+.show-public-button {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    max-width: 352px;
+    width:220px;
+    height: 35px;
+    background: #005404;
+    border-radius: 5px;
+    font-family: Poppins !important;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+
+    color: #FFFFFF;
+}
+.hide-public-button {
+    display: none;
+}

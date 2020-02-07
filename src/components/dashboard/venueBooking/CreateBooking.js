@@ -8,17 +8,19 @@ import moment from 'moment';
 import classname from "classname";
 
 import "react-datepicker/dist/react-datepicker.css";
-import {VenueList, createBooking} from "../../../server";
+import {VenueList, createBooking, createPublicBooking} from "../../../server";
 import "./venueDashboard.css";
 const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 4
+        duration: 2
     });
 };
 
 export default  function CreateVenue({refresh}) {
+
+    const role = localStorage.getItem("role");
 
     const history = useHistory();
     const [venueData, setVenueData] = useState([]);
@@ -28,6 +30,8 @@ export default  function CreateVenue({refresh}) {
     const [start, setStart] = useState(new Date());
     const [end, setEnd] = useState();
     const [purpose, setPurpose] = useState('');
+    const [email, setEmail] = useState('');
+    const [ phoneNumber, setPhoneNumber ] = useState("");
 
     const [err, setErr] = useState();
 
@@ -72,7 +76,9 @@ export default  function CreateVenue({refresh}) {
                 venueId,
                 start,
                 end,
-                purpose
+                purpose,
+                email,
+                phoneNumber
             };
             const error = {};
             if(!payload.end) {
@@ -80,7 +86,41 @@ export default  function CreateVenue({refresh}) {
                  setErr(error);
                  return
             }
-            createBooking(payload)
+
+            if (role === "User" || role === "Admin") {
+                
+                createBooking(payload)
+                    .then(response =>{
+                        if(response.data.status === "Success"){
+                            popNotification({
+                                title: response.data.status,
+                                description: "Venue booking Created Successfully.",
+                                type: "success"
+                            })
+                            refresh();
+                            history.goBack();
+                        }
+                        else if (response.data.status === "Error"){
+                            popNotification({
+                                title: "Try Again",
+                                description: response.data.message,
+                                type: "warning"
+                            })
+                        }
+                        setErr(response.data);
+    
+                    })
+                    .catch(error=>{
+                        popNotification({
+                            title: 'Error',
+                            description: error.message,
+                            type: "error"
+                        })
+                    })
+                    
+            } else {
+
+                createPublicBooking(payload)
                 .then(response =>{
                     if(response.data.status === "Success"){
                         popNotification({
@@ -108,18 +148,73 @@ export default  function CreateVenue({refresh}) {
                         type: "error"
                     })
                 })
+                
+            }
     }
     const venueOption = venueData.map((data, index) =>
      <option key={index} value = { data._id }>{data.name}</option>
 
     )
 
-    let errName, errStart, errVenue, errEnd  ;
+    let errName, errStart, errVenue, errEnd, errNumber, errEmail ;
     if(err) {
         errName = err.title;
         errVenue = err.venue;
         errStart = err.start;
-        errEnd = err.end
+        errEnd = err.end;
+    }
+
+
+    let publicFields;
+
+    if(role) {
+        publicFields = "";
+    } else {
+
+        publicFields = <>
+
+<div className="form-group row">
+                    <div className="col-md-4 col-xs-4">
+                    <label className="input-label">Phone Number</label>
+                    </div>
+                    <div className="col-md-8 col-xs-8">
+                    <input
+                        type="text"
+                        className={classname("input form-control", {
+                            "is-invalid": errNumber
+                            })}
+                        onChange={event => {
+                            setPhoneNumber(event.target.value);
+                         }}
+                         required
+                    />
+                    {errNumber && <div className="invalid-feedback">{errNumber}</div>}
+
+                    </div>
+                    </div>
+
+                    <div className="form-group row">
+                    <div className="col-md-4 col-xs-4">
+                    <label className="input-label">Email</label>
+                    </div>
+                    <div className="col-md-8 col-xs-8">
+                    <input
+                        type="email"
+                        className={classname("input form-control", {
+                            "is-invalid": errEmail
+                            })}
+                        onChange={event => {
+                            setEmail(event.target.value);
+                         }}
+                         required
+                    />
+                    {errEmail && <div className="invalid-feedback">{errEmail}</div>}
+
+                    </div>
+                    </div>
+
+        
+        </>
     }
 
     return (
@@ -219,6 +314,9 @@ export default  function CreateVenue({refresh}) {
                     {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
                     </div>
                     </div>
+                    
+                    {publicFields}
+
                     <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Purpose</label>

@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {useHistory} from "react-router-dom"
 import { notification } from "antd";
-// import DatePicker from "react-datepicker";
 
-import { DatePicker, TimePicker } from 'antd';
+import { DatePicker } from 'antd';
 import moment from 'moment';
-import classname from "classname";
 import "react-datepicker/dist/react-datepicker.css";
 import {VenueList, getbookingbyId, updateBoking} from "../../../server";
 import "./venueDashboard.css";
@@ -13,7 +11,7 @@ const popNotification = (data) => {
     notification[data.type]({
         message: data.title,
         description: data.description,
-        duration: 8
+        duration: 2
     });
 };
 
@@ -44,7 +42,7 @@ export default  function EditBooking({refresh}) {
         getbookingbyId(bookingData.id)
             .then(response => {
 
-                const editData = response.data.data;
+                const editData = response.data.data.booking;
                 setTitle(editData.title);
                 setVenueId(editData.venueId);
                 setStart(editData.start);
@@ -56,6 +54,7 @@ export default  function EditBooking({refresh}) {
             });
 
     },[]);
+
 
     function range(start, end) {
         const result = [];
@@ -111,7 +110,7 @@ export default  function EditBooking({refresh}) {
                 .catch(error=>{
                     popNotification({
                         title: 'Error',
-                        description: error.message,
+                        description: "Could not update venue booking. Please Try Again.",
                         type: "error"
                     })
                 })
@@ -127,7 +126,7 @@ export default  function EditBooking({refresh}) {
         errName = err.title;
         errVenue = err.venue;
         errStart = err.start;
-        errEnd = err.end
+        errEnd = err.end;
     }
 
     return (
@@ -141,9 +140,8 @@ export default  function EditBooking({refresh}) {
                     </div>
                     <div className="col-md-8 col-xs-8">
                     <input
-
-                        className="input form-control"
                         type="text"
+                        className="input form-control"
                         value= {title}
                         onChange={event => {
                             setTitle(event.target.value);
