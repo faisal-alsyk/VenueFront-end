@@ -417,7 +417,7 @@ editBtn =  <a><svg width="20" height="20" className="pull-right" viewBox="0 0 22
           onCancel={() =>SetModalVisible(false)}
         >
           <Row>
-            <Col md={24} style={{marginTop:"24px"}}>
+            <Col md={24}>
 
            {deleteBtn}
 
