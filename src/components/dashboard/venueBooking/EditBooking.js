@@ -4,6 +4,7 @@ import { notification } from "antd";
 
 import { DatePicker } from 'antd';
 import moment from 'moment';
+import classname from "classname";
 import "react-datepicker/dist/react-datepicker.css";
 import {VenueList, getbookingbyId, updateBoking} from "../../../server";
 import "./venueDashboard.css";
@@ -22,10 +23,9 @@ export default  function EditBooking({refresh}) {
 
     const [title, setTitle] = useState("");
     const [venueId, setVenueId] = useState('0');
-    const [start, setStart] = useState(new Date());
+    const [start, setStart] = useState();
     const [end, setEnd] = useState();
     const [purpose, setPurpose] = useState("");
-
     const {bookingData} = history.location.state;
 
     const [err, setErr] = useState();
@@ -86,6 +86,22 @@ export default  function EditBooking({refresh}) {
                 end,
                 purpose
             };
+
+            const error = {};
+            if(!payload.start) {
+                 error.start = "Start date and time required";
+                 setErr(error);
+            }
+            if(!payload.end) {
+                error.end = "End date and time required";
+                setErr(error);
+           }
+
+           if (error.start || error.end) {
+               return error;
+
+           }
+
             updateBoking(bookingData.id, payload)
                 .then(response =>{
                     if(response.data.status === "Updated"){
@@ -103,7 +119,7 @@ export default  function EditBooking({refresh}) {
                             description: response.data.message,
                             type: "warning"
                         })
-                        setErr(response.data)
+                        setErr(response.data.error)
                     }
 
                 })
@@ -124,7 +140,7 @@ export default  function EditBooking({refresh}) {
     let errName, errStart, errVenue, errEnd  ;
     if(err) {
         errName = err.title;
-        errVenue = err.venue;
+        errVenue = err.venueId;
         errStart = err.start;
         errEnd = err.end;
     }
@@ -135,26 +151,34 @@ export default  function EditBooking({refresh}) {
                 <div className="col-md-8 col-xs-12" style={{border:"unset"}}>
                 <form onSubmit={event => {
                         onupdateBoking(event);}}>
+                     <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Name</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
                     <input
                         type="text"
-                        className="input form-control"
+                        className={classname("input form-control", {
+                            "is-invalid": errName
+                            })}
                         value= {title}
                         onChange={event => {
                             setTitle(event.target.value);
                          }}
                          required
                     />
+                    {errName && <div className="invalid-feedback">{errName}</div>}
                     </div>
+                    </div>
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Venue</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
                     <select
-                        className="input custom-select"
+                          className={classname("input custom-select", {
+                            "is-invalid": errVenue
+                            })}
                         value={venueId}
                         style={{width:"100%"}}
                         onChange={event => {
@@ -166,15 +190,20 @@ export default  function EditBooking({refresh}) {
                        {venueOption}
 
                     </select>
-                    </div>
+                    {errVenue && <div className="invalid-feedback">{errVenue}</div>}
 
-                    <div className="col-md-4 col-xs-6">
+                    </div>
+                    </div>
+                    <div className="form-group row">
+                    <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Start Date</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
 
                          <DatePicker
-                            className="input"
+                            className={classname("input form-control", {
+                                "is-invalid": errStart
+                                })}
                             size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                             value={moment(start)}
@@ -187,16 +216,18 @@ export default  function EditBooking({refresh}) {
                                 setStart(date._d);
                             }}
                         />
-
+                    {errStart && <div className="invalid-feedback">{errStart}</div>}
                     </div>
-
-                    <div className="col-md-4 col-xs-6">
+                    <div className="form-group row">
+                    <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking End Date</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
 
                          <DatePicker
-                            className="input"
+                           className={classname("input form-control", {
+                            "is-invalid": errEnd
+                            })}
                             size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                              value = {moment(end)}
@@ -209,10 +240,10 @@ export default  function EditBooking({refresh}) {
                                 setEnd(date._d);
                             }}
                         />
-                    {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
-
+                    {errEnd && <div className="invalid-feedback">{errEnd}</div>}
+                       </div>
                     </div>
-
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Purpose</label>
                     </div>
@@ -221,10 +252,14 @@ export default  function EditBooking({refresh}) {
                         setPurpose(event.target.value);
                     }}/>
                     </div>
+                    </div>
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
                     <button type="submit" className="button button-large" >Update</button>
 
+                    </div>
+                    </div>
                     </div>
                     </form>
                 </div>
