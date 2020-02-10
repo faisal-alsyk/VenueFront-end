@@ -27,7 +27,7 @@ export default  function CreateVenue({refresh}) {
 
     const [title, setTitle] = useState('');
     const [venueId, setVenueId] = useState("");
-    const [start, setStart] = useState(new Date());
+    const [start, setStart] = useState();
     const [end, setEnd] = useState();
     const [purpose, setPurpose] = useState('');
     const [email, setEmail] = useState('');
@@ -81,11 +81,20 @@ export default  function CreateVenue({refresh}) {
                 phoneNumber
             };
             const error = {};
-            if(!payload.end) {
-                 error.end = "End date and time required";
+            if(!payload.start) {
+                 error.start = "Start date and time required";
                  setErr(error);
-                 return
+                
             }
+            if(!payload.end) {
+                error.end = "End date and time required";
+                setErr(error);
+           }
+        
+           if (error.start || error.end) {
+               return error;
+               
+           }
 
             if (role === "User" || role === "Admin") {
                 
@@ -107,7 +116,7 @@ export default  function CreateVenue({refresh}) {
                                 type: "warning"
                             })
                         }
-                        setErr(response.data);
+                        setErr(response.data.error);
     
                     })
                     .catch(error=>{
@@ -138,7 +147,7 @@ export default  function CreateVenue({refresh}) {
                             type: "warning"
                         })
                     }
-                    setErr(response.data);
+                    setErr(response.data.error);
 
                 })
                 .catch(error=>{
@@ -159,7 +168,7 @@ export default  function CreateVenue({refresh}) {
     let errName, errStart, errVenue, errEnd, errNumber, errEmail ;
     if(err) {
         errName = err.title;
-        errVenue = err.venue;
+        errVenue = err.venueId;
         errStart = err.start;
         errEnd = err.end;
     }
@@ -249,7 +258,10 @@ export default  function CreateVenue({refresh}) {
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
 
                     <select
-                        className="input custom-select"
+                        className=""
+                        className={classname("input custom-select", {
+                            "is-invalid": errVenue
+                            })}
                         value={venueId}
                         style={{width:"100%"}}
                         onChange={event => {
@@ -272,10 +284,12 @@ export default  function CreateVenue({refresh}) {
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
 
                          <DatePicker
-                            className="input"
+                             className={classname("input form-control", {
+                                "is-invalid": errStart
+                                })}
                             size="large"
                             format="YYYY-MM-DD HH:mm:ss"
-                            defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
+                            // defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
                             disabledDate={disabledDate}
                             // disabledTime={disabledDateTime}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
@@ -287,6 +301,7 @@ export default  function CreateVenue({refresh}) {
                                 setStart(date._d);
                             }}
                         />
+                        {errStart && <div  className="invalid-feedback">{errStart}</div>}
 
                     </div>
                     </div>
@@ -297,7 +312,9 @@ export default  function CreateVenue({refresh}) {
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
 
                          <DatePicker
-                            className="input"
+                              className={classname("input form-control", {
+                                "is-invalid": errEnd
+                                })}
                             size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                              //defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
@@ -311,7 +328,7 @@ export default  function CreateVenue({refresh}) {
                                 setEnd(date._d);
                             }}
                         />
-                    {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
+                    {errEnd && <div className="invalid-feedback">{errEnd}</div>}
                     </div>
                     </div>
                     

@@ -24,7 +24,7 @@ export default  function PriorityBooking() {
 
     const [title, setTitle] = useState('');
     const [venueId, setVenueId] = useState('');
-    const [start, setStart] = useState(new Date());
+    const [start, setStart] = useState();
     const [end, setEnd] = useState();
     const [purpose, setPurpose] = useState('');
     const [err, setErr] = useState();
@@ -72,11 +72,20 @@ export default  function PriorityBooking() {
                 purpose
             };
             const error = {};
-            if(!payload.end) {
-                 error.end = "End date and time required";
-                 setErr(error);
-                 return
-            }
+            if(!payload.start) {
+                error.start = "Start date and time required";
+                setErr(error);
+               
+           }
+           if(!payload.end) {
+               error.end = "End date and time required";
+               setErr(error);
+          }
+       
+          if (error.start || error.end) {
+              return error;
+              
+          }
             priorityBooking(payload)
                 .then(response =>{
                     if(response.data.status === "Success"){
@@ -94,7 +103,7 @@ export default  function PriorityBooking() {
                             type: "warning"
                         })
 
-                        setErr(response.data);
+                        setErr(response.data.error);
                     }
 
                 })
@@ -114,7 +123,7 @@ export default  function PriorityBooking() {
     let errName, errStart, errVenue, errEnd  ;
     if(err) {
         errName = err.title;
-        errVenue = err.venue;
+        errVenue = err.venueId;
         errStart = err.start;
         errEnd = err.end;
     }
@@ -132,13 +141,16 @@ export default  function PriorityBooking() {
                     </div>
                     <div className="col-md-8 col-xs-8">
                     <input
-                        className="input form-control"
+                        className={classname("input form-control", {
+                            "is-invalid": errName
+                            })}
                         type="text"
                         onChange={event => {
                             setTitle(event.target.value);
                          }}
                          required
                     />
+                    {errName && <div className="invalid-feedback"> {errName}</div>}
                     </div>
                     </div>
 
@@ -148,7 +160,7 @@ export default  function PriorityBooking() {
                     </div>
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
                     <select
-                        className="input custom-select"
+                        className={classname("input custom-select" , {"is-invalid": errVenue })}
                         value={venueId}
                         style={{width:"100%"}}
                         onChange={event => {
@@ -160,6 +172,7 @@ export default  function PriorityBooking() {
                        {venueOption}
 
                     </select>
+                    {errVenue && <div className="invalid-feedback">{errVenue}</div>}
                     </div>
                     </div>
 
@@ -170,10 +183,10 @@ export default  function PriorityBooking() {
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
 
                          <DatePicker
-                            className="input"
+                            className={classname("input form-control", {"is-invalid" : errStart})}
                             size="large"
                             format="YYYY-MM-DD HH:mm:ss"
-                            defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
+                            // defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
                             disabledDate={disabledDate}
                             // disabledTime={disabledDateTime}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
@@ -185,6 +198,7 @@ export default  function PriorityBooking() {
                                 setStart(date._d);
                             }}
                         />
+                        {errStart && <div className="invalid-feedback">{errStart}</div>}
                        </div>
                     </div>
 
@@ -195,7 +209,7 @@ export default  function PriorityBooking() {
                     <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
 
                          <DatePicker
-                            className="input"
+                            className={classname("input form-control", {"is-invalid":errEnd})}
                             size="large"
                             format="YYYY-MM-DD HH:mm:ss"
                              //defaultValue={moment(start, "YYYY-MM-DD HH:mm:ss")}
@@ -209,7 +223,8 @@ export default  function PriorityBooking() {
                                 setEnd(date._d);
                             }}
                         />
-                    {errEnd && <div style={{color:"red"}}>{errEnd}</div>}
+                     {errEnd && <div className="invalid-feedback">{errEnd}</div>}
+
                     </div>
                     </div>
 
@@ -218,7 +233,7 @@ export default  function PriorityBooking() {
                     <label className="input-label">Booking Purpose</label>
                     </div>
                     <div className="col-md-8 col-xs-8">
-                    <textarea className="input" type="textarea" style={{padding:"10px", fontSize:"20px",height:"unset"}} row="3" onChange={event => {
+                    <textarea className="input form-control" type="textarea" style={{padding:"10px", fontSize:"20px",height:"unset"}} row="3" onChange={event => {
                         setPurpose(event.target.value);
                     }}/>
                     </div>
