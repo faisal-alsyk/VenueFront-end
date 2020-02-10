@@ -170,7 +170,7 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
         </form>
       </div>
       <div className="col-md-12 table-div">
-      <Table className="table-user" dataSource={tableData()} columns={columns} />
+      <Table className="table-user" dataSource={tableData()} columns={columns} rowKey = "_id"/>
       </div>
     </div>
   );
