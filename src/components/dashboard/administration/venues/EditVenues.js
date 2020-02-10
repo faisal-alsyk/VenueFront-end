@@ -95,7 +95,7 @@ const updateVenue = function EditVenue({refresh}) {
                              onUpdate(event);
                         }}>
             <div className="row">
-                <div className="col-md-6 column-1">
+                <div className="col-md-6 column-1" style={{paddingTop:"unset"}}>
                     <div className="row">
                         <div className="col-md-8">
                             <h3 className="edit-profile-heading">Edit Venue Detail</h3>

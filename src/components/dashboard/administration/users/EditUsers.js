@@ -32,6 +32,7 @@ const editProfile = function EditUser({refresh}) {
     const {userData} = history.location.state;
     const [name, setName] = useState(userData.name);
     const [email, setEmail] = useState(userData.email);
+    const [phoneNumber, setPhoneNumber] = useState(userData.phoneNumber);
     const [role, setRole] = useState(userData.role);
     const [department, setDepartment] = useState(userData.department);
     const [status, setStatus] = useState(userData.status);
@@ -42,6 +43,7 @@ const editProfile = function EditUser({refresh}) {
         let payload = {
             name,
             email,
+            phoneNumber,
             role,
             department,
             status
@@ -78,10 +80,11 @@ const editProfile = function EditUser({refresh}) {
     const onCancel = () => {
         history.push(`/admin/users/view/${id}`);
     }
-    let errName, errEmail, errRole, errStatus, errDept;
+    let errName, errEmail, errRole, errStatus, errDept, errNumber;
     if(err) {
         errName = err.error.name;
         errEmail = err.error.email;
+        errNumber = err.error.phoneNumber;
         errRole = err.error.role;
         errStatus = err.error.status;
         errDept = err.error.department;
@@ -91,7 +94,7 @@ const editProfile = function EditUser({refresh}) {
     return (
         <div>
             <div className="row">
-                <div className="col-md-6 column-1">
+                <div className="col-md-6 column-1" style={{paddingTop:"unset"}}>
                     <div className="row">
                         <div className="col-md-8">
                             <h3 className="edit-profile-heading">Edit User Detail</h3>
@@ -132,6 +135,17 @@ const editProfile = function EditUser({refresh}) {
                     }} required/>
                     {errEmail && <div className="invalid-feedback">{errEmail}</div>}
 
+                    <label>Number</label>
+                    <input
+                    className={classname("input form-control", {
+                        "is-invalid": errNumber
+                        })}
+                    type="text"
+                    value={phoneNumber} onChange={event => {
+                        setPhoneNumber(event.target.value);
+                    }} required/>
+                    {errNumber && <div className="invalid-feedback">{errNumber}</div>}
+
                     <label>Account Status</label>
                     <select
                     className={classname("select select-short custom-select", {
@@ -159,7 +173,6 @@ const editProfile = function EditUser({refresh}) {
                         <option value ="">Select Role</option>
                         <option>User</option>
                         <option>Admin</option>
-                        <option>Public</option>
                     </select>
                     {errRole && <div className="invalid-feedback">{errRole}</div>}
 
