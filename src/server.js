@@ -76,8 +76,9 @@ export const getbookingbyId = (id) => {
     return axios.get(`bookings/${id}`)
 }
 
-export const getbooking = (id) => {
-    return axios.get('bookings/')
+export const getbooking = (filter) => {
+    let bookingFilter = filter || "";
+    return axios.get(`bookings?role=${bookingFilter}`)
 }
 
 export const getbookingByAdmin = (role) => {
