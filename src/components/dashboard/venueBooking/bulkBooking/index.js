@@ -19,7 +19,6 @@ export default function  BulkBooking () {
     const [err, setErr] = useState();
     const [clashMsg, setClashMsg] = useState();
    const  handleData = data => {
-    //    setActive(true);
         setCsvData(data);
       }
 
@@ -47,20 +46,15 @@ export default function  BulkBooking () {
                         description: "File upload successfully.",
                         type: "success"
                     })
-
-                history.push("/venuebooking/booking");
-                   
+                    if (response.data.clashMessages) {
+                        setClashMsg(response.data.clashMessages);
+                    }
                 }
                 else{
-                    // popNotification({
-                    //     title: "Try Again",
-                    //     description: "Could not upload file. Please Try Again.",
-                    //     type: "warning"
-                    // })
+                  
                     setErr(response.data.message);
                     setClashMsg(response.data.clashMessages);
                 }
-                // setActive(false);
 
             })
             .catch(error=>{
@@ -69,7 +63,6 @@ export default function  BulkBooking () {
                     description: "Could not upload file. Please Try Again.",
                     type: "error"
                 })
-                // setActive(false);
 
             })
 

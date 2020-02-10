@@ -6,6 +6,7 @@ import {useHistory, Link} from "react-router-dom"
 
 export default function AdminHeader() {
     const history = useHistory();
+    const role = localStorage.getItem("role");
     const path = history.location.pathname;
     function onLogout(event) {
         event.preventDefault();
@@ -17,7 +18,7 @@ export default function AdminHeader() {
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-white">
-                <Link to ="/dashboard" className="navbar-brand"> <img className="navbar-brand "
+                <Link to ={role === "Admin" ? "/dashboard" : role === "User" ? "/venuebooking/booking" : "/venuebooking/booking"} className="navbar-brand"> <img className="navbar-brand "
                                     src={ logo }
                                     alt="admin"  /></Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +27,9 @@ export default function AdminHeader() {
                 <div className="collapse navbar-collapse" id="navbarText">
                     <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
-                        <a className="nav-link brand-name active" onClick={ event => history.goBack()}>One Stop Management System  <span className="sr-only">(current)</span></a>
+                    <Link className="nav-link brand-name" to ={role === "Admin" ? "/dashboard" : role === "User" ? "/venuebooking/booking" : "/venuebooking/booking"}
+                         >One Stop Management System  <span className="sr-only">(current)</span></Link>
+                        {/* <a className="nav-link brand-name active" onClick={ event => history.goBack()}>One Stop Management System  <span className="sr-only">(current)</span></a> */}
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" 
