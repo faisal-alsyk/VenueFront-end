@@ -255,7 +255,7 @@ export default  function CreateVenue({refresh}) {
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Venue</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
 
                     <select
                         className=""
@@ -281,7 +281,7 @@ export default  function CreateVenue({refresh}) {
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Start Date</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
 
                          <DatePicker
                              className={classname("input form-control", {
@@ -309,7 +309,7 @@ export default  function CreateVenue({refresh}) {
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking End Date</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
 
                          <DatePicker
                               className={classname("input form-control", {

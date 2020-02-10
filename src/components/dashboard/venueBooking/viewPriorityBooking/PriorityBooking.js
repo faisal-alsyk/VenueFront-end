@@ -158,7 +158,7 @@ export default  function PriorityBooking() {
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Venue</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
                     <select
                         className={classname("input custom-select" , {"is-invalid": errVenue })}
                         value={venueId}
@@ -180,7 +180,7 @@ export default  function PriorityBooking() {
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Start Date</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
 
                          <DatePicker
                             className={classname("input form-control", {"is-invalid" : errStart})}
@@ -206,7 +206,7 @@ export default  function PriorityBooking() {
                     <div className="col-md-4 col-xs-6">
                     <label className="input-label">Booking End Date</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
 
                          <DatePicker
                             className={classname("input form-control", {"is-invalid":errEnd})}

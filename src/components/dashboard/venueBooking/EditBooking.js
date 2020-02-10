@@ -23,7 +23,7 @@ export default  function EditBooking({refresh}) {
 
     const [title, setTitle] = useState("");
     const [venueId, setVenueId] = useState('0');
-    const [start, setStart] = useState(new Date());
+    const [start, setStart] = useState();
     const [end, setEnd] = useState();
     const [purpose, setPurpose] = useState("");
     const {bookingData} = history.location.state;
@@ -151,6 +151,7 @@ export default  function EditBooking({refresh}) {
                 <div className="col-md-8 col-xs-12" style={{border:"unset"}}>
                 <form onSubmit={event => {
                         onupdateBoking(event);}}>
+                     <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Name</label>
                     </div>
@@ -168,11 +169,12 @@ export default  function EditBooking({refresh}) {
                     />
                     {errName && <div className="invalid-feedback">{errName}</div>}
                     </div>
-
+                    </div>
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Venue</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
                     <select 
                           className={classname("input custom-select", {
                             "is-invalid": errVenue
@@ -191,11 +193,12 @@ export default  function EditBooking({refresh}) {
                     {errVenue && <div className="invalid-feedback">{errVenue}</div>}
 
                     </div>
-
-                    <div className="col-md-4 col-xs-6">
+                    </div>
+                    <div className="form-group row">
+                    <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Start Date</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
 
                          <DatePicker
                             className={classname("input form-control", {
@@ -214,13 +217,13 @@ export default  function EditBooking({refresh}) {
                             }}
                         />
                     {errStart && <div className="invalid-feedback">{errStart}</div>}
-                       
+                    </div>  
                     </div>
-
-                    <div className="col-md-4 col-xs-6">
+                    <div className="form-group row">
+                    <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking End Date</label>
                     </div>
-                    <div className="col-md-8 col-xs-8" style={{paddingBottom:"23px"}}>
+                    <div className="col-md-8 col-xs-8">
                         
                          <DatePicker
                            className={classname("input form-control", {
@@ -239,9 +242,9 @@ export default  function EditBooking({refresh}) {
                             }}
                         />
                     {errEnd && <div className="invalid-feedback">{errEnd}</div>}
-                       
+                       </div>
                     </div>
-
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4">
                     <label className="input-label">Booking Purpose</label>
                     </div>
@@ -250,10 +253,13 @@ export default  function EditBooking({refresh}) {
                         setPurpose(event.target.value);
                     }}/>
                     </div>
+                    </div>
+                    <div className="form-group row">
                     <div className="col-md-4 col-xs-4"></div>
                     <div className="col-md-8 col-xs-8">
                     <button type="submit" className="button button-large" >Update</button>
 
+                    </div>
                     </div>
                     </form>
                 </div>
