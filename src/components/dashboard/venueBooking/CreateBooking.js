@@ -84,20 +84,20 @@ export default  function CreateVenue({refresh}) {
             if(!payload.start) {
                  error.start = "Start date and time required";
                  setErr(error);
-                
+
             }
             if(!payload.end) {
                 error.end = "End date and time required";
                 setErr(error);
            }
-        
+
            if (error.start || error.end) {
                return error;
-               
+
            }
 
             if (role === "User" || role === "Admin") {
-                
+
                 createBooking(payload)
                     .then(response =>{
                         if(response.data.status === "Success"){
@@ -117,7 +117,7 @@ export default  function CreateVenue({refresh}) {
                             })
                         }
                         setErr(response.data.error);
-    
+
                     })
                     .catch(error=>{
                         popNotification({
@@ -126,7 +126,7 @@ export default  function CreateVenue({refresh}) {
                             type: "error"
                         })
                     })
-                    
+
             } else {
 
                 createPublicBooking(payload)
@@ -157,7 +157,7 @@ export default  function CreateVenue({refresh}) {
                         type: "error"
                     })
                 })
-                
+
             }
     }
     const venueOption = venueData.map((data, index) =>
@@ -222,7 +222,7 @@ export default  function CreateVenue({refresh}) {
                     </div>
                     </div>
 
-        
+
         </>
     }
 
@@ -294,11 +294,11 @@ export default  function CreateVenue({refresh}) {
                             // disabledTime={disabledDateTime}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                             onChange={date => {
-                                 const dateStart = moment(date._d);
-                                 const startUtc = dateStart.utc()
-
-
-                                setStart(date._d);
+                                if ( moment(date, "YYYY-M-DD HH:mm:ss", true).isValid() ){
+                                    const dateStart = moment(date._d);
+                                    const startUtc = dateStart.utc()
+                                    setStart(date._d);
+                                }
                             }}
                         />
                         {errStart && <div  className="invalid-feedback">{errStart}</div>}
@@ -321,17 +321,17 @@ export default  function CreateVenue({refresh}) {
                             disabledDate={disabledDate}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                             onChange={date => {
-                                const datemovement = moment(date._d);
-                                var endtUtc = datemovement.utc();
-
-
-                                setEnd(date._d);
+                                if ( moment(date, "YYYY-M-DD HH:mm:ss", true).isValid() ){
+                                    const datemovement = moment(date._d);
+                                    var endtUtc = datemovement.utc();
+                                    setEnd(date._d);
+                                }
                             }}
                         />
                     {errEnd && <div className="invalid-feedback">{errEnd}</div>}
                     </div>
                     </div>
-                    
+
                     {publicFields}
 
                     <div className="form-group row">

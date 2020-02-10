@@ -152,12 +152,12 @@ export default  function EditBooking({refresh}) {
     return (
         <div>
             <div className="row">
-                
+
             <div className="col-md-4">
                             <h3 className="edit-profile-heading">Edit booking Detail</h3>
                         </div>
                         <div className="col-md-4">
-                            <button className="cancel-button" 
+                            <button className="cancel-button"
                              onClick={onCancel}
                             >
                                 <b>
@@ -167,8 +167,8 @@ export default  function EditBooking({refresh}) {
 
                                 </b> Cancel</button>
                         </div>
-                       
-                       
+
+
 
                 <div className="col-md-8 col-xs-12" style={{border:"unset"}}>
                     <hr></hr>
@@ -234,9 +234,11 @@ export default  function EditBooking({refresh}) {
                             // disabledTime={disabledDateTime}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                             onChange={date => {
-                                const dateStart = moment(date._d);
-                                const startUtc = dateStart.utc()
-                                setStart(date._d);
+                                if ( moment(date, "YYYY-M-DD HH:mm:ss", true).isValid() ){
+                                    const dateStart = moment(date._d);
+                                    const startUtc = dateStart.utc()
+                                    setStart(date._d);
+                                }
                             }}
                         />
                     {errStart && <div className="invalid-feedback">{errStart}</div>}
@@ -258,10 +260,11 @@ export default  function EditBooking({refresh}) {
                             disabledDate={disabledDate}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                             onChange={date => {
-                                const datemovement = moment(date._d);
-                                var endUtc = datemovement.utc()
-
-                                setEnd(date._d);
+                                if ( moment(date, "YYYY-M-DD HH:mm:ss", true).isValid() ){
+                                    const dateStart = moment(date._d);
+                                    const startUtc = dateStart.utc()
+                                    setEnd(date._d);
+                                }
                             }}
                         />
                     {errEnd && <div className="invalid-feedback">{errEnd}</div>}
@@ -284,7 +287,7 @@ export default  function EditBooking({refresh}) {
 
                     </div>
                     </div>
-                
+
                     </form>
                 </div>
             </div>

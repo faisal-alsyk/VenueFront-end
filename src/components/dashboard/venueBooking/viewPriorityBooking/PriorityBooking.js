@@ -75,16 +75,16 @@ export default  function PriorityBooking() {
             if(!payload.start) {
                 error.start = "Start date and time required";
                 setErr(error);
-               
+
            }
            if(!payload.end) {
                error.end = "End date and time required";
                setErr(error);
           }
-       
+
           if (error.start || error.end) {
               return error;
-              
+
           }
             priorityBooking(payload)
                 .then(response =>{
@@ -191,11 +191,11 @@ export default  function PriorityBooking() {
                             // disabledTime={disabledDateTime}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                             onChange={date => {
-                                 const dateStart = moment(date._d);
-                                 const startUtc = dateStart.utc()
-
-
-                                setStart(date._d);
+                                if ( moment(date, "YYYY-M-DD HH:mm:ss", true).isValid() ){
+                                    const dateStart = moment(date._d);
+                                    const startUtc = dateStart.utc()
+                                    setStart(date._d);
+                                }
                             }}
                         />
                         {errStart && <div className="invalid-feedback">{errStart}</div>}
@@ -216,11 +216,11 @@ export default  function PriorityBooking() {
                             disabledDate={disabledDate}
                             showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
                             onChange={date => {
-                                const datemovement = moment(date._d);
-                                var endtUtc = datemovement.utc();
-
-
-                                setEnd(date._d);
+                                if ( moment(date, "YYYY-M-DD HH:mm:ss", true).isValid() ){
+                                    const dateStart = moment(date._d);
+                                    const startUtc = dateStart.utc()
+                                    setEnd(date._d);
+                                }
                             }}
                         />
                      {errEnd && <div className="invalid-feedback">{errEnd}</div>}
