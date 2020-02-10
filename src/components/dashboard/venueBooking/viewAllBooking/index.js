@@ -17,24 +17,22 @@ export default function AllBooking () {
     const [eventsdata, setEventsData] = useState([]);
     const [resourcesData, setResourcesData] = useState([]);
     const [refresh, setRefresh] = useState(false);
+    // let [filter, setFilter] = useState("All");
 
+    const getBookingData = (filter) => {
+        getbooking(filter)
+                .then(response => {
+                    setResourcesData(response.data.resources);
+                    setEventsData(response.data.events);
+
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+    }
     useEffect(() => {
 
-        getbooking()
-        .then(response => {
-            setResourcesData(response.data.resources);
-            setEventsData(response.data.events);
-
-        })
-        .catch(error => {
-            alert(error.message);
-        });
-
-    }, [])
-
-    useEffect(() => {
-
-        getbooking()
+        getbooking("")
         .then(response => {
             setResourcesData(response.data.resources);
             setEventsData(response.data.events);
@@ -48,7 +46,23 @@ export default function AllBooking () {
     const onCreate = () => {
         history.push("/venuebooking/booking/create");
       };
-    
+
+    let filters = "";
+    if (role === "Admin" || role === "User") {
+        filters = <div>
+                    <select className="select-filter" onChange={event => {
+                        // setFilter(event.target.value);
+                        getBookingData(event.target.value);
+                    }}>
+                        <option value="All">All</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Users">Users</option>
+                        <option value="Public">Public</option>
+                        <option value="mybookings">My Bookings</option>
+                    </select>
+                </div>
+    }
+
         return (
            <>
 
@@ -75,7 +89,8 @@ export default function AllBooking () {
                         </svg>
 
                         <span className="btn-text">Create Booking</span>
-                        </button>  
+                        </button>
+                        {filters}
                     </div>
                     <div className = "clendar-div">
                      <CalanderFull eventsdata= {eventsdata} resourcesData={resourcesData} refresh = { () => {
@@ -86,21 +101,21 @@ export default function AllBooking () {
                 </Route>
                 <Route path="/venuebooking/booking/create" render={() => <CreateBooking  refresh = { () => {
                     const changeRefresh = !refresh;
-                    setRefresh(changeRefresh)}}/>} 
+                    setRefresh(changeRefresh)}}/>}
                 />
                 <Route path="/venuebooking/booking/update" render={() => role === "User" || role === "Admin" ? <EditBooking  refresh = { () => {
                     const changeRefresh = !refresh;
                     setRefresh(changeRefresh)}}/>: `${history.push("/venuebooking/booking/")}` }
                  />
-                
-                
+
+
 
                 </Switch>
-                    
+
 
                 </div>
 
            </>
         )
-    
+
 }
