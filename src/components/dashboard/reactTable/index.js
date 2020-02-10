@@ -39,9 +39,10 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
                     return data;
                 }
                 else{
+                    searchId.toUpperCase();
                     users = [];
                     data.map(user=>{
-                        if(user.staffId.toString().includes(searchId) || user.name.includes(searchId)){
+                        if(user.staffId.toString().toUpperCase().includes(searchId) || user.name.toUpperCase().includes(searchId)){
                             users.push(user);
                         }
                     });
@@ -53,9 +54,10 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
                     return data;
                 }
                 else{
+                    searchId.toUpperCase();
                     users = [];
                     data.map(user=>{
-                        if(user.staffId.toString().includes(searchId) || user.name.includes(searchId)){
+                        if(user.staffId.toString().toUpperCase().includes(searchId) || user.name.toUpperCase().includes(searchId)){
                             users.push(user);
                         }
                     });
@@ -73,8 +75,9 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
                     return users;
                 }
                 else {
+                    searchId.toUpperCase();
                     data.map(user=>{
-                        if(user.role === role && (user.staffId.toString().includes(searchId) || user.name.includes(searchId)) ){
+                        if(user.role === role && (user.staffId.toString().toUpperCase().includes(searchId) || user.name.toUpperCase().includes(searchId)) ){
                             users.push(user);
                         }
                     });
@@ -88,9 +91,10 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
                     return data;
                 }
                 else{
+                    searchId.toUpperCase();
                     venues = [];
                     data.map(venue=>{
-                        if(venue.venueId.toString().includes(searchId) || venue.name.includes(searchId)){
+                        if(venue.venueId.toString().toUpperCase().includes(searchId) || venue.name.toUpperCase().includes(searchId)){
                             venues.push(venue);
                         }
                     });
@@ -102,9 +106,10 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
                     return data;
                 }
                 else{
+                    searchId.toUpperCase();
                     users = [];
                     data.map(venue=>{
-                        if(venue.venueId.toString().includes(searchId) || venue.name.includes(searchId)){
+                        if(venue.venueId.toString().toUpperCase().includes(searchId) || venue.name.toUpperCase().includes(searchId)){
                             venues.push(venue);
                         }
                     });
@@ -122,8 +127,9 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
                     return venues;
                 }
                 else {
+                    searchId.toUpperCase();
                     data.map(venue=>{
-                        if(venue.status === status && (venue.venueId.toString().includes(searchId) || venue.name.includes(searchId))){
+                        if(venue.status === status && (venue.venueId.toString().toUpperCase().includes(searchId) || venue.name.toUpperCase().includes(searchId))){
                             venues.push(venue);
                         }
                     });
@@ -158,9 +164,8 @@ const ReactTable = ({ data, columns, onCreate, source, type }) => {
             {type === "user"? userFilter() : venueFilter()}
 
             <input className="form-control mr-sm-1 user-search" type="search" placeholder="Search" aria-label="Search"
-                   value={searchId}
                    onChange={event => {
-                       setSearchId(event.target.value);
+                       setSearchId(event.target.value.toUpperCase());
                    }}/>
         </form>
       </div>
