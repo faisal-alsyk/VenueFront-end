@@ -17,7 +17,7 @@
     "@material-ui/icons": "4.2.1",
     "@vtex/react-csv-parse": "^3.0.2",
     "antd": "^3.26.7",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "chartist": "0.10.1",
     "classname": "0.0.0",
